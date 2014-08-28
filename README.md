@@ -27,4 +27,14 @@ I did commit directly to version 1.3, please check the change log to see the upd
 See [Dixie CMS](http://dixie.black-apple.biz/ "Dixie CMS") page.
 
 -----
+## How to Install
+
++ Simply download the newest version of Dixie as the ZIP file in [here](http://dixie.black-apple.biz/blog/download-update-version-13.html "Dixie CMS").
++ Extract the file into directory you want to be intalled. Such as, /home/user4096/public_html/dixie/
++ Run Dixie.
++ You will see the installation page, and what you have to do is, fill the form correctly as it is.
++ Then enjoy. :)
+
+-----
+
 [![Black Apple Inc.](http://black-apple.biz/files/black-apple.png)](http://black-apple.biz/ "Black Apple Inc.")
