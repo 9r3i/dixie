@@ -12,7 +12,6 @@ Dixie - Free and Simple CMS;
 + Dixie-Creator         : 9r3i (Luthfie);
 + Creator-Email         : Luthfie@y7mail.com;
 + Creator-URI           : http://n8ro.hol.es/;
-
-+ Third-party           : CKEditor as content-editor
++ Third-party           : CKEditor as content-editor;
  
 I did commit directly to version 1.3, please check the change log to see the update.
