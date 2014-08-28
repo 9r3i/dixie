@@ -1,0 +1,116 @@
+Black Apple Inc.
+http://black-apple.biz/
+Dixie CMS
+Created by Luthfie
+luthfie@y7mail.com
+
+
+--------------------------------
+Version 1.3 - August 28th 2014
+- Fix several error
+- Create feature request new password
+- Update manually
+- Add post detail function
+
+--------------------------------
+Version 1.2 - August 23rd 2014
+- Fix get data user and post author
+- Function get sidebar print
+- Fix few errors
+- Import "Mueeza" timezones for function
+- Update according to version and revision
+
+--------------------------------
+Version 1.1 - August 20th 2014
+- Add button add file in upload page
+- Improve action upload files
+- Add type of index (type/category post)
+- Add function generate index post
+- Add datalist into post-content
+- Add page add new plugin
+- Add page add new theme
+- Add action activate theme
+
+--------------------------------
+Version 1.0 - August 18th 2014
+- Create plugin page
+- Add function in gets for plugins
+- Add action delete-plugin
+- Add action activate and deactivate plugin
+- Create page plugin-option
+- Enhance Installation method and more simple
+
+--------------------------------
+Version 0.9
+- Create sidebar page
+- Create new-sidebar page
+- Create edit-sidebar page
+- Create action edit and add sidebar
+- Add confirm action delete sidebar
+
+--------------------------------
+Version 0.8
+- Create menu page
+- Create new-menu page & action
+- Create edit-menu page & action
+- Add action delete-menu
+- Optimized menu order
+
+--------------------------------
+Version 0.7
+- Create edit-user page
+- Create new-user page
+- Add action delete-user
+- Optimize themes
+
+--------------------------------
+Version 0.6
+- Create edit-theme page
+- Create users page
+- Create Privileges
+- Privileges to pages
+- Add CKEditor for editor (third party)
+
+--------------------------------
+Version 0.5
+- Confirmation page
+- Add delete confirm action
+- Add confirm action move to trash
+- Create file page
+- Add rename-file confirm action
+- Add delete-file confirm action
+- Create upload page
+- Create themes page
+
+--------------------------------
+Version 0.4
+- Add post category
+- Create edit-post page
+- Create Posts detail
+- Create Posts options
+- View to preview if login
+
+--------------------------------
+Version 0.3
+- Optimize settings page
+- Create action system
+- Create account page
+- Create new-post page
+- Optimize stylesheet
+
+--------------------------------
+Version 0.2
+- Create system login & logout
+- Refix admin uri
+- Create posting form
+
+--------------------------------
+Version 0.1
+- Create basic engine CMS
+- Create basic functions CMS
+- Create Theme class CMS
+- Add Ldb class to Dixie
+- Create gets functions CMS
+- Build basic admin stage
+
+--------------------------------

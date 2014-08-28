@@ -1,0 +1,341 @@
+/* Black Apple Inc.
+ * http://black-apple.biz/
+ * Dixie CMS
+ * Created by Luthfie
+ * luthfie@y7mail.com
+ */
+
+body{
+  font-family:Calibri,Segoe UI,Arial;
+  margin:0px;
+  padding:0px;
+  background-image:url('images/karpet.png');
+  background-attachment: scroll;
+  background-position: center top;
+  background-color:#fff;
+  color:#333;
+  font-size:16px;
+}
+input,select,textarea{font-family:Calibri,Segoe UI,Arial;font-size:14px;color:#333;}
+a{text-decoration:none;color:#c33;}
+a:hover{text-shadow:0 0 5px #c33;}
+::-moz-selection {
+  background: #f88;
+  color: #fff; }
+
+::selection {
+  background: #f88;
+  color: #fff; }
+
+header{
+  margin:0px;
+  padding:0px;
+}
+.header{
+  background-color:#900;
+  opacity:0.8;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  margin:0px;
+  padding:10px;
+  width:100%;
+  height:50px;
+  display:block;
+  position:fixed;
+  z-index:9;
+  top:0px;
+}
+.header-logo{
+  width:50px;
+  height:50px;
+  margin:0px;
+  padding:0px;
+  display:inline-block;
+  vertical-align:top;
+  content:"";
+}
+.header-title{
+  display:inline-block;
+  vertical-align:top;
+  color:#fff;
+  margin:3px 10px;
+  padding:0px;
+}
+.header-title h1{
+  margin:0px;
+  padding:0px;
+  font-family:Calibri,Arial;
+  font-size:33px;
+  text-shadow: -5px 5px 3px #999;
+  -moz-text-shadow: -5px 5px 3px #999;
+  -webkit-text-shadow: -5px 5px 3px #999;
+  -o-text-shadow: -5px 5px 3px #999;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=7, Direction=225, Color='#999999')";
+  filter:progid:DXImageTransform.Microsoft.Shadow(Strength=7, Direction=225, Color='#999999');
+  white-space: pre;
+  position:absolute;
+}
+#menu_button{
+  width:35px;
+  height:35px;
+  display:inline-block;
+  position:absolute;
+  top:20px;
+  right:45px;
+  cursor:pointer;
+  padding:0px;
+  margin:0px;
+  z-index:7;
+}
+#menu_button:hover{width:37px;}
+.menu-button-strip{
+  width:100%;
+  height:6px;
+  background-color:#fff;
+  margin-bottom:6px;
+  border-radius:3px;
+  behavior: url('themes/Dixie/extension/pie.htc');
+  opacity:0.9;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+}
+
+nav{margin:0px;padding:0px;}
+#nav{
+  background-color:#900;
+  opacity:0.8;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  margin:0px;
+  padding:0px;
+  width:240px;
+  height:auto;
+  display:none;
+  position:fixed;
+  z-index:9;
+  top:70px;
+  right:0px;
+}
+#nav a{color:#fff;width:100%;}
+#nav a:hover{text-shadow:0 0 5px #900;}
+.menu-list{
+  padding:10px;
+  margin:0px;
+  white-space: pre;
+}
+.menu-list:hover{
+  background-color:#ddd;
+  color:#900;
+}
+
+.tubuh{
+  margin:0px auto;
+  max-width:800px;
+}
+.body{
+  font-size:medium;
+  margin:80px 10px 45px;
+  padding:20px;
+  width:auto;
+  background-color:#fff;
+  opacity:0.9;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+  min-height:400px;
+}
+.title{font-size:inherit;font-weight:bold;border-bottom:3px solid #f88;}
+.title h2{margin:0px 0px 20px;padding:0px;}
+.content{}
+.each-post{margin:0px 0px 20px;border-bottom:3px solid #f88;}
+.each-post-title{}
+.detail{margin:0px;padding:10px;border-bottom:3px solid #f88;}
+.each-post-detail{color:#333;background-color:#fcc;padding:5px 10px;}
+.each-post-detail-training-date,.each-post-detail-time{display:inline-block;margin:0px 10px 0px 0px;}
+.each-post-detail-trainer,.each-post-detail-author{display:inline-block;margin:0px 0px 0px 10px;}
+.each-post-content{margin:0px;padding:0px 0px 10px;}
+
+aside{
+  margin:0px;
+  padding:0px;
+}
+#sidebar{
+  position:fixed;
+  top:80px;
+  left:-270px;
+  width:250px;
+  min-height:44px;
+  background-color:#900;
+  opacity:0.8;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  z-index:9;
+  color:#fff;
+  box-shadow: -5px 5px 3px #999;
+  -moz-box-shadow: -5px 5px 3px #999;
+  -webkit-box-shadow: -5px 5px 3px #999;
+  -o-box-shadow: -5px 5px 3px #999;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=7, Direction=180, Color='#999999')";
+  filter:progid:DXImageTransform.Microsoft.Shadow(Strength=7, Direction=180, Color='#999999');
+}
+#sidebar a{color:#fff;width:100%;}
+#sidebar a:hover{text-shadow:0 0 5px #900;}
+.sidebar-recent-list{
+  padding:10px;
+  margin:0px;
+  white-space: pre;
+}
+.sidebar-recent-list:hover{
+  background-color:#ddd;
+  color:#900;
+}
+.sidebar-text,.sidebar-menu,.sidebar-recent{
+  margin:0px;
+  padding:0px;
+}
+.sidebar-text-title,.sidebar-recent-title,.sidebar-menu-title{
+  margin:0px;
+  padding:10px;
+  color:#fff;
+}
+.sidebar-text-content{
+  margin:0px;
+  padding:10px;
+  color:#fff;
+}
+.sidebar-recent-content{
+  margin:0px;
+  padding:0px;
+  color:#fff;
+}
+.sidebar-menu-content a{
+  margin:0px;
+  padding:0px;
+  color:#fff;
+  white-space: pre;
+}
+
+.sidebar-menu-content .menu-list{
+  padding:10px;
+  margin:0px;
+  white-space: pre;
+}
+
+
+#sidebar_button{
+  z-index:7;
+  width:30px;
+  height:30px;
+  cursor:pointer;
+  padding:7px;
+  margin:0px;
+  background-color:#900;
+  opacity:0.8;
+  filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  border-radius:0px 10px 10px 0px;
+  behavior: url('themes/Dixie/extension/pie.htc');
+  position:fixed;
+  top:80px;
+  left:0px;
+  box-shadow: -5px 5px 3px #999;
+  -moz-box-shadow: -5px 5px 3px #999;
+  -webkit-box-shadow: -5px 5px 3px #999;
+  -o-box-shadow: -5px 5px 3px #999;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=7, Direction=180, Color='#999999')";
+  filter:progid:DXImageTransform.Microsoft.Shadow(Strength=7, Direction=180, Color='#999999');
+}
+#sidebar_button:hover{
+  background-color:#b22;
+  width:50px;
+  padding-left:25px;
+}
+
+footer{
+  margin:0px;
+  padding:0px;
+}
+.footer{
+  background-color:#900;
+  opacity:0.8;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  margin:0px;
+  padding:10px;
+  height:auto;
+  display:block;
+  font-size:13px;
+  position:fixed;
+  bottom:0px;
+  width:100%;
+}
+#copyright{color:#fff;}
+#copyright a{color:#fff;}
+#copyright a:hover{text-shadow:0 0 5px #fff;}
+
+.our-services img{
+  border:none;
+}
+
+.Tpage-thm{
+  border:10px solid #900;
+  opacity:0.8;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  padding:0px;
+  margin:0px 0px 10px 10px;
+  box-shadow: -5px 5px 3px #999;
+  -moz-box-shadow: -5px 5px 3px #999;
+  -webkit-box-shadow: -5px 5px 3px #999;
+  -o-box-shadow: -5px 5px 3px #999;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Shadow(Strength=7, Direction=225, Color='#999999')";
+  filter:progid:DXImageTransform.Microsoft.Shadow(Strength=7, Direction=225, Color='#999999');
+}
+.Tpage-thm:hover{}
+
+.page-thm{float:right;border:10px solid #fff;box-shadow:0 0 5px #900;padding:0px;margin:0px 0px 10px 10px;}
+.page-thm:hover{-moz-transform:rotate(-4deg);-webkit-transform:rotate(-4deg);-khtml-transform:rotate(-4deg);box-transform:rotate(-4deg);}
+
+#loading{
+  display:none;
+  position:fixed;
+  z-index:11;
+  top:40%;
+  left:45%;
+  width:72px;
+  height:72px;
+  margin:0px;
+  padding:10px;
+  background-color:#fff;
+  border-radius:20px;
+  behavior: url('themes/Dixie/extension/pie.htc');
+  opacity:0.8;
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+}
+#loading .loader-image{
+  background-image:url('images/loading.gif');
+  background-repeat:no-repeat;
+  position:absolute;
+  z-index:12;
+  margin:0px;
+  padding:0px;
+  width:72px;
+  height:72px;
+}
+
+.clear-both{clear:both;}
+.clear-right{clear:right;}
+.clear-left{clear:left;}
+
+
+@media screen and (min-width:600px){
+}
+@media screen and (max-width:599px){
+  .body{font-size:90%;}
+  #nav{font-size:90%;}
+}
+@media screen and (max-width:399px){
+  .body{font-size:80%;}
+  #nav{font-size:80%;}
+}
+
+.formulir {margin:0px;padding:0px;}
+.jorok {padding: 5px;margin: 2px;width: 500px;}
+.berak {height:24px;width:310px;padding: 2px;border:1px solid #999;font-size: 14px;}
+.borok {height:150px;width:310px;max-width:310px;min-width:310px;padding: 2px;font-family: Tahoma,Segoe UI;border:1px solid #999;font-size: 14px;}
+.tombol {height:30px;width:100px;padding: 2px;vertical-align:middle;font-weight:bold;cursor:pointer;background-color: #ffffff; border-radius: 7px 0px;box-shadow: 0px 0px 9px #ccc;border:1px solid #999;}
+.tom {text-align:left;}
+.sapaan {height:24px;width:100px;padding: 2px;border:1px solid #999;font-size: 14px;}
+.buruk {height:24px;width:150px;padding: 2px;}
