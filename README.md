@@ -24,7 +24,8 @@ Dixie - Free and Simple CMS;
 
 I did commit directly to version 1.3, please check the change log to see the update.
 
-See [Dixie CMS](http://dixie.black-apple.biz/ "Dixie CMS") page.
+See [Dixie CMS](http://dixie.black-apple.biz/ "Dixie CMS") page,
+and try our [Demo](http://dixie.black-apple.biz/demo/ "Demo of Dixie CMS").
 
 -----
 ## How to Install
