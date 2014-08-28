@@ -32,7 +32,7 @@ and try our [Demo](http://dixie.black-apple.biz/demo/ "Demo of Dixie CMS").
 
 + Simply download the newest version of Dixie as the ZIP file in [here](http://dixie.black-apple.biz/blog/download-update-version-13.html "Dixie CMS").
 + Extract the file into directory you want to be intalled. Such as, /home/user4096/public_html/dixie/
-+ Run Dixie.
++ Run Dixie. Such as, http://www.yourdomain.com/dixie/
 + You will see the installation page, and what you have to do is, fill the form correctly as it is.
 + Then enjoy. :)
 
