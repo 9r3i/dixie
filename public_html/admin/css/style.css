@@ -1,0 +1,239 @@
+/* Black Apple Inc.
+ * http://black-apple.biz/
+ * Dixie CMS
+ * Created by Luthfie
+ * luthfie@y7mail.com
+ */
+
+/* Admin CSS */
+
+body{
+  font-family:Tahoma,Segoe UI,Arial;
+  font-size:15px;
+  margin:0px;
+  padding:0px;
+  height:auto;
+  min-width:781px;
+}
+input,textarea,select{font-family:Tahoma,Segoe UI,Arial;font-size:13px;color:#333;}
+a{text-decoration:none;color:#990000;}
+a:hover{text-shadow:0 0 10px #990000;}
+
+.header{
+  margin:0px;
+  padding:10px 5px;
+  background-color:#990000;
+  background-image:url('../images/gradient-red-head.png');
+  background-repeat:repeat-x;
+  color:#fff;
+  font-size:21px;
+  font-style:normal;
+  font-weight:normal;
+  font-family:Arial;
+}
+.body{
+  padding:0px;
+  margin:0px;
+  min-height:400px;
+  height:auto;
+  z-index:2;
+  background-color:#edd;
+}
+.aside{
+  margin:0px;
+  padding:0px 0px 0px 0px;
+  display:inline-block;
+  vertical-align:top;
+  border-right:1px solid #999;
+  width:150px;
+  min-height:230px;
+  float:left;
+  background-color:#fff;
+}
+.aside-each{padding:7px 5px 7px 10px;margin:0px;color:#333;border-bottom:1px solid #edd;}
+.aside-each:hover{background-color:#edd;text-shadow:-3px 3px 2px #555;} /*padding-left:15px;*/
+
+.content{
+  display:inline-block;
+  padding:0px;
+  margin:0px;
+  vertical-align:top;
+  border-left:1px solid #999;
+  margin-left:-1px;
+  width:630px;
+  height:auto;
+  background-color:#edd;
+  min-height:450px;
+  z-index:2;
+}
+.content-header{font-weight:bold;padding:10px;margin:0px;color:#333;font-size:19px;}
+.content-body{padding:10px;margin:0px;color:#333;}
+
+.all-posts{}
+.all-posts-each{
+  border-top:1px solid #999;
+  border-left:1px solid #999;
+  margin:3px 0px;
+  padding:7px 5px;
+  background-color:#fff;
+}
+.post-option a{margin:0px 5px;padding:0px;}
+.post-option a:hover{text-shadow:0 0 10px #900;}
+.post-option{
+  font-size:12px;
+  margin:5px 0px 0px;
+  padding:3px;
+  border-top:1px solid #bbb;
+  border-left:1px solid #bbb;
+  display:inline-block;
+}
+.post-option:hover{opacity:1;}
+.post-detail{font-size:11px;color:#777;padding:0px;margin:5px 0px 0px;}
+
+
+.form-content{margin:0px;padding:0px;padding-bottom:20px;}
+.form-input{border:1px solid #999;width:598px;margin:5px 0px;padding:5px;background-color:#fff;}
+.form-textarea{border:1px solid #999;width:598px;min-width:598px;max-width:598px;margin:5px 0px;padding:5px;height:100px;min-height:100px;}
+.config-header{margin:10px 0px;}
+.config-body{border:1px solid #bbb;margin-bottom:10px;background-color:#fff;}
+.config-body:hover{background-color:#edd;}
+.form-select{border:1px solid #999;width:100px;margin:5px 0px;padding:5px;}
+.config-form{width:110px;display:inline-block;padding:5px;font-size:13px;}
+.config-form-theme{width:150px;display:inline-block;padding:5px;font-size:13px;}
+.form-select-theme{border:1px solid #999;width:140px;margin:5px 0px;padding:5px;}
+.form-submit{
+  border:0px none;
+  width:auto;
+  margin:5px 0px;
+  padding:5px 10px;
+  height:auto;
+  cursor:pointer;
+  background-color:#900;
+  background-image:url('../images/gradient-red-foot.png');
+  background-repeat:repeat-x;
+  color:#fff;
+  font-size:17px;
+}
+.form-submit:hover{
+  background-color:#b00;
+  background-image:url('../images/gradient-red-foot-on.png');
+  background-repeat:repeat-x;
+}
+.form-submit:focus{
+  background-image:url('../images/gradient-red-head.png');
+  background-repeat:repeat-x;
+  background-color:#700;
+}
+.form-account-info{border:1px solid #baa;margin:5px 0px 10px;padding:5px;background-color:#edd;}
+.form-account-info-each{display:inline-block;margin:5px 0px;padding:0px 5px;border-left:1px solid #baa;font-size:13px;cursor:pointer;}
+.form-account-info-each:hover{border:1px solid #baa;}
+.post-extension{font-size:13px;display:none;}
+
+.confirm-trash{display:inline-block;vertical-align:top;}
+.confirm-cancel{display:inline-block;vertical-align:top;float:right;margin:0px;padding:0px;margin-top:13px;}
+
+.cancel{
+  border:0px none;
+  width:auto;
+  margin:5px 0px;
+  padding:5px 10px;
+  height:auto;
+  cursor:pointer;
+  background-color:#3b7;
+  color:#fff;
+  font-size:13px;
+}
+.cancel:hover{background-color:#4c8;}
+.cancel:focus{background-color:#2a6;}
+
+.next-posts{text-align:center;font-size:14px;background-color:#edd;border:1px solid #999;}
+.next-posts:hover{background-color:#dcc;}
+.next-posts a:hover{font-weight:bold;}
+
+.footer{
+  margin:0px;
+  padding:10px 5px;
+  background-color:#990000;
+  color:#fff;
+  font-size:13px;
+  background-image:url('../images/gradient-red-foot.png');
+  background-repeat:repeat-x;
+  z-index:1;
+}
+.copyright{
+  z-index:1;
+  margin:0px;
+  padding:0px;
+}
+.bai{color:#fff;}
+
+.home-data{border:1px solid #999;margin:0px 0px 10px;padding:10px;background-color:#fff;}
+.home-data:hover{background-color:#edd;}
+.sub-home-content{margin:10px 0px 0px;padding:0px;}
+.update-info{border:1px solid #999;margin:0px 0px 5px;padding:10px;background-color:#fff;}
+.check-update{margin:20px 0px 30px;padding:0px;}
+.check-update a,.update-button{
+  font-size:13px;
+  margin:5px 7px;
+  padding:5px 7px;
+  background-color:#900;
+  background-image:url('../images/gradient-red-foot.png');
+  background-repeat:repeat-x;
+  color:#fff;
+}
+.check-update a:hover,.update-button:hover{
+  background-image:url('../images/gradient-red-head.png');
+  background-repeat:repeat-x;
+}
+
+.clear-both{clear:both;}
+.clear-left{clear:left;}
+.clear-right{clear:right;}
+
+#add_file{
+  float:right;font-size:13px;opacity:0.9;
+  border:0px none;
+  width:auto;
+  margin:5px 0px;
+  padding:5px 10px;
+  height:auto;
+  cursor:pointer;
+  background-color:#b73;
+  color:#fff;
+}
+#add_file:hover{background-color:#b37;}
+
+.login-form{margin:0px;padding:10px 10px;}
+.login-header{font-weight:bold;padding:5px;color:#333;}
+.login-input{margin:0px;padding:5px;}
+.login-forget{color:#555;padding:5px;font-size:13px;}
+.input{border:1px solid #999;padding:5px;width:150px;}
+.button{
+  border:none;
+  padding:5px;
+  background-color:#900;
+  color:#fff;
+  cursor:pointer;
+  background-image:url('../images/gradient-red-foot.png');
+  background-repeat:repeat-x;
+}
+.button:hover{
+  background-color:#b00;
+  background-image:url('../images/gradient-red-foot-on.png');
+  background-repeat:repeat-x;
+}
+.button:focus{
+  background-color:#700;
+  background-image:url('../images/gradient-red-head.png');
+  background-repeat:repeat-x;
+}
+
+
+
+
+
+
+
+
+
+
