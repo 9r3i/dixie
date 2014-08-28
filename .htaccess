@@ -1,0 +1,9 @@
+# Black Apple Inc.
+# http://black-apple.biz/
+# Dixie CMS
+# Created by Luthfie
+# luthfie@y7mail.com
+
+RewriteEngine On
+RewriteRule ^([a-z0-9\._-]+)/?$ index.php?p=$1 [QSA,NC,L]
+RewriteRule ^([a-z0-9_-]+)/([a-z0-9_-]+)/?$ index.php?p=$1&q=$2 [QSA,NC,L]
