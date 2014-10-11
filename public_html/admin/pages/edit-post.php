@@ -37,7 +37,37 @@ if(isset($select[0])){
     </div>
     <div <?php echo (get_site_info('post_editor',false)=='text'||is_mobile_browser())?'class="input-parent"':''; ?>><textarea id="content" name="content" placeholder="Insert the content here" class="form-textarea"><?php tprint($post['content']); ?></textarea></div>
 
+    <div style="margin-top:20px;"></div>
+
+    <div class="post-extension" id="post_description"<?php printf(($post['type']=='page'||$post['type']=='article')?' style="display:block;"':''); ?>>Description<input type="text" name="description" class="form-input" value="<?php tprint($post['description']); ?>" /></div>
+    <div class="post-extension" id="post_keywords"<?php printf(($post['type']=='page'||$post['type']=='article')?' style="display:block;"':''); ?>>Keywords<input type="text" name="keywords" class="form-input" value="<?php tprint($post['keywords']); ?>" /></div>
+
+    <div class="post-extension" id="type_trainer"<?php printf(($post['type']=='training')?' style="display:block;"':''); ?>>Trainer<input type="text" name="trainer" class="form-input" value="<?php tprint($post['trainer']); ?>" /></div>
+    <div class="post-extension" id="type_training"<?php printf(($post['type']=='training')?' style="display:block;"':''); ?>>Training Date<input type="text" name="training_date" class="form-input" value="<?php tprint($post['training_date']); ?>" /></div>
+
+    <div class="post-extension" id="schedule_note"<?php printf(($post['type']=='schedule')?' style="display:block;"':''); ?>>Note<input type="text" name="note" class="form-input" value="<?php tprint($post['note']); ?>" /></div>
+    <div class="post-extension" id="schedule_expires"<?php printf(($post['type']=='schedule')?' style="display:block;"':''); ?>>Expires<input type="text" name="expires" class="form-input" value="<?php tprint($post['expires']); ?>" /></div>
+
+    <div class="post-extension" id="product_price"<?php printf(($post['type']=='product')?' style="display:block;"':''); ?>>Price<input type="text" name="price" class="form-input" value="<?php tprint($post['price']); ?>" /></div>
+    <div class="post-extension" id="product_barcode"<?php printf(($post['type']=='product')?' style="display:block;"':''); ?>>Barcode<input type="text" name="barcode" class="form-input" value="<?php tprint($post['barcode']); ?>" /></div>
+    <div class="post-extension" id="product_stock"<?php printf(($post['type']=='product')?' style="display:block;"':''); ?>>Stock<input type="text" name="stock" class="form-input" value="<?php tprint($post['stock']); ?>" /></div>
+    <div class="post-extension" id="product_account"<?php printf(($post['type']=='product')?' style="display:block;"':''); ?>>Account<input type="text" name="account" class="form-input" value="<?php tprint($post['account']); ?>" /></div>
+
+    <div class="post-extension" id="event_place"<?php printf(($post['type']=='event')?' style="display:block;"':''); ?>>Place<input type="text" name="place" class="form-input" value="<?php tprint($post['place']); ?>" /></div>
+    <div class="post-extension" id="event_host"<?php printf(($post['type']=='event')?' style="display:block;"':''); ?>>Host<input type="text" name="host" class="form-input" value="<?php tprint($post['host']); ?>" /></div>
+    <div class="post-extension" id="event_start"<?php printf(($post['type']=='event')?' style="display:block;"':''); ?>>Start<input type="text" name="start" class="form-input" value="<?php tprint($post['start']); ?>" /></div>
+    <div class="post-extension" id="event_end"<?php printf(($post['type']=='event')?' style="display:block;"':''); ?>>End<input type="text" name="end" class="form-input" value="<?php tprint($post['end']); ?>" /></div>
+
     <div id="post_configuration">
+
+    <div class="config-header">Action</div>
+    <div class="config-body">
+      <div class="config-form"><input type="submit" value="<?php echo (isset($_GET['new-post']))?'Publish':'Update'; ?>" class="form-submit" /></div>
+      <div class="config-form">
+        <a href="<?php print(WWW); ?>admin/confirmation?action=trash&post_id=<?php print($post['aid']); ?>"><div class="button fs17">Delete</div></a>
+      </div>
+    </div>
+
     <div class="config-header">Configurations</div>
     <div class="config-body">
       <div class="config-form">Status<select class="form-select" name="status">
@@ -80,32 +110,11 @@ if(isset($select[0])){
       <img style="width:50%;" class="form-input" src="<?php print($image); ?>" />
       <a href="<?php print(WWW); ?>admin/change-picture/?post_id=<?php print($post['aid']); ?>"><div class="button" style="vertical-align:top;">Change Picture</div></a>
     </div>
-
-    <div class="post-extension" id="post_description"<?php printf(($post['type']=='page'||$post['type']=='article')?' style="display:block;"':''); ?>>Description<input type="text" name="description" class="form-input" value="<?php tprint($post['description']); ?>" /></div>
-    <div class="post-extension" id="post_keywords"<?php printf(($post['type']=='page'||$post['type']=='article')?' style="display:block;"':''); ?>>Keywords<input type="text" name="keywords" class="form-input" value="<?php tprint($post['keywords']); ?>" /></div>
-
-    <div class="post-extension" id="type_trainer"<?php printf(($post['type']=='training')?' style="display:block;"':''); ?>>Trainer<input type="text" name="trainer" class="form-input" value="<?php tprint($post['trainer']); ?>" /></div>
-    <div class="post-extension" id="type_training"<?php printf(($post['type']=='training')?' style="display:block;"':''); ?>>Training Date<input type="text" name="training_date" class="form-input" value="<?php tprint($post['training_date']); ?>" /></div>
-
-    <div class="post-extension" id="schedule_note"<?php printf(($post['type']=='schedule')?' style="display:block;"':''); ?>>Note<input type="text" name="note" class="form-input" value="<?php tprint($post['note']); ?>" /></div>
-    <div class="post-extension" id="schedule_expires"<?php printf(($post['type']=='schedule')?' style="display:block;"':''); ?>>Expires<input type="text" name="expires" class="form-input" value="<?php tprint($post['expires']); ?>" /></div>
-
-    <div class="post-extension" id="product_price"<?php printf(($post['type']=='product')?' style="display:block;"':''); ?>>Price<input type="text" name="price" class="form-input" value="<?php tprint($post['price']); ?>" /></div>
-    <div class="post-extension" id="product_barcode"<?php printf(($post['type']=='product')?' style="display:block;"':''); ?>>Barcode<input type="text" name="barcode" class="form-input" value="<?php tprint($post['barcode']); ?>" /></div>
-    <div class="post-extension" id="product_stock"<?php printf(($post['type']=='product')?' style="display:block;"':''); ?>>Stock<input type="text" name="stock" class="form-input" value="<?php tprint($post['stock']); ?>" /></div>
-    <div class="post-extension" id="product_account"<?php printf(($post['type']=='product')?' style="display:block;"':''); ?>>Account<input type="text" name="account" class="form-input" value="<?php tprint($post['account']); ?>" /></div>
-
-    <div class="post-extension" id="event_place"<?php printf(($post['type']=='event')?' style="display:block;"':''); ?>>Place<input type="text" name="place" class="form-input" value="<?php tprint($post['place']); ?>" /></div>
-    <div class="post-extension" id="event_host"<?php printf(($post['type']=='event')?' style="display:block;"':''); ?>>Host<input type="text" name="host" class="form-input" value="<?php tprint($post['host']); ?>" /></div>
-    <div class="post-extension" id="event_start"<?php printf(($post['type']=='event')?' style="display:block;"':''); ?>>Start<input type="text" name="start" class="form-input" value="<?php tprint($post['start']); ?>" /></div>
-    <div class="post-extension" id="event_end"<?php printf(($post['type']=='event')?' style="display:block;"':''); ?>>End<input type="text" name="end" class="form-input" value="<?php tprint($post['end']); ?>" /></div>
-
       <div class="clear-both"></div>
     </div><!-- end of #post_configuration -->
 
     <input type="hidden" name="author" value="<?php printf($post['author']); ?>" />
     <input type="hidden" name="post_id" value="<?php printf($post['aid']); ?>" />
-    <div><input type="submit" value="<?php echo (isset($_GET['new-post']))?'Publish':'Update'; ?>" class="form-submit" /></div>
   </form>
 </div>
 <script type="text/javascript">
