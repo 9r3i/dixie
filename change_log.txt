@@ -4,6 +4,71 @@ Dixie CMS
 Created by Luthfie
 luthfie@y7mail.com
 
+--------------------------------
+Version 2.1.0 - October 11th 2014
+- Upgrade Ldb to version 2.4
+- Fix search engine security
+- Functions to get plugin and theme about
+- Change a few options
+- Add license.txt - GPL
+- Improve parse content post
+
+--------------------------------
+Version 2.0.0 - October 1st 2014
+- Install verification by code
+- Admin page is more compatible to mobile browser
+- New appearance (admin page)
+- Access BA-Dixie's database themes and plugins
+- Activation purchased product then install automatically
+- Add bulk action in posts and files
+- Add function ba_byte from Black Apple
+- Add upload into specific directory or create one
+- Add page to change post picture and preview
+- Pre-post or create temporary post while create new post
+- Add search engine
+- Add category post included to type index
+- A few features are added
+- Fix several mobile error
+
+--------------------------------
+Version 1.7.2 - September 17th 2014
+- Fix Ldb.2.3 class error
+- Fix Ldb.2.3 table index
+- Fix admin timezone
+- Add file size (KB)
+
+--------------------------------
+Version 1.7.1 - September 15th 2014
+- Update Ldb to version 2.3
+
+--------------------------------
+Version 1.7 - September 14th 2014
+- Fix training post type arrangement based on post_training_date
+- Add function folder check
+- New setup generator
+
+--------------------------------
+Version 1.6 - September 13th 2014
+- Fix few functions plugins
+- Add parameter function registry
+- Fix few errors
+- Fix internal main_page recent post
+
+--------------------------------
+Version 1.5 - September 5th 2014
+- Add plugins detail and description
+- Add themes detail and description
+- Add themes screenshot
+- Set privilege author to All Posts only for his own post
+- Fix a few error
+- Set third party directory
+
+--------------------------------
+Version 1.4 - August 29th 2014
+- Fix password request
+- Create new function for password request
+- Create reset password page
+- Create simple button action to change post editor
 
 --------------------------------
 Version 1.3 - August 28th 2014
@@ -105,7 +170,7 @@ Version 0.2
 - Create posting form
 
 --------------------------------
-Version 0.1
+Version 0.1 - August 1st 2014 (Starting)
 - Create basic engine CMS
 - Create basic functions CMS
 - Create Theme class CMS

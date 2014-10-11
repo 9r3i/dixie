@@ -22,7 +22,7 @@ $themes = $the->themes;
     foreach($options as $key=>$value){
       $label_key = ucwords(str_replace('_',' ',$key));
       if(in_array($key,$input_text)){
-        echo '<div>'.$label_key.'<input type="text" name="'.$key.'" class="form-input" value="'.$value.'" /></div>';
+        echo '<div class="input-parent">'.$label_key.'<input type="text" name="'.$key.'" class="form-input" value="'.$value.'" /></div>';
       }
     }
     ?>
@@ -55,6 +55,10 @@ $themes = $the->themes;
     <div>Main Page<select class="form-input" name="main_page" style="width:100%;">
       <option value="">None (Recent Posts)</option>
       <?php
+        $post_types = array('post','page','article','training','schedule','product','event');
+        foreach($post_types as $post_type){
+          echo '<option value="'.$post_type.'"'.(($options['main_page']==$post_type)?' selected="true"':'').'>Recent Posts ('.$post_type.')</option>';
+        }
         foreach($posts as $stat=>$detail){
           if($detail['status']=='publish'&&$detail['type']=='page'&&$detail['access']=='public'){
             echo '<option value="'.$stat.'"'.(($options['main_page']==$stat)?' selected="true"':'').'>'.$detail['title'].' ('.$stat.')</option>';

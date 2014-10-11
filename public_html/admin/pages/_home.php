@@ -12,6 +12,9 @@ $change_log = @file_get_contents('change_log.txt');;
 /* Get all posts */
 global $posts;
 
+/* Set posts as privilege */
+set_posts_privilege();
+
 /* Arrange new posts to $trend */
 $trend = array();
 foreach($posts as $post){
@@ -20,15 +23,15 @@ foreach($posts as $post){
   }
 }
 
-/* Scan files directory */
-$dirname = 'upload/';
-$files = scandir($dirname);
-$file_count = 0;
-foreach($files as $id=>$file){
-  if($file!=='.'&&$file!=='..'&&is_file($dirname.$file)){
-    $file_count++;
-  }
-}
+/* Count uploaded files */
+$dirname = 'upload';
+$files = dixie_explore('file',$dirname);
+$file_count = count($files);
+
+/* Get current theme name */
+$current_theme = get_site_info('theme',false);
+$theme_about = get_theme_about($current_theme);
+$theme_name = isset($theme_about['Theme Name'])?$theme_about['Theme Name']:$current_theme;
 
 /* HTML View */
 ?>
@@ -40,7 +43,7 @@ foreach($files as $id=>$file){
       $count = count($id);
       $dtren .= '<a href="'.WWW.'admin/posts/?filter-type='.$type.'&ref=home">'.$count.' '.$type.(($count>1)?'s':'').'</a>, ';
     }
-    echo 'You\'ve got '.substr($dtren,0,-2).'.';
+    echo 'You have '.substr($dtren,0,-2).'.';
   }else{
     echo 'You have no post yet.<br /><a href="'.WWW.'admin/new-post/?ref=home"> Create a new post now</a>';
   }
@@ -49,13 +52,22 @@ foreach($files as $id=>$file){
 
 <div class="home-data">
   <?php
-  if($file_count>0){echo 'You have <a href="'.WWW.'admin/files/?ref=home">'.$file_count.' file'.(($file_count>1)?'s':'').'</a>.';}
+  if($file_count>0){echo 'You have <a href="'.WWW.'admin/files/?ref=home">'.$file_count.' file'.(($file_count>1)?'s':'').'</a> uploaded.';}
   else{echo 'You have no file yet.<br /><a href="'.WWW.'admin/upload/?ref=home">Upload a file now</a>';}
   ?>
 </div>
 
 <div class="home-data">
-  Your current theme: <a href="<?php tprint(WWW); ?>admin/theme-option/?name=<?php get_site_info('theme'); ?>&file=index.php&ref=home" title="Option: <?php get_site_info('theme'); ?>"><?php get_site_info('theme'); ?></a>
+  Your current theme: <a href="<?php tprint(WWW); ?>admin/theme-option/?name=<?php get_site_info('theme'); ?>&file=index.php&ref=home" title="Option: <?php echo $theme_name; ?>"><?php echo $theme_name; ?></a>
+</div>
+
+<div class="home-data">
+  <?php
+  $plug = new plugins();
+  $plug_count = count($plug->plugins);
+  if($plug_count>0){echo 'You have '.$plug_count.' installed <a href="'.WWW.'admin/plugins/?ref=home">plugin'.(($plug_count>1)?'s':'').'</a>.';}
+  else{echo 'You have no installed-plugin yet.<br /><a href="'.WWW.'admin/new-plugin/?ref=home">Install a plugin now</a>';}
+  ?>
 </div>
 
 <div class="home-data">
@@ -72,9 +84,15 @@ foreach($files as $id=>$file){
 </div>
 
 <div class="sub-home-content" style="font-size:12px;">
-  <div>Change Log<textarea class="form-textarea" style="font-size:12px;"><?php printf($change_log); ?></textarea></div>
+  <div class="input-parent">Change Log<textarea class="form-textarea" style="font-size:12px;"><?php tprint($change_log); ?></textarea></div>
 </div>
 
-<div class="check-update">
-  <a href="<?php print(WWW.'admin/update?check=true&ref=home'); ?>">Check Update Version</a>
+<div class="check-update" id="check_update">
+  <a href="<?php print(WWW.'admin/update?check=true&ref=home'); ?>"><div class="check-button">Check Update Version</div></a>
 </div>
+
+<script type="text/javascript">
+$.get('<?php print(WWW); ?>admin/a?data=check-dixie-update',function(hasil){
+  $('#check_update').html(hasil.html);
+});
+</script>

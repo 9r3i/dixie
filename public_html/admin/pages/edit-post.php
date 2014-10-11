@@ -19,6 +19,10 @@ if(!ldb()){
   exit('cannot connect into database');
 }
 $select = $ldb->select('posts','aid='.$post_id);
+
+/* Get categories */
+$category = get_category();
+
 if(isset($select[0])){
   $post = $select[0];
 /* HTML View */
@@ -26,8 +30,14 @@ if(isset($select[0])){
 
 <div class="content-form">
   <form action="<?php printf(WWW.'admin/a?data=edit-post'); ?>" method="post" class="form-content">
-    <div>Title<input type="text" name="title" class="form-input" placeholder="Insert a title here" value="<?php tprint($post['title']); ?>" /></div>
-    <div>Content<textarea id="content" name="content" placeholder="Insert the content here" class="form-textarea"><?php tprint($post['content']); ?></textarea></div>
+    <div class="input-parent">Title<input type="text" name="title" class="form-input input-title" placeholder="Insert a title here" value="<?php tprint($post['title']); ?>" /></div>
+    <div>Content
+      <a href="<?php print(WWW); ?>admin/a?data=change-editor&to=<?php echo (get_site_info('post_editor',false)=='text')?'html':'text'; ?>&re=<?php print(urlencode(WWW.'admin/edit-post/?post_id='.$post_id)); ?>"><div id="change_editor">Change to <?php echo (get_site_info('post_editor',false)=='text')?'HTML':'Text'; ?></div></a>
+      <a href="<?php print(WWW.$post['url']); ?>.html" title="View Post" target="_blank"><div id="view_post">View</div></a>
+    </div>
+    <div <?php echo (get_site_info('post_editor',false)=='text'||is_mobile_browser())?'class="input-parent"':''; ?>><textarea id="content" name="content" placeholder="Insert the content here" class="form-textarea"><?php tprint($post['content']); ?></textarea></div>
+
+    <div id="post_configuration">
     <div class="config-header">Configurations</div>
     <div class="config-body">
       <div class="config-form">Status<select class="form-select" name="status">
@@ -50,8 +60,26 @@ if(isset($select[0])){
         foreach($template as $stat){echo '<option value="'.$stat.'"'.(($stat==$post['template'])?' selected="true"':'').'>'.ucwords($stat).'</option>';}
       ?>
       </select></div>
+      <div class="config-form">Category<select class="form-select" name="category" id="select_category" style="width:120px;">
+      <?php
+        if(!array_key_exists('uncategorized',$category)){
+          echo '<option value="Uncategorized">Uncategorized</option>';
+        }
+        foreach($category as $cat){echo '<option value="'.$cat['name'].'"'.((in_array($post['aid'],$cat['post_id']))?' selected="true"':'').'>'.$cat['name'].'</option>';}
+      ?>
+        <option value="create-new-category">--Create New--</option>
+      </select></div>
+      <div class="post-extension" style="display:block;padding:0px 20px 10px 5px;" id="new_cat"></div>
     </div>
-    <div class="post-extension" id="picture_url" style="display:block;">Picture URL<input type="text" name="picture" class="form-input" value="<?php tprint($post['picture']); ?>" list="uploaded_files" /></div>
+
+    <div class="post-extension" id="picture_url" style="display:block;">
+      <?php 
+        $image = (file_exists($post['picture']))?WWW.$post['picture']:WWW.PUBDIR.'images/unknown.png';
+      ?>
+      <input type="hidden" name="picture" class="form-input" value="<?php tprint($post['picture']); ?>" />
+      <img style="width:50%;" class="form-input" src="<?php print($image); ?>" />
+      <a href="<?php print(WWW); ?>admin/change-picture/?post_id=<?php print($post['aid']); ?>"><div class="button" style="vertical-align:top;">Change Picture</div></a>
+    </div>
 
     <div class="post-extension" id="post_description"<?php printf(($post['type']=='page'||$post['type']=='article')?' style="display:block;"':''); ?>>Description<input type="text" name="description" class="form-input" value="<?php tprint($post['description']); ?>" /></div>
     <div class="post-extension" id="post_keywords"<?php printf(($post['type']=='page'||$post['type']=='article')?' style="display:block;"':''); ?>>Keywords<input type="text" name="keywords" class="form-input" value="<?php tprint($post['keywords']); ?>" /></div>
@@ -71,24 +99,29 @@ if(isset($select[0])){
     <div class="post-extension" id="event_host"<?php printf(($post['type']=='event')?' style="display:block;"':''); ?>>Host<input type="text" name="host" class="form-input" value="<?php tprint($post['host']); ?>" /></div>
     <div class="post-extension" id="event_start"<?php printf(($post['type']=='event')?' style="display:block;"':''); ?>>Start<input type="text" name="start" class="form-input" value="<?php tprint($post['start']); ?>" /></div>
     <div class="post-extension" id="event_end"<?php printf(($post['type']=='event')?' style="display:block;"':''); ?>>End<input type="text" name="end" class="form-input" value="<?php tprint($post['end']); ?>" /></div>
-    <input type="hidden" name="author" value="<?php printf(get_active_user()); ?>" />
+
+      <div class="clear-both"></div>
+    </div><!-- end of #post_configuration -->
+
+    <input type="hidden" name="author" value="<?php printf($post['author']); ?>" />
     <input type="hidden" name="post_id" value="<?php printf($post['aid']); ?>" />
-    <div><input type="submit" value="Update" class="form-submit" /></div>
-    <datalist id="uploaded_files">
-      <?php
-      $folder_files = 'upload/';
-      $scan = @scandir($folder_files);
-      if(is_array($scan)){
-        foreach($scan as $each){
-          if($each!=='.'&&$each!=='..'){echo '<option value="'.$folder_files.$each.'" />';}
-        }
-      }
-      ?>
-    </datalist>
+    <div><input type="submit" value="<?php echo (isset($_GET['new-post']))?'Publish':'Update'; ?>" class="form-submit" /></div>
   </form>
 </div>
 <script type="text/javascript">
+document.getElementById("select_category").onchange=function(){
+  if(this.value=='create-new-category'){
+    var cat_input = '<input type="text" name="new-category" class="form-input" placeholder="New Category" />';
+    document.getElementById("new_cat").innerHTML=cat_input;
+  }
+};
+
 document.getElementById("select_type").onchange=function(){
+  var hape = <?php echo (is_mobile_browser())?'true':'false'; ?>;
+  if(hape){
+    document.getElementById("page_content").style.height="800px";
+  }
+
   if(this.value=="training"){
     document.getElementById("type_training").style.display="block";
     document.getElementById("type_trainer").style.display="block";

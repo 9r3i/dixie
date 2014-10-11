@@ -26,10 +26,10 @@ if(isset($select[0])&&$select[0]['privilege']!=='master'){
       ?>
       </select></div>
     </div>
-    <div>Username <span style="font-size:12px;color:#955;">(permanent)</span><input type="text" name="username" class="form-input" placeholder="Username" value="<?php tprint($user['username']); ?>" /></div>
-    <div>Email<input type="text" name="email" class="form-input" placeholder="Email" value="<?php tprint($user['email']); ?>" /></div>
-    <div>Name<input type="text" name="name" class="form-input" placeholder="Full Name" value="<?php tprint($user['name']); ?>" /></div>
-    <div>Password<input type="password" name="password" class="form-input" placeholder="Password" /></div>
+    <div class="input-parent">Username <span style="font-size:12px;color:#955;">(permanent)</span><input type="text" name="username" class="form-input" placeholder="Username" value="<?php tprint($user['username']); ?>" /></div>
+    <div class="input-parent">Email<input type="text" name="email" class="form-input" placeholder="Email" value="<?php tprint($user['email']); ?>" /></div>
+    <div class="input-parent">Name<input type="text" name="name" class="form-input" placeholder="Full Name" value="<?php tprint($user['name']); ?>" /></div>
+    <div class="input-parent">Password<input type="password" name="password" class="form-input" placeholder="Password" /></div>
     <input type="hidden" value="<?php tprint($user['aid']); ?>" name="id" />
     <div><input type="submit" value="Edit User" class="form-submit" /></div>
   </form>

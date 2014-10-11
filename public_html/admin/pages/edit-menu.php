@@ -29,9 +29,9 @@ if(!get_menus('aid')){
       ?>
       </select></div>
     </div>
-    <div>Menu Name<input type="text" name="name" class="form-input" placeholder="Menu Name" list="list_title" value="<?php tprint($menu['name']); ?>" /></div>
-    <div>Menu Slug<input type="text" name="slug" class="form-input" placeholder="Menu Slug" list="list_slug" value="<?php tprint($menu['slug']); ?>" /></div>
-    <div>Menu Order<input type="text" name="order" class="form-input" placeholder="Menu Order" value="<?php tprint($menu['order']); ?>" /></div>
+    <div class="input-parent">Menu Name<input type="text" name="name" class="form-input" placeholder="Menu Name" list="list_title" value="<?php tprint($menu['name']); ?>" /></div>
+    <div class="input-parent">Menu Slug<input type="text" name="slug" class="form-input" placeholder="Menu Slug" list="list_slug" value="<?php tprint($menu['slug']); ?>" /></div>
+    <div class="input-parent">Menu Order<input type="text" name="order" class="form-input" placeholder="Menu Order" value="<?php tprint($menu['order']); ?>" /></div>
     <input type="hidden" value="<?php tprint($menu['aid']); ?>" name="id" />
     <div><input type="submit" value="Save" class="form-submit" /></div>
     <datalist id="list_slug">

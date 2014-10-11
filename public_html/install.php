@@ -20,12 +20,12 @@ if(get_options()){
 }
 
 /* Create the important tables */
-$tables = array('menu','sidebar','options','posts','users');
+$tables = array('menu','sidebar','options','posts','users','request','category');
 foreach($tables as $table){
   $ldb->create_table($table);
 }
 
-/* Set $error */
+/* Set error variable for installation package */
 $error = get_installation_package();
 ?>
 <!DOCTYPE html>
@@ -59,6 +59,9 @@ $error = get_installation_package();
     <div class="header"><h1>Installation</h1></div>
     <div class="error"><?php echo (isset($error))?$error:''; ?></div>
     <div class="body"><form action="" method="post">
+<?php
+if(get_installation_code()){
+?>
       <div>Site Name<input type="text" class="input" name="site_name" placeholder="Site Name"<?php echo (isset($_POST['site_name']))?' value="'.$_POST['site_name'].'"':'' ?> /></div>
       <div>Username<input type="text" class="input" name="username" placeholder="Username"<?php echo (isset($_POST['username']))?' value="'.$_POST['username'].'"':'' ?> /></div>
       <div>Password<input type="password" class="input" name="password" placeholder="Password" /></div>
@@ -66,6 +69,14 @@ $error = get_installation_package();
       <div>Email<input type="email" class="input" name="email" placeholder="Email"<?php echo (isset($_POST['email']))?' value="'.$_POST['email'].'"':'' ?> /></div>
       <div>Full Name<input type="text" class="input" name="name" placeholder="Full Name"<?php echo (isset($_POST['name']))?' value="'.$_POST['name'].'"':'' ?> /></div>
       <div><input type="submit" class="button" value="Install" /></div>
+<?php
+}else{
+?>
+      <div>Installation Code<input type="text" class="input" name="installation_code" placeholder="Installation Code" /></div>
+      <div><input type="submit" class="button" value="Confirm Code" /></div>
+<?php
+}
+?>
     </form></div>
     <div class="footer">Dixie from <a href="http://black-apple.biz/" title="Black Apple Inc." target="_blank">Black Apple Inc.</a></div>
   </div></body>

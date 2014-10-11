@@ -50,13 +50,19 @@ login_request();
     </div>
     <div class="body">
       <div class="content" style="width:100%;">
-        <form class="login-form" action="" method="post" style="margin:30px auto;padding:15px;background-color:#fff;width:175px;">
+        <form class="login-form" action="" method="post" style="">
           <div class="login-header">User Login</div>
-          <div class="login-forget"><span style="color:#7b3;"><?php echo (isset($notif))?$notif:''; ?></span></div>
-          <div class="login-input"><input class="input" name="username" placeholder="Username" type="text" /></div>
-          <div class="login-input"><input class="input" name="password" placeholder="Password" type="password" /></div>
-          <div class="login-input"><input class="button" value="Login" type="submit" /></div>
-          <div class="login-forget"><a href="?password" title="Request password">Forget your password?</a></div>
+          <div class="login-error"><span style="color:#7b3;"><?php echo (isset($notif))?$notif:''; ?></span></div>
+          <div class="login-input">
+            <div class="login-label">Username/Email</div>
+            <div class="login-text"><input class="login-text-input" name="username" placeholder="Username" type="text" /></div>
+          </div>
+          <div class="login-input">
+            <div class="login-label">Password</div>
+            <div class="login-text"><input class="login-text-input" name="password" placeholder="Password" type="password" /></div>
+          </div>
+          <div class="login-input"><div class="login-submit"><input class="button" value="Login" type="submit" /></div></div>
+          <div class="login-forget"><a href="?password=request" title="Request password">Forget your password?</a></div>
         </form>
       </div>
     </div>

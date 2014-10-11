@@ -6,17 +6,23 @@
  * luthfie@y7mail.com
  */
 
-/* Check request reset password  */
-if(isset($_POST['username'])){
-  $request = password_request();
-  if(isset($request['status'])&&$request['status']=='OK'){
-    header('location: '.WWW.'admin/login/?request=password-sent');
-    exit;
+/* Check username and code  */
+if(isset($_POST['new-password'])&&isset($_POST['confirm-password'])){
+  if($_POST['new-password']==$_POST['confirm-password']){
+    if(password_reset()){
+      header('location: '.WWW.'admin/?status=new-password');
+      exit;
+    }else{
+      $error = 'Your request can\'t be confirmed';
+    }
   }else{
-    $error = $request['message'];
+    $error = 'Your confirm password dosn\'t match';
   }
 }
 
+/* Check username and code  */
+if(isset($_GET['username'])&&isset($_GET['code'])){
+  if(check_request_code($_GET['username'],$_GET['code'])){
 ?>
 <!DOCTYPE html>
 <html lang="en-US">
@@ -24,7 +30,7 @@ if(isset($_POST['username'])){
     <meta content="text/html; charset=utf-8" http-equiv="content-type" />
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
     <meta content="width=device-width, initial-scale=1" name="viewport" />
-    <title>Forget Password | Admin &#8213; Dixie</title>
+    <title>Reset Password | Admin &#8213; Dixie</title>
     <meta content="Dixie CMS from Black Apple Inc." name="description" />
     <meta content="Generator, CMS" name="keywords" />
     <meta content="Luthfie" name="developer" /><meta content="luthfie@y7mail.com" name="developer-email" />
@@ -42,8 +48,11 @@ if(isset($_POST['username'])){
         <form class="login-form" action="" method="post" style="margin:30px auto;padding:15px;background-color:#fff;width:175px;">
           <div class="login-header">Request Password</div>
           <div class="login-input"><span style="color:red;"><?php echo (isset($error))?$error:''; ?></span></div>
-          <div class="login-input"><input class="login-text-input" name="username" placeholder="Username" type="text" /></div>
-          <div class="login-input"><input class="button" value="Send Request" type="submit" /></div>
+          <div class="login-input"><input class="login-text-input" name="new-password" placeholder="New Password" type="password" /></div>
+          <div class="login-input"><input class="login-text-input" name="confirm-password" placeholder="Confirm Password" type="password" /></div>
+          <input name="username" value="<?php print($_GET['username']); ?>" type="hidden" />
+          <input name="code" value="<?php print($_GET['code']); ?>" type="hidden" />
+          <div class="login-input"><input class="button" value="Proceed" type="submit" /></div>
         </form>
       </div>
     </div>
@@ -52,4 +61,12 @@ if(isset($_POST['username'])){
     </div>
   </body>
 </html>
-
+<?php
+  }else{
+    header('content-type: text/plain');
+    exit('invalid request');
+  }
+}else{
+  header('content-type: text/plain');
+  exit('invalid request');
+}

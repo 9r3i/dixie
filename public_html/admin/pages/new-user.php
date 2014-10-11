@@ -20,10 +20,10 @@ global $privileges;
       ?>
       </select></div>
     </div>
-    <div>Username <span style="font-size:12px;color:#955;">(permanent)</span><input type="text" name="username" class="form-input" placeholder="Username" /></div>
-    <div>Email<input type="text" name="email" class="form-input" placeholder="Email" /></div>
-    <div>Name<input type="text" name="name" class="form-input" placeholder="Full Name" /></div>
-    <div>Password<input type="password" name="password" class="form-input" placeholder="Password" /></div>
+    <div class="input-parent">Username <span style="font-size:12px;color:#955;">(permanent)</span><input type="text" name="username" class="form-input" placeholder="Username" /></div>
+    <div class="input-parent">Email<input type="text" name="email" class="form-input" placeholder="Email" /></div>
+    <div class="input-parent">Name<input type="text" name="name" class="form-input" placeholder="Full Name" /></div>
+    <div class="input-parent">Password<input type="password" name="password" class="form-input" placeholder="Password" /></div>
     <div><input type="submit" value="Add User" class="form-submit" /></div>
   </form>
 </div>

@@ -7,7 +7,7 @@
  */
 
 /* Global options and posts */
-global $options,$posts;
+global $options,$posts,$error_reporting;
 
 /* Get site options */
 if(!get_options()){
@@ -15,7 +15,7 @@ if(!get_options()){
   exit;
 }
 
-/* Set default timezone to Asia/Jakarta */
+/* Set default timezone */
 if(get_site_info('timezone',false)){
   date_default_timezone_set(get_site_info('timezone',false));
 }else{
@@ -31,7 +31,7 @@ get_posts('url',$where);
 
 /* Call XML RSS Feed if requested */
 if(defined('P')&&P=='feed.xml'){
-  include_once('feed.php');
+  @include_once('feed.php');
   exit;
 }
 
@@ -48,16 +48,19 @@ if(is_mobile_browser()){
   $theme_index = 'theme';
 }
 
-/* Set theme template according to setting options */
-$template = get_index();
+/* Set theme template according to index setting options */
+$index = get_index();
+
+/* Run plugin action before load the template and headers */
+plugin_run('action',$GLOBALS);
 
 /* Site header content type */
 header('content-type: text/html; charset=utf-8');
 
 /* Set http response code to 404 Not Found */
-if($template=='404'){
+if($index=='404'){
   header("HTTP/1.1 404 Not Found");
 }
 
 /* Load theme template */
-$theme->load($options[$theme_index],$template);
+$theme->load($options[$theme_index],$index);

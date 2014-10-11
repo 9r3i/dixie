@@ -16,6 +16,8 @@ $name = (isset($_GET['name']))?$_GET['name']:'';
 if(isset($plugins[$name])){
   if(file_exists($plug->dir.'/'.$name.'/options.php')){
 /* HTML View */
+$pn = (isset($plugins[$name]['about']['Plugin Name']))?$plugins[$name]['about']['Plugin Name']:$plugins[$name]['name'];
+echo '<div><h4 style="margin:0px;padding:0px;">'.$pn.'</h4></div>';
 ?>
 <div class="content-form">
 <?php @include_once($plug->dir.'/'.$name.'/options.php'); ?>

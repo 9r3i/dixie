@@ -10,14 +10,14 @@
 require_once('define.php');
 require_once('functions.php');
 require_once('class.php');
-require_once('Ldb.php');
+require_once('Ldb.2.4.php');
 require_once('gets.php');
 
 /* Error display */
 ini_set('display_errors',true);
 
-/* Checking for an error */
-if(error_reporting(E_ALL)){
+/* Checking for an error reporting */
+if(error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE)){
   
 }
 

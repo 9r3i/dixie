@@ -11,6 +11,9 @@ $bars = array(
   'text'=>'Text',
   'recent'=>'Recent Post',
   'menu'=>'Menu (Aside)',
+  'meta'=>'Meta',
+  'category'=>'Category',
+  'search'=>'Search',
 );
 
 /* Get $posts */
@@ -37,14 +40,14 @@ if(isset($_GET['id'])&&isset($sidebar[$_GET['id']])){
       ?>
       </select></div>
     </div>
-    <div>Title<input type="text" name="title" class="form-input" placeholder="Title" value="<?php tprint($side['title']); ?>" /></div>
-    <div>Order<input type="text" name="order" class="form-input" placeholder="Order" value="<?php tprint($side['order']); ?>" /></div>
+    <div class="input-parent">Title<input type="text" name="title" class="form-input" placeholder="Title" value="<?php tprint($side['title']); ?>" /></div>
+    <div class="input-parent">Order<input type="text" name="order" class="form-input" placeholder="Order" value="<?php tprint($side['order']); ?>" /></div>
     <div id="sidebar_content">
        <?php
        if($side['type']=='text'){
-         echo 'Content<textarea class="form-textarea" placeholder="Insert sidebar content here" name="content">';
+         echo '<div class="input-parent">Content<textarea class="form-textarea" placeholder="Insert sidebar content here" name="content">';
          tprint($side['content']);
-         echo '</textarea>';
+         echo '</textarea></div>';
        }elseif($side['type']=='recent'){
          $option = json_decode($side['option'],true);
          echo '<div class="config-header">Options</div><div class="config-body"><div class="config-form">Post Type<select class="form-select" name="option[post_type]" style="width:auto;">';
@@ -59,11 +62,12 @@ if(isset($_GET['id'])&&isset($sidebar[$_GET['id']])){
 </div>
 <script type="text/javascript">
 function content_sidebar(id,cid){
+  document.getElementById("page_content").style.height="600px";
   var el = document.getElementById(id);
   var cel = document.getElementById(cid);
   var val = el.value;
   if(val=='text'){
-    cel.innerHTML = 'Content<textarea class="form-textarea" placeholder="Insert sidebar content here" name="content"><?php tprint($side['content']); ?></textarea>';
+    cel.innerHTML = '<div class="input-parent">Content<textarea class="form-textarea" placeholder="Insert sidebar content here" name="content"><?php tprint($side['content']); ?></textarea></div>';
   }else if(val=='recent'){
     <?php $option = json_decode($side['option'],true); ?>
     cel.innerHTML = '<div class="config-header">Options</div><div class="config-body"><div class="config-form">Post Type<select class="form-select" name="option[post_type]" style="width:auto;"><?php foreach($post_type as $tpost){echo '<option value="'.$tpost.'"'.(($tpost==$option['post_type'])?' selected="true"':'').'>'.ucwords($tpost).'</option>';} ?></select></div><div class="config-form">Max. Post<input type="text" name="option[post_max]" class="form-input" placeholder="Maximum Post" style="width:100px;" value="<?php tprint($option['post_max']); ?>" /></div></div>';

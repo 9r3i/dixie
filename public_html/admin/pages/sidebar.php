@@ -13,7 +13,7 @@ get_sidebar('order');
 /* HTML View */
 ?>
 <div class="config-body">
-  <div class="config-form" style="width:auto;"><a href="<?php echo WWW; ?>admin/new-sidebar?_rdr" class="form-submit">New Sidebar</a></div>
+  <a href="<?php echo WWW; ?>admin/new-sidebar?_rdr"><div class="button fs15">New Sidebar</div></a>
 </div>
 <div class="all-posts">
   <?php

@@ -29,8 +29,8 @@ if($action=='trash'){
     echo '<div>Are you sure want to move this post to Trash?</div>';
     echo '<form action="'.WWW.'admin/a?data=trash" method="post">
       <input type="hidden" value="'.$_GET['post_id'].'" name="post_id" />
+      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)"><div class="cancel">Cancel</div></a></div>
       <div class="confirm-trash"><input type="submit" value="Yes" class="form-submit" /></div>
-      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)" class="cancel">Cancel</a></div>
     </form>';
   }else{
     echo 'cannot find the post';
@@ -42,8 +42,8 @@ elseif($action=='delete-post'){
     echo '<div>Are you sure want to delete this post permanently?</div>';
     echo '<form action="'.WWW.'admin/a?data=delete-post" method="post">
       <input type="hidden" value="'.$_GET['post_id'].'" name="post_id" />
+      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)"><div class="cancel">Cancel</div></a></div>
       <div class="confirm-trash"><input type="submit" value="Yes" class="form-submit" /></div>
-      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)" class="cancel">Cancel</a></div>
     </form>';
   }else{
     echo 'cannot find the post';
@@ -56,8 +56,8 @@ elseif($action=='delete-file'){
     echo '<div>Are you sure want to delete this file permanently?</div>';
     echo '<form action="'.WWW.'admin/a?data=delete-file" method="post">
       <input type="hidden" value="'.$_GET['file'].'" name="file" />
+      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)"><div class="cancel">Cancel</div></a></div>
       <div class="confirm-trash"><input type="submit" value="Yes" class="form-submit" /></div>
-      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)" class="cancel">Cancel</a></div>
     </form>';
   }else{
     echo 'cannot find the file';
@@ -74,8 +74,8 @@ elseif($action=='rename-file'){
       <div><input type="text" value="'.$file.'" name="file" class="form-input" /></div>
       <input type="hidden" value="'.$dirname.'" name="dirname" />
       <input type="hidden" value="'.$file.'" name="oldname" />
+      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)"><div class="cancel">Cancel</div></a></div>
       <div class="confirm-trash"><input type="submit" value="Confirm" class="form-submit" /></div>
-      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)" class="cancel">Cancel</a></div>
     </form>';
   }else{
     echo 'cannot find the file';
@@ -90,8 +90,8 @@ elseif($action=='delete-user'){
     echo '<div>Are you sure want to delete this user permanently?</div>';
     echo '<form action="'.WWW.'admin/a?data=delete-user" method="post">
       <input type="hidden" value="'.$_GET['id'].'" name="id" />
+      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)"><div class="cancel">Cancel</div></a></div>
       <div class="confirm-trash"><input type="submit" value="Yes" class="form-submit" /></div>
-      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)" class="cancel">Cancel</a></div>
     </form>';
   }else{
     echo 'cannot find the user';
@@ -106,8 +106,8 @@ elseif($action=='delete-menu'){
     echo '<div>Are you sure want to delete this menu permanently?</div>';
     echo '<form action="'.WWW.'admin/a?data=delete-menu" method="post">
       <input type="hidden" value="'.$_GET['id'].'" name="id" />
+      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)"><div class="cancel">Cancel</div></a></div>
       <div class="confirm-trash"><input type="submit" value="Yes" class="form-submit" /></div>
-      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)" class="cancel">Cancel</a></div>
     </form>';
   }else{
     echo 'cannot find content menu';
@@ -122,8 +122,8 @@ elseif($action=='delete-sidebar'){
     echo '<div>Are you sure want to delete this sidebar permanently?</div>';
     echo '<form action="'.WWW.'admin/a?data=delete-sidebar" method="post">
       <input type="hidden" value="'.$_GET['id'].'" name="id" />
+      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)"><div class="cancel">Cancel</div></a></div>
       <div class="confirm-trash"><input type="submit" value="Yes" class="form-submit" /></div>
-      <div class="confirm-cancel"><a href="#" onclick="history.go(-1)" class="cancel">Cancel</a></div>
     </form>';
   }else{
     echo 'cannot find content sidebar';
@@ -134,7 +134,7 @@ elseif($action=='activate-plugin'){
   $activate = set_plugin_status($_GET['name'],true);
   if($activate){
     echo 'plugin has been activated.<br />';
-    echo '<a href="'.WWW.'admin/plugins?_ref=confirm">Back to Plugins</a>';
+    echo '<meta content="0; url=\''.WWW.'admin/plugins?_ref=confirm&name='.$_GET['name'].'&status=activated\'" http-equiv="refresh" />';
   }else{
     echo 'cannot be activated.';
   }
@@ -144,7 +144,7 @@ elseif($action=='deactivate-plugin'){
   $activate = set_plugin_status($_GET['name'],false);
   if($activate){
     echo 'plugin has been deactivated.<br />';
-    echo '<a href="'.WWW.'admin/plugins?_ref=confirm">Back to Plugins</a>';
+    echo '<meta content="0; url=\''.WWW.'admin/plugins?_ref=confirm&name='.$_GET['name'].'&status=deactivated\'" http-equiv="refresh" />';
   }else{
     echo 'cannot be deactivated.';
   }
@@ -163,8 +163,8 @@ elseif($action=='delete-plugin'){
       echo '<div>Are you sure want to delete this plugin permanently?</div>';
       echo '<form action="'.WWW.'admin/a?data=delete-plugin" method="post">
         <input type="hidden" value="'.$plugins[$name]['dir'].'" name="name" />
+        <div class="confirm-cancel"><a href="#" onclick="history.go(-1)"><div class="cancel">Cancel</div></a></div>
         <div class="confirm-trash"><input type="submit" value="Yes" class="form-submit" /></div>
-        <div class="confirm-cancel"><a href="#" onclick="history.go(-1)" class="cancel">Cancel</a></div>
       </form>';
     }
   }else{
@@ -184,8 +184,8 @@ elseif($action=='delete-theme'){
       echo '<div>Are you sure want to delete this theme permanently?</div>';
       echo '<form action="'.WWW.'admin/a?data=delete-theme" method="post">
         <input type="hidden" value="'.$themes[$name]['name'].'" name="name" />
+        <div class="confirm-cancel"><a href="#" onclick="history.go(-1)"><div class="cancel">Cancel</div></a></div>
         <div class="confirm-trash"><input type="submit" value="Yes" class="form-submit" /></div>
-        <div class="confirm-cancel"><a href="#" onclick="history.go(-1)" class="cancel">Cancel</a></div>
       </form>';
     }
   }else{
@@ -205,8 +205,8 @@ elseif($action=='activate-theme'){
       echo '<div>Are you sure want to change to this theme as your theme?</div>';
       echo '<form action="'.WWW.'admin/a?data=activate-theme" method="post">
         <input type="hidden" value="'.$themes[$name]['name'].'" name="name" />
+        <div class="confirm-cancel"><a href="#" onclick="history.go(-1)"><div class="cancel">Cancel</div></a></div>
         <div class="confirm-trash"><input type="submit" value="Yes" class="form-submit" /></div>
-        <div class="confirm-cancel"><a href="#" onclick="history.go(-1)" class="cancel">Cancel</a></div>
       </form>';
     }
   }else{

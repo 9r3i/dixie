@@ -38,7 +38,7 @@ if(isset($themes[$name])){
     $content = @file_get_contents('themes/'.$name.'/'.$filename);
 ?>
   <form action="<?php printf(WWW.'admin/a?data=edit-theme'); ?>" method="post" class="form-content">
-    <div>Content file:<textarea name="content" placeholder="Insert the content theme here" class="form-textarea"><?php tprint($content); ?></textarea></div>
+    <div class="input-parent">Content file:<textarea name="content" placeholder="Insert the content theme here" class="form-textarea"><?php tprint($content); ?></textarea></div>
     <input type="hidden" name="theme-name" value="<?php printf($name); ?>" />
     <input type="hidden" name="file-name" value="<?php printf($filename); ?>" />
     <div><input type="submit" value="Update File" class="form-submit" /></div>

@@ -15,9 +15,14 @@ if(!get_options()){
   exit;
 }
 
+/* Set default timezone */
+if(get_site_info('timezone',false)){
+  date_default_timezone_set(get_site_info('timezone',false));
+}
+
 /* Check session login */
 if(!is_login()){
-  include_once('admin/login.php');
+  @include_once('admin/login.php');
   exit;
 }
 
@@ -32,6 +37,9 @@ $warning = array();
 if(!get_posts('url')){
   $warning['empty_post'] = 'Warning, you have no post at all.';
 }
+
+/* Run plugin action before load the template and headers */
+plugin_run('admin-action',$GLOBALS);
 
 /* Load admin files */
 if(defined('Q')&&file_exists(PUBDIR.'admin/'.Q.'.php')){

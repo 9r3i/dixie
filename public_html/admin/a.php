@@ -105,6 +105,23 @@ elseif($data=='edit-post'){
   if(isset($select[0])){
     $data = $_POST;
     $data['datetime'] = $datetime;
+    $slug = create_slug($_POST['title']);
+    if(preg_match('/(temp\-[\d]{10,14})/i',$select[0]['url'])&&!empty($slug)){
+      $data['url'] = $slug;
+    }
+    if(isset($_POST['category'])){
+      if(isset($_POST['new-category'])){
+        $cat_slug = create_slug($_POST['new-category']);
+        if(!empty($cat_slug)){
+          $category = $_POST['new-category'];
+        }else{
+          $category = '';
+        }
+      }else{
+        $category = $_POST['category'];
+      }
+      $cat = set_category($_POST['post_id'],$category);
+    }
     $update = $ldb->update('posts','aid='.$_POST['post_id'],$data);
     if($update){
       header('location: '.WWW.'admin/edit-post?post_id='.$_POST['post_id'].'&status=success-update');
@@ -175,12 +192,25 @@ elseif($data=='rename-file'){
 /* Upload file */
 elseif($data=='upload-file'){
   if(isset($_FILES['file'])){
+    if(isset($_POST['directory'],$_POST['new-directory'])){
+      if($_POST['directory']=='new'&&!empty($_POST['new-directory'])){
+        @mkdir('upload/'.$_POST['new-directory']);
+        $dir = 'upload/'.$_POST['new-directory'].'/';
+      }elseif(!empty($_POST['directory'])&&is_dir($_POST['directory'])){
+        $dir = $_POST['directory'];
+      }else{
+        $dir = 'upload/';
+      }
+    }
     $files = rearrange_files($_FILES['file']);
     $r=0;
-    foreach($files as $file){
-      $r++;
-      if($file['error']==0){
-        @move_uploaded_file($file['tmp_name'],'upload/'.$file['name']);
+    if(isset($dir)&&is_dir($dir)){
+      foreach($files as $file){
+        $r++;
+        if($file['error']==0){
+          $fn = create_filename($file['name']);
+          @move_uploaded_file($file['tmp_name'],$dir.$fn);
+        }
       }
     }
     if($r==count($files)){
@@ -395,9 +425,9 @@ elseif($data=='delete-menu'){
 }
 /* New sidebar */
 elseif($data=='new-sidebar'){
-  $bar_types = array('text','recent','menu','tags','meta','profile','search');
+  $bar_types = array('text','recent','menu','tags','meta','profile','search','category');
   if(sdp()>7){
-    if(isset($_POST['type'])&&isset($_POST['title'])&&isset($_POST['order'])){
+    if(isset($_POST['type'],$_POST['title'],$_POST['order'])){
       $data = array(
         'type'=>$_POST['type'],
         'title'=>$_POST['title'],
@@ -677,8 +707,273 @@ elseif($data=='upload-theme'){
     exit('cannot proceed the update, error file');
   }
 }
-/* Settings */
-if($data=='activate-theme'){
+/* Get external theme data */
+elseif($data=='get-external-theme-data'){
+  if(isset($_GET['url'])){
+    $file = @file_get_contents($_GET['url']);
+    header('content-type: application/json');
+    print($file);
+    exit;
+  }else{
+    header('content-type: application/json');
+    print(json_encode(array('status'=>'error','message'=>'cannot connect into dixie\'s database themes')));
+  }
+}
+/* Add external theme */
+elseif($data=='add-external-theme'){
+  if(isset($_GET['file_url'])){
+    $exp = @explode('/',$_GET['file_url']);
+    $filename = array_pop($exp);
+    $target = PUBDIR.'/temp/'.$filename;
+    $copy = @copy($_GET['file_url'],$target);
+    if($copy){
+      $name = (isset($_GET['theme_name']))?$_GET['theme_name']:str_replace('.zip','',$filename);
+      if(file_exists($target)){
+        $zip = new ZipArchive;
+        if($zip->open($target)===true){
+          if($zip->extractTo(ROOT.'themes/'.$name)){
+            $zip->close();
+            @unlink($target);
+            header('location: '.WWW.'admin/themes/?status=success-add-external-theme');
+            exit;
+          }else{
+            header('content-type: text/plain;');
+            exit('error: the zip file cannot be extracted');
+          }
+        }else{
+          header('content-type: text/plain;');
+          exit('error: the zip file cannot be opened');
+        }
+      }else{
+        header('content-type: text/plain;');
+        exit('the file isn\'t in temp directory');
+      }
+    }else{
+      header('content-type: text/plain;');
+      exit('cannot get theme\'s copy file');
+    }
+  }else{
+    header('content-type: text/plain;');
+    exit('cannot find file url');
+  }
+}
+/* Get external plugin data */
+elseif($data=='get-external-plugin-data'){
+  if(isset($_GET['url'])){
+    $file = @file_get_contents($_GET['url']);
+    header('content-type: application/json');
+    print($file);
+    exit;
+  }else{
+    header('content-type: application/json');
+    print(json_encode(array('status'=>'error','message'=>'cannot connect into dixie\'s database plugins')));
+  }
+}
+/* Add external plugin */
+elseif($data=='add-external-plugin'){
+  if(isset($_GET['file_url'])){
+    $exp = @explode('/',$_GET['file_url']);
+    $filename = array_pop($exp);
+    $target = PUBDIR.'/temp/'.$filename;
+    $copy = @copy($_GET['file_url'],$target);
+    if($copy){
+      $name = (isset($_GET['plugin_name']))?$_GET['plugin_name']:str_replace('.zip','',$filename);
+      if(file_exists($target)){
+        $zip = new ZipArchive;
+        if($zip->open($target)===true){
+          if($zip->extractTo(ROOT.'plugins/'.$name)){
+            $zip->close();
+            @unlink($target);
+            header('location: '.WWW.'admin/plugins/?status=success-add-external-plugin');
+            exit;
+          }else{
+            header('content-type: text/plain;');
+            exit('error: the zip file cannot be extracted');
+          }
+        }else{
+          header('content-type: text/plain;');
+          exit('error: the zip file cannot be opened');
+        }
+      }else{
+        header('content-type: text/plain;');
+        exit('the file isn\'t in temp directory');
+      }
+    }else{
+      header('content-type: text/plain;');
+      exit('cannot get plugin\'s copy file');
+    }
+  }else{
+    header('content-type: text/plain;');
+    exit('cannot find file url');
+  }
+}
+/* Purchase external plugin */
+elseif($data=='purchase-external-plugin'){
+  if(isset($_GET['plugin_code'])){
+    $url = 'http://dixie.black-apple.biz/external_purchase.php?product_code='.$_GET['plugin_code'];
+    $file = @file_get_contents($url);
+    $data = @json_decode($file,true);
+    if(isset($data['validation'],$data['data_information'])){
+      $info = $data['data_information'];
+      if(isset($info['method'],$info['message'],$info['phone'])&&$info['method']=='call'){
+        header('content-type: text/plain;');
+        echo 'Purchase method: '.$info['method'].PHP_EOL.$info['message'].PHP_EOL.'Here is the phone number: '.$info['phone'];
+      }else{
+        header('content-type: text/plain;');
+        print_r($data);
+      }
+    }else{
+      header('content-type: text/plain;');
+      exit('plugin code is not valid');
+    }
+  }else{
+    header('content-type: text/plain;');
+    exit('cannot find plugin code');
+  }
+}
+/* Activation external plugin */
+elseif($data=='activation-external-plugin'){
+  if(isset($_POST['activation_code'])){
+    $url = 'http://dixie.black-apple.biz/external_activation.php?activation_code='.$_POST['activation_code'];
+    $file = @file_get_contents($url);
+    $data = @json_decode($file,true);
+    if(isset($data['status'],$data['message'],$data['type'])&&$data['type']=='plugin'){
+      if($data['status']=='OK'&&isset($data['file_url'])){
+        $name = str_replace('.zip','',$data['filename']);
+        $target = PUBDIR.'temp/'.$data['filename'];
+        @copy($data['file_url'],$target);
+        if(is_dir(ROOT.'plugins/'.$name)){
+          header('content-type: text/plain;');
+          exit('the plugin has been installed');
+        }elseif(file_exists($target)){
+          $zip = new ZipArchive;
+          if($zip->open($target)===true){
+            if($zip->extractTo(ROOT.'plugins/'.$name)){
+              $zip->close();
+              @unlink($target);
+              header('location: '.WWW.'admin/plugins/?status=success-activation-external-plugin');
+              exit;
+            }else{
+              header('content-type: text/plain;');
+              exit('error: the zip file cannot be extracted');
+            }
+          }else{
+            header('content-type: text/plain;');
+            exit('error: the zip file cannot be opened');
+          }
+        }else{
+          header('content-type: text/plain;');
+          exit('the file isn\'t in temp directory');
+        }
+      }else{
+        header('content-type: text/plain;');
+        exit($data['message']);
+      }
+    }else{
+      header('content-type: text/plain;');
+      if(isset($data['message'])){
+        exit($data['message']);
+      }else{
+        exit('unknown error');
+      }
+    }
+  }else{
+    header('content-type: text/plain;');
+    exit('invalid activation code');
+  }
+}
+/* Purchase external theme */
+elseif($data=='purchase-external-theme'){
+  if(isset($_GET['theme_code'])){
+    $url = 'http://dixie.black-apple.biz/external_purchase.php?product_code='.$_GET['theme_code'];
+    $file = @file_get_contents($url);
+    $data = @json_decode($file,true);
+    if(isset($data['validation'],$data['data_information'])){
+      $info = $data['data_information'];
+      if(isset($info['method'],$info['message'],$info['phone'])&&$info['method']=='call'){
+        header('content-type: text/plain;');
+        echo 'Purchase method: '.$info['method'].PHP_EOL.$info['message'].PHP_EOL.'Here is the phone number: '.$info['phone'];
+      }else{
+        header('content-type: text/plain;');
+        print_r($data);
+      }
+    }else{
+      header('content-type: text/plain;');
+      exit('theme code is not valid');
+    }
+  }else{
+    header('content-type: text/plain;');
+    exit('cannot find theme code');
+  }
+}
+/* Activation external theme */
+elseif($data=='activation-external-theme'){
+  if(isset($_POST['activation_code'])){
+    $url = 'http://dixie.black-apple.biz/external_activation.php?activation_code='.$_POST['activation_code'];
+    $file = @file_get_contents($url);
+    $data = @json_decode($file,true);
+    if(isset($data['status'],$data['message'],$data['type'])&&$data['type']=='theme'){
+      if($data['status']=='OK'&&isset($data['file_url'])){
+        $name = str_replace('.zip','',$data['filename']);
+        $target = PUBDIR.'temp/'.$data['filename'];
+        @copy($data['file_url'],$target);
+        if(is_dir(ROOT.'themes/'.$name)){
+          header('content-type: text/plain;');
+          exit('the theme has been installed');
+        }elseif(file_exists($target)){
+          $zip = new ZipArchive;
+          if($zip->open($target)===true){
+            if($zip->extractTo(ROOT.'themes/'.$name)){
+              $zip->close();
+              @unlink($target);
+              header('location: '.WWW.'admin/themes/?status=success-activation-external-theme');
+              exit;
+            }else{
+              header('content-type: text/plain;');
+              exit('error: the zip file cannot be extracted');
+            }
+          }else{
+            header('content-type: text/plain;');
+            exit('error: the zip file cannot be opened');
+          }
+        }else{
+          header('content-type: text/plain;');
+          exit('the file isn\'t in temp directory');
+        }
+      }else{
+        header('content-type: text/plain;');
+        exit($data['message']);
+      }
+    }else{
+      header('content-type: text/plain;');
+      if(isset($data['message'])){
+        exit($data['message']);
+      }else{
+        exit('unknown error');
+      }
+    }
+  }else{
+    header('content-type: text/plain;');
+    exit('invalid activation code');
+  }
+}
+/* Check dixie update */
+elseif($data=='check-dixie-update'){
+  $update = dixie_check_update();
+  header('content-type: application/json;');
+  $data = array();
+  if($update){
+    $data['status'] = 'OK';
+    $data['html'] = '<div class="update-info">Update version '.$update['update_version'].' is available. <a href="'.WWW.'admin/a?data=update-dixie&update-uri='.urlencode($update['update_uri']).'" title="Update to version '.$update['update_version'].'"><button class="update-button">Update Now</button></a></div>';
+  }else{
+    $data['status'] = 'up-to-date';
+    $data['html'] = '<div class="update-info">Dixie is up to date.</div>';
+  }
+  print(json_encode($data));
+  exit;
+}
+/* Activate theme */
+elseif($data=='activate-theme'){
   $the = new Themes();
   $themes = $the->themes;
   $name = (isset($_POST['name']))?$_POST['name']:'';
@@ -689,6 +984,145 @@ if($data=='activate-theme'){
   }else{
     header('content-type: text/plain;');
     exit('cannot find the theme');
+  }
+}
+/* Change editor */
+elseif($data=='change-editor'){
+  if(isset($_GET['re'])&&isset($_GET['to'])){
+    if($_GET['to']=='html'||$_GET['to']=='text'){
+      $update = $ldb->update('options','key=post_editor',array('value'=>$_GET['to']));
+      if($update){
+        header('location: '.$_GET['re']);
+      }else{
+        header('content-type: text/plain;');
+        exit('cannot update database');
+      }
+    }else{
+      header('content-type: text/plain;');
+      exit('invalid request to');
+    }
+  }else{
+    header('content-type: text/plain;');
+    exit('invalid action request');
+  }
+}
+/* Bulk action */
+elseif($data=='bulk-action'){
+  if(isset($_POST['action'])){
+    $bulk_actions = array('trash','delete','publish','draft');
+    header('content-type: text/plain;');
+    if(is_array($_POST['check'])&&in_array($_POST['action'],$bulk_actions)){
+      foreach($_POST['check'] as $id){
+        if($_POST['action']=='delete'){
+          $ldb->delete('posts','aid='.$id);
+        }else{
+          $ldb->update('posts','aid='.$id,array('status'=>$_POST['action']));
+        }
+      }
+      header('location: '.WWW.'admin/posts/'.$_POST['query']);
+      exit;
+    }else{
+      exit('invalid action request');
+    }
+  }else{
+    header('content-type: text/plain;');
+    exit('invalid action request');
+  }
+}
+/* Bulk action file */
+elseif($data=='bulk-action-file'){
+  if(isset($_POST['action'])){
+    $bulk_actions = array('delete','delete-all');
+    header('content-type: text/plain;');
+    if(in_array($_POST['action'],$bulk_actions)){
+      if($_POST['action']=='delete'&&is_array($_POST['check'])){
+        foreach($_POST['check'] as $id){
+          if($_POST['action']=='delete'){
+            @unlink($id);
+          }
+        }
+      }elseif($_POST['action']=='delete-all'&&isset($_POST['dir'])){
+        $files = dixie_explore('file',$_POST['dir']);
+        if(is_array($files)){
+          foreach($files as $file){
+            @unlink($file);
+          }
+        }
+        @rmdir($_POST['dir']);
+      }
+      header('location: '.WWW.'admin/files/?status=success-bulk-'.$_POST['action']);
+      exit;
+    }else{
+      exit('invalid action request');
+    }
+  }else{
+    header('content-type: text/plain;');
+    exit('no action request');
+  }
+}
+/* Upload post picture */
+elseif($data=='upload-post-picture'){
+  if(isset($_FILES['file'])){
+    if(isset($_POST['directory'],$_POST['new-directory'])){
+      if($_POST['directory']=='new'&&!empty($_POST['new-directory'])){
+        @mkdir('upload/'.$_POST['new-directory']);
+        $dir = 'upload/'.$_POST['new-directory'].'/';
+      }elseif(!empty($_POST['directory'])&&is_dir($_POST['directory'])){
+        $dir = $_POST['directory'];
+      }else{
+        $dir = 'upload/';
+      }
+    }
+    $files = rearrange_files($_FILES['file']);
+    $r=0;
+    if(isset($dir)&&is_dir($dir)){
+      foreach($files as $file){
+        $r++;
+        if($file['error']==0){
+          $fn = create_filename($file['name']);
+          @move_uploaded_file($file['tmp_name'],$dir.$fn);
+          if(file_exists($dir.$fn)){
+            $filename = $dir.$fn;
+          }
+        }
+      }
+    }
+    if(isset($filename)){
+      $update = $ldb->update('posts','aid='.$_POST['post_id'],array('picture'=>$filename));
+    }
+    if($r==count($files)){
+      header('location: '.WWW.'admin/change-picture/?post_id='.$_POST['post_id'].'&status=success-upload');
+      exit;
+    }else{
+      header('content-type: text/plain;');
+      exit('cannot upload the file');
+    }
+  }else{
+    header('content-type: text/plain;');
+    exit('cannot upload the file');
+  }
+}
+/* Change post picture */
+elseif($data=='change-post-picture'){
+  if(isset($_POST['file'],$_POST['post_id'])){
+    $file = (preg_match('/images\/unknown\.png/i',$_POST['file']))?'':str_replace(WWW,'',$_POST['file']);
+    $select = $ldb->select('posts','aid='.$_POST['post_id']);
+    if(isset($select[0])){
+      $update = $ldb->update('posts','aid='.$_POST['post_id'],array('picture'=>$file));
+      if($update){
+        header('location: '.WWW.'admin/edit-post/?post_id='.$_POST['post_id'].'&status=success-change-picture');
+        exit;
+      }else{
+        header('content-type: text/plain;');
+        exit('cannot update database');
+      }
+    }else{
+      header('content-type: text/plain;');
+      exit('cannot find the post');
+    }
+  }else{
+    header('content-type: text/plain;');
+    exit('cannot save the picture');
   }
 }
 /* Else action */

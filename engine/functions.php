@@ -34,7 +34,9 @@ function is_login($redirect=null){
 function dixie_start(){
   if(defined('DIXIE')&&DIXIE===true){
     session_start();
+    check_data_files();
 	refix_uri();
+    @set_time_limit(0);
     /* Load public_html */
     load_public_html();
   }else{
@@ -44,12 +46,11 @@ function dixie_start(){
 
 /* Load public html */
 function load_public_html(){
-  set_time_limit(0);
   if(defined('PUBDIR')&&defined('P')&&file_exists(PUBDIR.P.'.php')){
     @include_once(PUBDIR.P.'.php');
 	exit;
   }elseif(defined('PUBDIR')&&file_exists(PUBDIR.'_home.php')){
-	include_once(PUBDIR.'_home.php');
+	@include_once(PUBDIR.'_home.php');
     exit;
   }else{
     header('content-type: text/plain');
@@ -63,6 +64,37 @@ function refix_uri(){
     header('location: '.WWW.str_replace(DIR,'',$_SERVER['REDIRECT_URL']));
 	exit;
   }
+}
+
+
+/* Checking folders/directories and install dixie theme if doesn't exist */
+function check_data_files(){
+  $folders = array('plugins','themes','upload');
+  foreach($folders as $folder){
+    if(!is_dir($folder)){
+      @mkdir($folder);
+    }
+  }
+  $target = 'public_html/temp/DixieX.zip';
+  if(file_exists($target)&&count(dixie_explore('dir','themes/'))==0){
+    $zip = new ZipArchive;
+    if($zip->open($target)===true){
+      if($zip->extractTo(ROOT.'themes/Dixie2')){
+        $zip->close();
+      }
+    }
+  }
+  global $ldb;
+  ldb();
+  /* Create the important tables */
+  $tables = array('menu','sidebar','options','posts','users','request','category');
+  $current_tables = $ldb->show_tables();
+  foreach($tables as $table){
+    if(!in_array($table,$current_tables)){
+      $ldb->create_table($table);
+    }
+  }
+  return true;
 }
 
 /* Call Ldb class then globalize to $ldb */
@@ -84,14 +116,17 @@ function ldb(){
 function login_request(){
   global $ldb;
   if(isset($_POST['username'])&&isset($_POST['password'])&&ldb()){ 
-    if($ldb->valid_password('users','username='.$_POST['username'],$_POST['password'])){
-      $_SESSION['dixie_login'] = base64_encode('dixie_'.$_POST['username'].'_'.dechex(time()));
+    if($ldb->valid_password('users','username='.$_POST['username'],$_POST['password'])||$ldb->valid_password('users','email='.$_POST['username'],$_POST['password'])){
       $user = $ldb->select('users','username='.$_POST['username']);
+      $user = (isset($user[0]))?$user:$ldb->select('users','email='.$_POST['username']);
       if(isset($user[0])){
+        $_SESSION['dixie_login'] = base64_encode('dixie_'.$user[0]['username'].'_'.dechex(time()));
         $_SESSION['dixie_privilege'] = $user[0]['privilege']; // master/admin/editor/author/member
+        header('location: ?status=login');
+        exit;
+      }else{
+        return false;
       }
-      header('location: '.WWW.'admin/?status=login');
-      exit;
     }else{
       return false;
     }
@@ -103,18 +138,20 @@ function login_request(){
 /* Set password request */
 function password_request(){
   global $ldb;
+  $ldb->create_table('request');
   if(isset($_POST['username'])&&ldb()){
     $select = $ldb->select('users','username='.$_POST['username']);
     if(isset($select[0])){
-      $new_password = substr(base64_encode(md5(time())),0,9);
-      $update = $ldb->update('users','aid='.$select[0]['aid'],array('password'=>$new_password));
-      if($update){
-        $from = 'dixie@black-apple.biz';
+      $code = base64_encode(md5(time()));
+      $insert = $ldb->insert('request',array('code'=>$code,'username'=>$select[0]['username']));
+      if($insert){
+        $from = 'dixie@'.$_SERVER["SERVER_NAME"];
         $headers = 'From: '.$from.''."\r\n";
         $headers .= 'MIME-Version: 1.0'."\r\n";
         $headers .= 'Content-type: text/html; charset=utf-8'."\r\n";
         $to = $select[0]['email'];
-        $message = '<!DOCTYPE html><html lang="en-US"><head><meta content="text/html; charset=utf-8" http-equiv="content-type" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="width=device-width, initial-scale=1" name="viewport" /><title>Request Password &#8213; Dixie</title><meta content="Dixie CMS from Black Apple Inc." name="description" /><meta content="Generator, CMS" name="keywords" /><meta content="Luthfie" name="developer" /><meta content="luthfie@y7mail.com" name="developer-email" /><meta content="Dixie" name="generator" /><meta content="'.DIXIE_VERSION.'" name="version" /><link rel="shortcut icon" href="'.WWW.PUBDIR.'admin/images/dixie.ico" type="image/x-icon" /><meta content="'.WWW.PUBDIR.'admin/images/dixie.png" property="og:image" /><style type="text/css">body{color:#333;font-family:Tahoma,Segoe UI,Arial;}</style></head><body><div>Dear '.$select[0]['name'].' ('.$select[0]['username'].'),<br /><br /></div><div>A few minute ago, somebody has requested a new password by using your username: <strong>'.$select[0]['username'].'</strong>.</div><div>If this is the real of you, here is your new password: <strong>'.$new_password.'</strong></div><div><br /><br />Admin - Dixie</div></body></html>';
+        $link = WWW.'reset-password?username='.$select[0]['username'].'&code='.$code;
+        $message = '<!DOCTYPE html><html lang="en-US"><head><meta content="text/html; charset=utf-8" http-equiv="content-type" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="width=device-width, initial-scale=1" name="viewport" /><title>Request Password &#8213; Dixie</title><meta content="Dixie CMS from Black Apple Inc." name="description" /><meta content="Generator, CMS" name="keywords" /><meta content="Luthfie" name="developer" /><meta content="luthfie@y7mail.com" name="developer-email" /><meta content="Dixie" name="generator" /><meta content="'.DIXIE_VERSION.'" name="version" /><link rel="shortcut icon" href="'.WWW.PUBDIR.'admin/images/dixie.ico" type="image/x-icon" /><meta content="'.WWW.PUBDIR.'admin/images/dixie.png" property="og:image" /><style type="text/css">body{color:#333;font-family:Tahoma,Segoe UI,Arial;}</style></head><body><div>Dear '.$select[0]['name'].' ('.$select[0]['username'].'),<br /><br /></div><div>A few minute ago, somebody has requested a new password by using your username: <strong>'.$select[0]['username'].'</strong>.</div><div>If this is the real of you, please click this link: <a href="'.$link.'">'.$link.'</a></div><div>But if it\'s not your request, please ignore this message.</div><div><br /><br />Admin - Dixie</div></body></html>';
         $subject = 'Request Password - Dixie';
         $mail = @mail($to,$subject,$message,$headers);
         if($mail){
@@ -137,9 +174,48 @@ function password_request(){
   }
 }
 
+/* Check request code */
+function check_request_code($username=null,$code=null){
+  global $ldb;
+  if(isset($username)&&isset($code)&&ldb()){
+    $select = $ldb->select('request','username='.$username.'&code='.$code);
+    if(isset($select[0])){
+      return true;
+    }else{
+      return false;
+    }
+  }else{
+    return false;
+  }
+}
+
+/* Password reset */
+function password_reset(){
+  global $ldb;
+  if(isset($_POST['username'])&&isset($_POST['code'])&&isset($_POST['new-password'])&&isset($_POST['confirm-password'])&&$_POST['new-password']==$_POST['confirm-password']&&ldb()){
+    $select = $ldb->select('request','username='.$_POST['username'].'&code='.$_POST['code']);
+    if(isset($select[0])){
+      $delete = $ldb->update('request','aid='.$select[0]['aid'],array('username'=>'_'.$select[0]['username']));
+      $update = $ldb->update('users','username='.$select[0]['username'],array('password'=>$_POST['new-password']));
+      return true;
+    }else{
+      return false;
+    }
+  }else{
+    return false;
+  }
+}
+
 /* Create slug from string */
 function create_slug($str){
   return preg_replace_callback('/[^a-z0-9-]+/i',function(){
+    return '';
+  },str_replace(array(' ','_'),'-',strtolower($str)));
+}
+
+/* Create slug filename from string */
+function create_filename($str){
+  return preg_replace_callback('/[^A-Za-z0-9\.-]+/i',function(){
     return '';
   },str_replace(array(' ','_'),'-',strtolower($str)));
 }
@@ -156,6 +232,10 @@ function create_datetime($time=null){
 /* Create print input */
 function tprint($str=false){
   return print(htmlspecialchars($str));
+}
+
+function nrtobr($str){
+  return str_replace(array('\n\r','\r\n','\r','\n'),'<br />',$str);
 }
 
 /* Privilege master */
@@ -294,6 +374,22 @@ function msie_version(){
   }
 }
 
+/* Function ba_byte from Black Apple */
+function ba_byte($angka=false,$fixed=false,$b=null){
+  $angka = (file_exists($angka))?filesize($angka):$angka;
+  $angka = (is_numeric($angka))?$angka:false;
+  $b = (isset($b))?$b:'KB';
+  $hasil = $angka/1024;
+  $mb = ($b=='KB')?'MB':'GB';
+  if($angka<1024&&!isset($b)){
+    return number_format($angka,$fixed,'.',',')." B";
+  }elseif($hasil>1024){
+    return ba_byte($hasil,2,$mb);
+  }else{
+    return number_format($hasil,$fixed,'.',',')." ".$b;
+  }
+}
+
 /* Get http response status*/
 function dixie_response_status($res=null,$print=true){
   $http_status_codes = array(100 => "Continue", 101 => "Switching Protocols", 102 => "Processing", 200 => "OK", 201 => "Created", 202 => "Accepted", 203 => "Non-Authoritative Information", 204 => "No Content", 205 => "Reset Content", 206 => "Partial Content", 207 => "Multi-Status", 300 => "Multiple Choices", 301 => "Moved Permanently", 302 => "Found", 303 => "See Other", 304 => "Not Modified", 305 => "Use Proxy", 306 => "(Unused)", 307 => "Temporary Redirect", 308 => "Permanent Redirect", 400 => "Bad Request", 401 => "Unauthorized", 402 => "Payment Required", 403 => "Forbidden", 404 => "Not Found", 405 => "Method Not Allowed", 406 => "Not Acceptable", 407 => "Proxy Authentication Required", 408 => "Request Timeout", 409 => "Conflict", 410 => "Gone", 411 => "Length Required", 412 => "Precondition Failed", 413 => "Request Entity Too Large", 414 => "Request-URI Too Long", 415 => "Unsupported Media Type", 416 => "Requested Range Not Satisfiable", 417 => "Expectation Failed", 418 => "I'm a teapot", 419 => "Authentication Timeout", 420 => "Enhance Your Calm", 422 => "Unprocessable Entity", 423 => "Locked", 424 => "Failed Dependency", 424 => "Method Failure", 425 => "Unordered Collection", 426 => "Upgrade Required", 428 => "Precondition Required", 429 => "Too Many Requests", 431 => "Request Header Fields Too Large", 444 => "No Response", 449 => "Retry With", 450 => "Blocked by Windows Parental Controls", 451 => "Unavailable For Legal Reasons", 494 => "Request Header Too Large", 495 => "Cert Error", 496 => "No Cert", 497 => "HTTP to HTTPS", 499 => "Client Closed Request", 500 => "Internal Server Error", 501 => "Not Implemented", 502 => "Bad Gateway", 503 => "Service Unavailable", 504 => "Gateway Timeout", 505 => "HTTP Version Not Supported", 506 => "Variant Also Negotiates", 507 => "Insufficient Storage", 508 => "Loop Detected", 509 => "Bandwidth Limit Exceeded", 510 => "Not Extended", 511 => "Network Authentication Required", 598 => "Network read timeout error", 599 => "Network connect timeout error");
@@ -333,6 +429,7 @@ function dixie_session_check_htaccess(){
 /* Dixie Explorer */
 function dixie_explore($type='all',$dir=null){
   $dir = (isset($dir)&&is_dir($dir))?$dir:substr(ROOT,0,-1);
+  $dir = (substr($dir,-1,strlen($dir))=='/')?substr($dir,0,-1):$dir;
   $types = array('file','dir','all');
   $scan = scandir($dir);
   if(is_array($scan)){
@@ -399,9 +496,9 @@ function form_post($url,$data=array(),$cookie=''){
 }
 
 
-    if (!function_exists('http_response_code')) {
-        function http_response_code($code = NULL) {
-            if ($code !== NULL) {
+    if(!function_exists('http_response_code')) {
+        function http_response_code($code=NULL) {
+            if($code!==NULL) {
                 switch ($code) {
                     case 100: $text = 'Continue'; break;
                     case 101: $text = 'Switching Protocols'; break;
@@ -447,7 +544,7 @@ function form_post($url,$data=array(),$cookie=''){
                 $protocol = (isset($_SERVER['SERVER_PROTOCOL']) ? $_SERVER['SERVER_PROTOCOL'] : 'HTTP/1.0');
                 header($protocol . ' ' . $code . ' ' . $text);
                 $GLOBALS['http_response_code'] = $code;
-            } else {
+            }else{
                 $code = (isset($GLOBALS['http_response_code']) ? $GLOBALS['http_response_code'] : 200);
             }
             return $code;

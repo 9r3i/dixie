@@ -32,6 +32,7 @@ $content = '<?xml version="1.0" encoding="ISO-8859-1"?>
     <pubDate>'.date("r").'</pubDate>';
 $next = (isset($_GET['next']))?$_GET['next']:0;
 $counter=0; $stop=$next+10;
+
 foreach(array_reverse($posts) as $id=>$post){
   $counter++;
   if($counter>$next){
@@ -39,9 +40,10 @@ foreach(array_reverse($posts) as $id=>$post){
     $content .= '<item>';
     $content .= '<title><![CDATA['.utf8_decode($post['title']).']]></title>';
     $content .= '<link>'.WWW.$post['url'].'.html</link>';
-    $content .= '<description><![CDATA['.utf8_decode(substr($post['content'],0,200))
-      .((strlen($post['content'])>200)?'...':'')
-	  .((strlen($post['content'])>200)?' <a href="'.WWW.$post['url'].'.html" rel="detail" title="Baca selanjutnya...">Baca selanjutnya...</a>':'')
+    $pcontent = strip_tags($post['content'],'<p>');
+    $content .= '<description><![CDATA['.utf8_decode(substr($pcontent,0,200))
+      .((strlen($pcontent)>200)?'...':'')
+	  .((strlen($pcontent)>200)?' <a href="'.WWW.$post['url'].'.html" rel="detail" title="Read More...">[Read More]</a>':'')
 	  .']]></description>';
     $content .= '<pubDate>'.date('r',$post['time']).'</pubDate>';
     $content .= '</item>';

@@ -12,7 +12,7 @@ $users = get_user_data(true);
 /* HTML View */
 ?>
 <div class="config-body">
-  <div class="config-form"><a href="<?php echo WWW; ?>admin/new-user?_rdr" class="form-submit">Add User</a></div>
+  <a href="<?php echo WWW; ?>admin/new-user?_rdr"><div class="button fs15">Add User</div></a>
 </div>
 <div class="all-posts">
   <?php

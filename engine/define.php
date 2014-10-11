@@ -26,9 +26,12 @@ if(isset($_GET['q'])){
 /* Define public_html directory */
 define('PUBDIR','public_html/');
 
+/* Define third_party directory */
+define('THIRD_PARTY','third_party/');
+
 /* Define Dixie Version */
-define('DIXIE_VERSION','1.3');
-define('DIXIE_REVISION','e81c');
+define('DIXIE_VERSION','2.1.0');
+define('DIXIE_REVISION','ea0b');
 
 /* Privileges global */
 global $privileges;

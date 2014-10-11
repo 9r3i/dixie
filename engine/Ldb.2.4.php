@@ -1,15 +1,15 @@
 <?php
-/*
- *  Ldb Class for Katya CMS (Version < 4.0) and Dixie CMS
+/*  Ldb Class for Katya CMS (Version < 4.0) and Dixie CMS
  *  Ldb stands for Luthfie database :D
  *  Created by Luthfie
  *  luthfie@y7mail.com
  *  May 6th 2014
- *  Version 2.2
+ *  Version 2.4.0
+ *  Last update to 2.4 October 2nd 2014
  */
 
 class Ldb{
-  public $version = '2.2';
+  public $version = '2.4.0';
   public $time;
   public $aid = 0;
   protected $database;
@@ -42,7 +42,7 @@ class Ldb{
         foreach($data as $key=>$value){
           if($key=='password'){
             $column[] = $key.$batas_equal.$this->hash($value);
-          }else{
+          }elseif(!is_array($value)){
             $column[] = $key.$batas_equal.$value;
           }
         }
@@ -83,7 +83,7 @@ class Ldb{
 	  foreach($keys as $key=>$value){
 	    if(count($store)>0){
           foreach($store as $data){
-            if($data[$key]==$value){$hasil[] = $data;}
+            if(isset($data[$key])&&$data[$key]==$value){$hasil[] = $data;}
           }
         }
 	    if(isset($this->bank[$table][$key][$value])){
@@ -132,7 +132,7 @@ class Ldb{
 		      if(isset($data[$key])){
                 if($key=='password'){
 			      $bank[$key] = $this->hash($data[$key]);
-                }else{
+                }elseif(!is_array($data[$key])){
 			      $bank[$key] = $data[$key];
                 }
 			  }
@@ -194,6 +194,7 @@ class Ldb{
   }
   function search($table,$key=false,$set=false){
 	$filename = $this->db_dir.$table.'.ldb';
+    $index = @explode('=',$key);
 	if(!file_exists($filename)){
 	  $this->error = 'Table named '.$table.' does not exist';
 	  return false;
@@ -207,7 +208,7 @@ class Ldb{
 	  if(isset($this->bank[$table])&&count($this->bank[$table])>0){
 	    $hasil = array();
 	    foreach($this->bank[$table] as $bank){
-		  if(isset($bank[$index[0]])&&preg_match('/'.$index[1].'/i',$bank[$index[0]],$akur)){
+		  if(isset($bank[$index[0]],$index[1])&&!empty($index[1])&&preg_match('/'.$index[1].'/i',$bank[$index[0]],$akur)){
 			if($set==true){
 		      $bank[$index[0]] = str_replace($akur[0],'<b>'.$akur[0].'</b>',$bank[$index[0]]);
 			  $hasil[] = $bank;
@@ -246,14 +247,18 @@ class Ldb{
   }
   function write($filename,$content='',$type='w+'){
     $fp = fopen($filename,$type);
-    $write = fwrite($fp,$this->strip_magic($content));
-    fclose($fp);
-    if($write){
-      return true;
-    }
-    else{
+    if(flock($fp,LOCK_EX)){
+      $write = fwrite($fp,$this->strip_magic($content));
+      flock($fp,LOCK_UN);
+      if($write){
+        return true;
+      }else{
+        return false;
+      }
+    }else{
       return false;
     }
+    fclose($fp);
   }
   function strip_magic($str){
     if(is_array($str)){
@@ -326,10 +331,19 @@ class Ldb{
   function get_new_cid($table){
     $table_file = $this->db_dir.$table.'.ldb';
     if(file_exists($table_file)){
-      //$base = @number_format((@microtime(true)-@filectime($table_file)),1,'','');
-      $base = time()-1139374665;
-      $hexa = @dechex($base);
-      return $hexa;
+      $micro = @number_format((@microtime(true)),9,'.','');
+      $exp = explode('.',$micro);
+      $ext = (isset($exp[1]))?dechex($exp[1]):10000000;
+      $base = dechex(time()-1141963053);
+      if(strlen($ext)==8){
+        $ext = $ext;
+      }elseif(strlen($ext)<8&&strlen($ext)>0){
+        $uj = 8-strlen($ext);
+        $ext = $ext.substr(dechex(time()),0,$uj);
+      }else{
+        $ext = dechex(time());
+      }
+      return $base.$ext;
     }
     else{
       return $this->cid;

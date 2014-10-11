@@ -17,8 +17,12 @@ $template = array('standard');
 
 <div class="content-form">
   <form action="<?php printf(WWW.'admin/a?data=new-post'); ?>" method="post" class="form-content">
-    <div>Title<input type="text" name="title" class="form-input" placeholder="Insert a title here" /></div>
-    <div>Content<textarea id="content" name="content" placeholder="Insert the content here" class="form-textarea"></textarea></div>
+    <div class="input-parent">Title<input type="text" name="title" class="form-input input-title" placeholder="Insert a title here" /></div>
+    <div>Content
+      <a href="<?php print(WWW); ?>admin/a?data=change-editor&to=<?php echo (get_site_info('post_editor',false)=='text')?'html':'text'; ?>&re=<?php print(WWW); ?>admin/new-post/"><div id="change_editor">Change to <?php echo (get_site_info('post_editor',false)=='text')?'HTML':'Text'; ?></div></a>
+    </div>
+    <div <?php echo (get_site_info('post_editor',false)=='text'||is_mobile_browser())?'class="input-parent"':''; ?>><textarea id="content" name="content" placeholder="Insert the content here" class="form-textarea"></textarea></div>
+    <div id="post_configuration">
     <div class="config-header">Configurations</div>
     <div class="config-body">
       <div class="config-form">Status<select class="form-select" name="status">
@@ -60,6 +64,7 @@ $template = array('standard');
     <div class="post-extension" id="event_host">Host<input type="text" name="host" class="form-input" /></div>
     <div class="post-extension" id="event_start">Start<input type="text" name="start" class="form-input" /></div>
     <div class="post-extension" id="event_end">End<input type="text" name="end" class="form-input" /></div>
+    </div><!-- end of #post_configuration -->
     <input type="hidden" name="author" value="<?php printf(get_active_user()); ?>" />
     <div><input type="submit" value="Publish" class="form-submit" /></div>
     <datalist id="uploaded_files">
@@ -77,6 +82,7 @@ $template = array('standard');
 </div>
 <script type="text/javascript">
 document.getElementById("select_type").onchange=function(){
+  document.getElementById("page_content").style.height="800px";
   if(this.value=="training"){
     document.getElementById("type_training").style.display="block";
     document.getElementById("type_trainer").style.display="block";
