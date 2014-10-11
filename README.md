@@ -1,6 +1,6 @@
-dixie
+Dixie
 =====
-Dixie - Free and Simple CMS;
+Free and Simple CMS;
 
 ```php
 <?php
@@ -13,7 +13,7 @@ Dixie - Free and Simple CMS;
  * Company               : Black Apple Inc.;
  * Company-URI           : http://black-apple.biz/;
  * Dixie-URI             : http://dixie.black-apple.biz/;
- * Dixie-Creator         : Luthfie a.k.a.;
+ * Dixie-Creator         : Luthfie a.k.a. 9r3i;
  * Creator-Email         : Luthfie@y7mail.com;
  * Creator-URI           : http://n8ro.hol.es/;
  * Third-party           : CKEditor as content-editor;
