@@ -1,0 +1,573 @@
+
+                     Dixie - CMS Gratis dan Mudah
+                   Ditulis oleh Luthfie a.k.a. 9r3i
+                        http://n8ro.hol.es/
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+               -----[ PANDUAN UNTUK CMS DIXIE ]-----
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+0. DAFTAR ISI
+
+ 1. Perngenalan
+ 2. Unduh
+ 3. Instalasi
+ 4. Masuk (Login)
+ 5. Lupa Sandi
+ 6. Back-End (Halaman Admin)
+ 7. Ubah Lokal (Bahasa)
+ 8. Pembaharuan Dixie
+ 9. Pengaturan
+10. Entri Baru
+11. Semua Entri
+12. Berkas
+13. Menu
+14. Bar Samping
+15. Tema
+16. Plugin
+17. Pengguna
+18. Akun
+19. Keluar (Logout)
+20. Keistimewaan (Privileges)
+21. Kode Aktifasi
+22. Front-End (Tampilan Depan Website)
+23. FAQs (Pertanyaan dan Jawaban yang Sering Diajukan)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+1. PENGENALAN
+
+   Dixie adalah CMS open source yang gratis dan sederhana. Dikembangkan 
+oleh Luthfie a.k.a. 9r3i [http://n8ro.hol.es/?id=profile] (profile-ku)
+
+   Dixie menggunakan bahasa pemograman PHP, tepatnya PHP asli (tanpa 
+framework) dan juga Javascript yang menggunakan framework jQuery. Juga 
+berbanding dengan PHP versi 5.3.28 dan telah diuji coba pada PHP versi 
+5.5.2 namun CMS ini hanya dapat bekerja secara optimal pada PHP versi 
+5.4.7 sebagaimana Luthfie membuatnya.
+
+   Dixie menggunakan kelas database yang portable dan dapat dipindah-
+pindah dari directory satu ke directory lainnya secara flexible. Nama 
+kelas tersebut adalah Ldb2, atau generasi kedua dari Ldb, dan Ldb 
+adalah singkatan dari Luthfie database, :D
+Sebagaimana Ldb terus ditingkatkan, saat ini Dixie sudah menggunakan 
+Ldb v2.5 yang lebih aman dan cepat.
+Sebagai info saja, Ldb bukanlah framework PHP-SQL, ini adalah kelas 
+yang mandiri dan menulis data pada directory-nya sendiri.
+
+   Dixie sekarang lebih cocok pada browser yang bida dikatakan 
+low-tech, seperti browser handphone atau IE versi 8 ke bawah.
+
+   Dixie menggunakan aplikasi pihak-ketiga untuk editor konten entri,
+CK-Editor.
+
+   Dixie dibuat untuk blog namun ini juga sangat cocok untuk webiste,
+karena ada banyak contoh webiste yang menggunakan CMS ini.
+
+   Aku harap anda dapat menikmati CMS ini. :)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+2. UNDUH
+
+   Unduh Dixie di website-nya, http://dixie.hol.es/ untuk 
+versi terakhir. Unduh berkas dalam bentuk zip.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+3. INSTALASI
+
+   Menggunakan localhost
++ Jika anda menggunakan xampp atau lamp atau lainnya untuk localhost 
+  atau 127.0.0.1, pindahkan berkas tadi yang sudah diunduh ke dalam 
+  directory yang dikehendaki untuk diinstal, kemudian extract atau 
+  unzip berkas tersebut.
++ Eksekusi lokasi berkas seperti:
+  http://localhost/[directory_dixie]/
++ Kemudian anda akan masuk ke halaman Instalasi Dixie
+
+   Menggunakan server-web
++ Unggah berkas zip tadi ke server dan letakan berkas di directory yang 
+  anda kehendaki untuk di instal, lalu unzip berkas tersebut.
++ Exekusi lokasi berkas, seperti:
+  http://www.domainanda.com/
+  atau
+  http://www.domainanda.com/[directory_dixie]/
++ Kemudian adan akan masuk ke halaman Instalasi Dixie
+
+   Kode Instalasi: LAY-ON-DIXIE
+
+   Langkah berikutnya adalah memasukan data informasi anda, seperti:
++ Nama Website
++ Username (untuk login)
++ Kata Sandi (untuk login)
++ Konfirmasi Sandi
++ Surel (untuk pemulihan kata sandi)
++ Nama lengkap (sebagai penulis)
+
+   Kemudian klik Submit dan selesai! Anda akan diarahkan ke halaman 
+utama tampilan depan. Selamat menikmati!
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+4. MASUK (LOGIN)
+
+   Untuk masuk pada bakc-end atau halaman admin, anda cukup mengetik 
+lokasi alamat pada browser dengan menambah "admin/" setelah alamat 
+domain website anda, contoh: http://www.domainanda.com/admin/
+
+   Atau anda dapat menggunakan meta bar samping dengan mengklik 
+"Login", lalu anda akan diarahkan ke halaman Login, yang harus 
+menyertakan username dan kata sandi.
+
+   Masukan username dan kata sandi anda, kemudian klik tombol Login.
+Jika terjadi kesalahan, Dixie akan memberitahukan kepada anda apa yang 
+salah. Dan jika username dan kata sandi benar, maka anda akan diarahkan 
+masuk ke halaman Admin atau kita menyebutnya back-end.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+5. LUPA SANDI
+
+   Terkadang kita lupa hal yang penting, seperti kata sandi yang 
+semestinya diingat baik-baik. Namun tak usah risau, selalu ada solusi,
+ini dia langkah-langkahnya:
+
++ Pada halaman Login, ada sebuah tautan yang mengarah ke halaman lain.
+  Tertulis "Lupa kata sandi anda?" klik disitu!
++ Setelah mengklik, anda akan diarahkan ke halaman Permintaan Sandi.
+  Disana anda akan diminta username, dan pemberitahuan akan muncul bila 
+  terjadi kesalahan.
++ Masukan username anda, kemudial klik tombol "Kirim Permintaan"
++ Dixie akan mengirimkan sebuah surel (email) untuk reset sandi
++ Periksa surel anda di folder inbox ataupun di folder spam
++ Klik tautan yang telah Dixie berikan kepada anda, dan anda akan 
+  diarahkan pada halaman Reset Sandi
++ Pada halaman Reset Sandi, yang harus anda lakukan adalah mengisi 
+  kata sandi baru anda dua kali, kemudian klik tombol "Lanjutkan"
++ Jika kata sandi kedua tidak sama, maka kesalahan akan diberitahukan
++ Dan jika berhasil, anda akan diarahkan ke halaman Login, kemudian
+  anda sekarang dapat menggunakan kata sandi baru.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+6. BACK-END (Halaman Admin)
+
+   Pada halaman Admin, anda akan melihat halaman Beranda Admin, Dixie 
+akan memberitahu anda berapa banyak halaman atau entri atau artikel 
+yang anda miliki, berapa banyak berkas yang telah anda ungah, tema 
+yang tengah anda aktifkan, dan berapa banyak plugin yang telah 
+terinstal pada Dixie.
+
+   Dan dia juga akan memberitahukan anda seperti: "Jangan lupa untuk 
+memeriksa Pengaturan anda."
+
+   Dan dibawahnya, terdapat log perubahan dan pemberitahuan untuk 
+Dixie versi terbaru. Lalu anda akan diberitahu jika anda menggunakan 
+Dixie versi terbaru.
+
+   Di ujung kanan-atas, anda akan melihat nama website anda, dan anda 
+akan diarahkan ke halaman depan bila anda mengklik tautan tersebut.
+
+   Dan pada samping kiri, anda akan melihat bar menu, dan sebagai 
+menu default adalah Beranda, Entri Baru, Semua Entri, Berkas, Menu, 
+Bar Samping, Tema, Plugin, Pengguna, Akun, Pengaturan dan Keluar.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+7. UBAH LOKAL (Bahasa)
+
+   Sebagaimana dalam Dixie versi 2.3.0, paket lokal ditambahkan untuk 
+membuat anda lebih mudah menggunakan Dixie.
+
+   Ada tombol biru di kanan-atas halam admin sejak anda masuk ke 
+halaman login, klik tombol tersebut lalu pilih lokal anda.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+8. PEMBAHARUAN DIXIE
+
+   Dixie akan selalu memeriksa versi terbaru melalui servernya, dan 
+dia akan memberitahu anda jika ada versi terbaru untuk diperbaharui, 
+kemudian tombol pembahruan akan muncul di layar bagian bawah pada 
+halaman Beranda Admin.
+
+   Klik tombol tersebut, lalu Dixie akan secara otomatis memperbaharui 
+dirinya pada versi terbaru dari server.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+9. PENGATURAN
+
+   Anda lebih baik memilih pergi ke halaman Pengaturan terlebih dahulu, 
+karena anda harus mengatur informasi anda pada website, seperti:
+
+a. Nama Situs
+   Adalah nama yang akan tampil pada halaman situs.
+b. Deskripsi Situs
+   Ini penting diisi, karena akan memberikan data informasi tentang
+   situs yang anda miliki, dan bagian ini akan menggantikan informasi 
+   deskripsi bila deskripsi pada entri kosong.
+c. Kata Kunci Situs
+   Fungsinya hampir sama dengan deskripsi.
+d. Robots
+   Adalah tag meta yang akan memberitahukan robot pencari dan perambah
+   untuk follow atau index situs tersebut.
+e. Zona Waktu
+   Adalah zona waktu dimana anda berada, pilihlah dengan bijaksana.
+f. Tema
+   Ini terbagi pada 3 sesi, tema utama, tema mobil dan tema MSIE 
+   (MicroSoft Internet Explorer), untuk menampilkan tampilan berbeda 
+   pada situs lainnya, namun jika tema yang terpasang adalah responsif, 
+   maka anda tak perlu memasang tema yang berbeda pada setiap sesi.
+g. Halaman Utama
+   Adalah halaman yang akan tampil pada index.php atau queri kososng.
+   Sebagai contoh, tampilan pada: http://www.domain.com/
+h. Editor Posting
+   Ada 2 kemudahan, yaitu Text dan HTML.
+   Text untuk menulis secara simple pada text dasar.
+   Sedangkan HTML untuk menggunakan CK-Editor sebagai aplikasi pihak
+   ke tiga, yang mendukung dalam penulisan content HTML dan tag nya.
+
+   Kemudian klik tombol "Simpan Pengaturan" untuk menyimpan perubahan.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+10. ENTRI BARU
+
+   Untuk membuat entri baru, cukup dengan meng-klik "Entri Baru" pada 
+menu di sisi kiri.
+
+   Pada bagian ini, anda akan melihat form konten, judul isian dan 
+kemudahan tag lainnya. Pertama, anda harus memasukan judul pada isian, 
+Dixie akan mengubah judul tersebut menjadi slug untuk permintaan html 
+pada front-end, untuk contoh, judul yang anda masukan adalah 
+"Percobaan Judul", ini akan menghasilkan slug "percobaan-judul" yang 
+terdiri dari huruf kecil tanpa spasi.
+
+   Berikutnya, area isian konten editor, anda dapat mematikannya 
+dengan meng-klik tombol "Ubah ke Text" untuk mode mahir, dan 
+mengembalikannya dengan meng-klik tombol yang sama dalam tulisan yang 
+berbeda "Ubah ke HTML".
+Disampingnya tombol ini terdapat tombol "Lihat" untuk melihat hasil 
+entri pada isian kontent.
+
+   Jika anda menyalakan editor HTML, anda dapat memodifikasinya sesuai 
+yang anda inginkan, lagipula aplikasi ini terdapat pada lokasi 
+directory public, pada pihak ke tiga.
+
+   Tindakan, ada dua tindakan, Perbaharui (jika dalam mode sunting) 
+atau Terbitkan (jika pada mode entri baru) dan Hapus.
+
+   Konfigurasi
+   Opsi ini adalah penting, karena mereka akan menggendalikan entri 
+sebagai terbitan atau draf, prifat atau publik, lalu spesifikasi 
+karegori dan juga pilihan jenis entri.
+   Dengan mengubah jenis entri, akan ada beberapa opsi tambahan di 
+bawah editor konten. Cobalah rubah ke jenis Pelatihan, lalu opsi 
+tambahan akan muncul, sebagai isian Pelatih, Tanggal Seminar, Harga 
+serta Tempat.
+
+   Berikutnya adalah bagian gambar, ada tombol "Ubah gambar" yang 
+terletak dekat dengan gambar tanda tanya besar jika anda belum mengisi 
+gambar tersebut dengan gambar. Untuk mengubahnya, cukup dengan 
+meng-klik tombol tersebut, lalu anda akan terhubung pada halaman 
+berikutnya, yaitu halaman Merubah Gambar. Jika  anda sudah pernah 
+mengunggah beberapa gambar, mereka akan muncul pada halaman ini sebagai 
+opsi pilihan, namun jika belum, cukup mencoba mengunggah saja. Pilih 
+direktori juga untuk mengunggahnya pada direktori yang anda inginkan.
+Jika sudak selesai, klik tombol Simpan.
+
+   Kembali pada editor entri, jika entri sudah siap semua untuk 
+diterbitkan, maka cukup dengan menekan tombol "Terbitkan" atau tombol 
+"Perbaharui", lalu entri akan terbit pada situs anda.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+11. SEMUA ENTRI
+
+   Halaman Semua Entri adalah tempat dimana terkumpulnya seluruh entri 
+yang anda telah buat sebelumnya. Pada bagian ini, anda dapat menyaring 
+entri pada terbitan, draf atau sampah, dan juga menyaring jenis entri. 
+Dengan mengubah opsi filter, anda akan diarahkan dan disegarkan pada 
+halaman yang sama namun berbeda saringan.
+
+   Berikutnya untuk menyaring tag opsi, ada tag tindakan masal, ini 
+akan melakukan tindakan lebih dari satu entri. Coba klik tombol 
+"Pilih Semua", kemudian setiap baris entri akan terpilih. Lalu pilih 
+opsi tindakan masal, seperti draf, kemudian klik tombol "Lakukan 
+Tindakan". Dan semua entri yang telah anda pilih akan dipindahkan 
+pada bagian draf, dan lihatlah dengan sarigan draf pada opsi sarigan.
+
+   Setiap entri memiliki infomasi detail, seperti status dan jenis 
+informasi, terakhir diperbaharui dan waktu pembuatan.
+Dan tentunya setiap entri mempunyai link untuk disunting, dilihat, 
+sampah dan dihapus secara permanen.
+
+   Halaman ini hanya dapat menampilkan 10 entri per halaman, jadi jika 
+anda mempunyai lebih dari 10 entri, makan anda harus menekan tombol 
+Selanjutnya pada setiap halaman entri tersebut.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+12. BERKAS
+
+   Ini adalah konten data yang terunggah pada direktori, lebih tepatnya 
+"upload/" untuk awal. Bar pertama adalah tombol "Unggah", klik tombol 
+tersebut jika anda ingin mengunggah sebuah berkas atau lebih.
+
+   Unggah
+   Pada halaman ini, anda akan melihat pilihan direktori atau anda dapat 
+membuat direktori yang baru. Masukan berkas yang anda ingin unggah, jika 
+lebih daripada satu, tekan saja tombol "Tambah Berkas", kemudian Dixie 
+akan membuat tag isian yang baru. Sebagaimana isian maksimal adalah 20, 
+maka ini terpasang hanya 20 berkas per unggahan.
+Jika sudah siap semua, maka klik tombol Unggah.
+
+   Kembali pada bar pertama tadi, disebelah tombol Unggah ada pilihan 
+direktori, jika anda pernah membuat direktori saat sedang mengunggah, 
+maka mereka akan muncul disini sebagai pilihan. Pilih salah satu dari 
+direktori tersebut, maka anda akan diarahkan secara otomatis pada isi 
+daripada direktori terpilih tersebut.
+
+   Berikutnya adalah tindakan masal, pilihanya adalah Hapus dan Hapus 
+Semua, dan tombol Lakukan Tindakan dan tombol Pilih Semua. Ini bekerja 
+sama persis seperti tindakan masal pada halaman Semua Entri.
+
+   Dibawah bar atas ini terdapat berkas yang terisi pada direktori 
+terpilih, dan setiap berkas tertulis informasi berkas itu sendiri, 
+seperti ukuran dan watku terunggah. Kemudian setiap berkas ini memiliki 
+tindakan masing-masing juga, seperti lihat, ubah nama dan hapus.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+13. MENU
+
+   Ini dalah bagian untuk mengatur semua menu. Hanya ada 3 jenis menu, 
+atas, samping dan bawah. Namun jika anda ingin menu tambahan, ada plugin 
+yang mendukung fitur menu tersebut. Opsi pilihan adalah untuk menyaring 
+menu yang sudah anda buat dengan mengklik tombol Saring.
+
+   Tombol Menu Baru adalah untuk membuat menu baru, anda akan diarahkan 
+dengan mengklik tombol ini. Pada halaman Menu Baru, anda harus memilih 
+jenis menu, isian nama menu, slug dan urutan, kemudian klik tombol 
+"Tambah Menu".
+
+   Pada daftar menu, setiap menu memiliki informasi detail masing-masing,
+seperti jenis dan urutan, kemudian tindakan masing-masing seperti lihat, 
+sunting dan hapus.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+14. BAR SAMPING
+
+   Bar samping adalah plugin asal untuk mengatur konten samping. Ada 6 
+jenis bar, diantaranya: text, pencarian, entri terkini, menu, meta dan 
+kategori. Dan daftar dari plugin tersebut adan menampilkan detail 
+informasi seperti: jenis, unrutan dan opsi, kemudian tindakan masing-
+masing seperti sunting dan hapus.
+
++ Jenis text adalah jenis asal dan awal, konten ini hanya berisi text 
+  dan juga skrip.
++ Jenis entri terkini berisi konten terkini yang telah terbit pada 
+  situs, pada jenis ini terdapat opsi untuk mengatur maksimum entri 
+  yang akan ditampilkan pada situs.
++ Jenis pencarian adalah isian untuk mencari konten entri, tak ada 
+  opsi untuk hal ini.
++ Jenis menu adalah untuk menampilkan menu samping yang telah anda buat.
++ Jenis meta adalah tag asal yang terdapat pada Dixie. Yang berisi konten 
+  Login, RSS dan blog Dixie.
++ Jenis kategori untuk membuat kategori pada tag samping.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+15. TEMA
+
+   Ini dia, bagian Tema adalah untuk mengatur tema-tema yang telah 
+terinstall pada Dixie. Dan mereka hanya dapat diaktifkan jika mereka 
+telah terinstall dengan benar.
+
+   Untuk menginstall sebuah tema, cukup dengan mengklik tombol "Tambah 
+Tema", lalu anda akan diarahkan pada halaman Tambah Tema. Dixie akan 
+mencari tema-tema dari server-nya, dan menampilkannya 
+pada anda tema mana saja yang tersedia untuk diinstallkan. Jika tema 
+sudah terinstall, Dixie akan memberitahukan pada anda kemudian.
+Atau anda dapat pula menginstall tema Dixie secara manual dengan menaruh 
+file berbentuk *.zip pada tag isian lalu klik tombol Unggah.
+
+   Anda sudah memiliki Kode Aktifasi?
+   Lihat bagian #21 untuk lebih jelasnya
+
+   Kembali pada halaman daftar Tema, ada beberapa informasi pada masing-
+masing tema, seperti: versi tema, nama pembuat, tautan untuk dikunjungi,
+screenshot serta deskripsi.
+Dan setiap daftar mempunyai tindakan masing-masing, seperti: opsi tema, 
+sunting tema, aktifkan atau non-aktifkan dan uninstall.
+
+   Opsi tema tersebut adalah berbeda satu sama lainnya, karena 
+kontentnya diambil dari opsi berkas pada tema, dan jika tema tersebut 
+tidak memiliki berkas opsi, maka Dixie tidak akan menampiklam halaman 
+opsi atau dia akan memberitahukan anda bahwa tema tersebut tidak 
+memiliki berkas opsi.
+
+   Halaman sunting tema adalah untuk mengedit tema, ini akan muncul 
+bila berkas yang terdapat pada direktori tema tersebut. jenis berkas 
+terbatas, hanya dapat membaca berkas php, css, ja dan html saja. Jadi 
+ini tidak dapat lebih dari pada itu.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+16. PLUGIN
+
+   Bagian plugin ini adalah untuk mengatur plugin yang terinstall. 
+Pertama anda pasti melihat tombol Tambah Plugin. Anda akan terarahkan 
+jika anda mengklik tombol tersebut.
+
+   Hampir sama dengan halaman Tema Baru, halaman Tambah Plugin Baru 
+juga untuk menginstall plugin baru. Dixie akan mencari plguin mana saja 
+yang tersedia pada servernya, kemudian ditampilkan pada halaman ini.
+Jika anda ingin menginstall plugin secara manual, ada isian untuk 
+memasukan berkas berbentuk zip, kemudian Dixie akan secara otomatis 
+mengubahnya menjadi berkas plugin.
+
+   Saat plugin selesai teristall, anda akan terarahkan kembali pada 
+halaman Plugin sebelumnya, dan akan terlihat plugin yang baru.
+
+   Daftar plugin mempunyai informasi masing-masing seperti status 
+(aktif/tidak), versi plugin, DCV (komper versi Dixie), pembuat plugin,
+tautan untuk mengunjungi situs plugin dan deskripsi plugin.
+
+   Dan tentunya, terdapat pula tidakan pada masing-masing plugin, 
+seperti aktifkan atau non-aktifkan, uninstall dan opsi plugin.
+
+   Sama seperti opsi tema, opsi plugin tidak akan dapat ditampilkan 
+jika plugin tersebut tidak mempunyai berkas opsi, karena setiap kontent 
+opsi diambil dari berkas opsi masing-masing plugin.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+17. PENGGUNA
+
+   Bagian ini adalah untuk mengurus para pengguna yang telah terdaftar 
+pada situs tersebut. Konten halaman ini adalah tombol "Tambah Pengguna",
+dan anda akan terarahkan pada halamannya jika anda mengklik tombol 
+tersebut.
+
+   Untuk membuat pengguna baru, isian Tambah Pengguna Baru harus terisi 
+secara benar. Seperti keistimewaan, nama pengguna, surel, nama lengkap 
+dan juga kata sandi. Keistimewaan adala keterbatasan dalam beberapa 
+fitur Dixie. Baca #20 untuk lebih lanjut.
+
+   Kemudian nama pengguna yang permanen karena ini akan digunakan untuk 
+masuk dan pemulihan kata sandi. Berikutnya adalah surel, ini juga 
+penting untuk pemulihan kata sandi jika anda lupa kata sandi anda. Lalu 
+isian nama untuk tampilan pada penulis di entri halaman depan dan isian 
+kata sandi untuk halaman masuk.
+
+   Jika pembuatan ini berhasil, Dixie akan mengarahkan anda kembali pada
+halaman Pengguna, dan anda akan melihat satu pengguna yang baru saja 
+anda buat. Pada urutan pertama, ada beberpa informasi, nama perngguna,
+surel, dan waktu bergabung, dan tindakan opsi untuk masing-masing 
+pengguna berupa sunting dan hapus.
+
+   Bagian ini hanya dapat diakses oleh pengguna yang mempunya 
+keistimewaan admin. Jadi tak ada seorang pun yang dapat mengubah-
+ngubahnya kecuali admin itu sendiri.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+18. AKUN
+
+   Bagian akun adalah halaman untuk menampilkan atau menyunting 
+informasi pengguna yang aktif, dan untuk mengubah kata sandi pula. Ada 
+2 isian, untuk menyunting dan merubah kata sandi, dan setiap isian wajib 
+menyertakan security confirmation berupa kata sandi.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+19. KELUAR (Logout)
+
+   Untuk keluar dari halaman Admin, cukup dengan menekan tombol "Keluar" 
+pada menu samping kiri, kemudian anda akan dikeluarkan dan diarakan 
+pada halaman Masuk (Login).
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+20. KEISTIMEWAAN (Privileges)
+
+   Ini adalah kelebihan dari CMS ini. Setiap pengguna mempunya 
+keistimewaan masing-masing, dan mempunyai keterbatasan pada beberapa 
+fitur. Ada empat jenis keistimewaan, sebagai berikut:
+
+1. Admin
+   Mengendalikan secara keseluruhan, akses penuh pada setiap milik 
+   pengguna lainnya dan mempunyai kuasa untuk menghapus pengguna lain.
+   Berikut keistimewaan yang dimiliki dalam mengakses:
+   + Entri Baru
+   + Semua Entri (termasuk entri milik pengguna lain)
+   + Berkas
+   + Menu
+   + Bar Samping
+   + Tema
+   + Plugin
+   + Pengguna
+   + Akun
+   + Pengaturan
+   + Add-On Tambahan
+2. Editor
+   Berikut keistimewaan yang dimiliki dalam mengakses:
+   + Entri Baru
+   + Semua Entri (termasuk entri milik pengguna lain)
+   + Berkas
+   + Menu
+   + Bar Samping
+   + Akun
+   + Add-On Tambahan (dengan keistimewaan yang setara dengan editor)
+3. Author
+   Berikut keistimewaan yang dimiliki dalam mengakses:
+   + Entri Baru
+   + Semua Entri (termasuk entri milik pengguna lain)
+   + Akun
+   + Add-On Tambahan (dengan keistimewaan yang setara dengan author)
+4. Member
+   This is the specific privilege, this user has access to:
+   Berikut keistimewaan yang dimiliki dalam mengakses:
+   + Akun
+   + Add-On Tambahan (dengan keistimewaan yang setara dengan member)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+21. KODE AKTIFASI
+
+   Anda pasti pernah melihat tulisan seperti ini, "Anda sudah mempunyai 
+Kode Aktifasi?".
+Apa itu Kode Aktifasi?
+Kode Aktifasi adalah sebuah kode untuk mengaktifkan tema atau plugin 
+uang berbayar.
+
+   Beberpa plugin atau tema tidak gratis, mereka mempunyai ijin resmi 
+untuk menggunakan plugin atau tema sebagai bahan komersial.
+
+   Kode Aktifasi ini mempunyai jangka waktu kadaluarsa sebagaimana 
+ketetapan pada ijinnya, seperti pembayaran atau kebijakan lainnya.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+22. FRONT-END (Tampilan Depan Website)
+
+   Ini adalah bagaimana tampilan depan pada situs. Setelah segalannya 
+anda pasang pada halaman belakang (back-end), seluruh bahan yang telah 
+terbit akan muncul disini.
+
+   Dari halaman belakang, anda akan melihat nama situs pada pojok kanan-
+atas pada halaman, klik, lalu anda akan tearahkan pada halaman depan 
+situs tersebut. Atau jika anda menginstall Dixie pada direktori utama, 
+anda cukup memasukan alamat situs seperti ini: http://www.domain.com/
+
+   Pada halaman depan, anda dapat melihat entri private anda selama 
+anda dalam keadaan login. Termasuk pengguna lain yang mempunyai 
+keistimewaan pada entri tersebut. Namun bagaimanapun juga, pengguna 
+dengan keistimewaan member dapat melihat entri juga jika pengguna 
+tersebut dalam keadaan login.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+23. FAQs (Pertanyaan dan Jawaban yang Sering Diajukan)
+
+   Bagian ini adalah bagi anda untuk menanyakan hal apa saja yang 
+berkenaan dengan Dixie. Saya sebagai pengembang akan membantu anda 
+untuk menemukan jalan keluarnya.
+
++ Menu tidak menghilang saat saya mengubah ukuran browser. Bagaimana
+  Saya dapat menampilkannya lagi?
+- Menu tersebut di sembunyikan bila ukuran window browser tidak cukup 
+  luas untuk menampilkan konten menu. Jika anda mengubah ukuran window 
+  browser, maka seharusnya akan muncul tiga garis putih tepat 
+  disamping tulisan judul "Dixie", klik disitu, maka menu akan muncul 
+  dibawahnya.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+ Panduan untuk CMS Dixie versi 3.0.0
+ Hakcipta 2014-2015, Dixie
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+

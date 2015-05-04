@@ -1,8 +1,6 @@
 <?php
-/* Black Apple Inc.
- * http://black-apple.biz/
- * Dixie CMS
- * Created by Luthfie
+/* Dixie - Free and Simple CMS
+ * Created by Luthfie a.k.a. 9r3i
  * luthfie@y7mail.com
  */
 
@@ -10,7 +8,11 @@
 function is_login($redirect=null){
   global $ldb;
   if(!isset($_SESSION['dixie_login'])){
-    if(isset($redirect)){
+    if(isset($_COOKIE['dixie_login_cookie'],$_COOKIE['dixie_privilege_cookie'])){
+      $_SESSION['dixie_login'] = $_COOKIE['dixie_login_cookie'];
+      $_SESSION['dixie_privilege'] = $_COOKIE['dixie_privilege_cookie'];
+      return isset($redirect)?is_login($redirect):is_login();
+    }elseif(isset($redirect)){
 	  header('location: '.WWW.$redirect);
 	  exit;
 	}else{
@@ -46,7 +48,7 @@ function dixie_start(){
 
 /* Load public html */
 function load_public_html(){
-  if(defined('PUBDIR')&&defined('P')&&file_exists(PUBDIR.P.'.php')){
+  if(defined('PUBDIR')&&defined('P')&&is_file(PUBDIR.P.'.php')){
     @include_once(PUBDIR.P.'.php');
 	exit;
   }elseif(defined('PUBDIR')&&file_exists(PUBDIR.'_home.php')){
@@ -60,8 +62,8 @@ function load_public_html(){
 
 /* Refix URI inside p= if the request */
 function refix_uri(){
-  if(defined('P')&&preg_match('/p=/i',$_SERVER['REQUEST_URI'])){
-    header('location: '.WWW.str_replace(DIR,'',$_SERVER['REDIRECT_URL']));
+  if(defined('P')&&preg_match('/(p=[a-z0-9-]+)/i',$_SERVER['REQUEST_URI'])){
+    header('location: '.WWW.str_replace(DIR,'',P));
 	exit;
   }
 }
@@ -79,7 +81,7 @@ function check_data_files(){
   if(file_exists($target)&&count(dixie_explore('dir','themes/'))==0){
     $zip = new ZipArchive;
     if($zip->open($target)===true){
-      if($zip->extractTo(ROOT.'themes/Dixie2')){
+      if($zip->extractTo('themes/Dixie3')){
         $zip->close();
       }
     }
@@ -115,13 +117,18 @@ function ldb(){
 /* Set login request */
 function login_request(){
   global $ldb;
-  if(isset($_POST['username'])&&isset($_POST['password'])&&ldb()){ 
+  if(isset($_POST['username'])&&isset($_POST['password'])&&ldb()){
     if($ldb->valid_password('users','username='.$_POST['username'],$_POST['password'])||$ldb->valid_password('users','email='.$_POST['username'],$_POST['password'])){
       $user = $ldb->select('users','username='.$_POST['username']);
       $user = (isset($user[0]))?$user:$ldb->select('users','email='.$_POST['username']);
       if(isset($user[0])){
-        $_SESSION['dixie_login'] = base64_encode('dixie_'.$user[0]['username'].'_'.dechex(time()));
+        $login_code = base64_encode('dixie_'.$user[0]['username'].'_'.dechex(time()));
+        $_SESSION['dixie_login'] = $login_code;
         $_SESSION['dixie_privilege'] = $user[0]['privilege']; // master/admin/editor/author/member
+        if(isset($_POST['remember'])){
+          setcookie('dixie_login_cookie',$login_code,time()+(3600*24*30));
+          setcookie('dixie_privilege_cookie',$user[0]['privilege'],time()+(3600*24*30));
+        }
         header('location: ?status=login');
         exit;
       }else{
@@ -151,7 +158,7 @@ function password_request(){
         $headers .= 'Content-type: text/html; charset=utf-8'."\r\n";
         $to = $select[0]['email'];
         $link = WWW.'reset-password?username='.$select[0]['username'].'&code='.$code;
-        $message = '<!DOCTYPE html><html lang="en-US"><head><meta content="text/html; charset=utf-8" http-equiv="content-type" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="width=device-width, initial-scale=1" name="viewport" /><title>Request Password &#8213; Dixie</title><meta content="Dixie CMS from Black Apple Inc." name="description" /><meta content="Generator, CMS" name="keywords" /><meta content="Luthfie" name="developer" /><meta content="luthfie@y7mail.com" name="developer-email" /><meta content="Dixie" name="generator" /><meta content="'.DIXIE_VERSION.'" name="version" /><link rel="shortcut icon" href="'.WWW.PUBDIR.'admin/images/dixie.ico" type="image/x-icon" /><meta content="'.WWW.PUBDIR.'admin/images/dixie.png" property="og:image" /><style type="text/css">body{color:#333;font-family:Tahoma,Segoe UI,Arial;}</style></head><body><div>Dear '.$select[0]['name'].' ('.$select[0]['username'].'),<br /><br /></div><div>A few minute ago, somebody has requested a new password by using your username: <strong>'.$select[0]['username'].'</strong>.</div><div>If this is the real of you, please click this link: <a href="'.$link.'">'.$link.'</a></div><div>But if it\'s not your request, please ignore this message.</div><div><br /><br />Admin - Dixie</div></body></html>';
+        $message = '<!DOCTYPE html><html lang="en-US"><head><meta content="text/html; charset=utf-8" http-equiv="content-type" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="width=device-width, initial-scale=1" name="viewport" /><title>Request Password &#8213; Dixie</title><meta content="Dixie - Free and Simple CMS" name="description" /><meta content="Generator, CMS" name="keywords" /><meta content="Luthfie" name="developer" /><meta content="luthfie@y7mail.com" name="developer-email" /><meta content="Dixie" name="generator" /><meta content="'.DIXIE_VERSION.'" name="version" /><link rel="shortcut icon" href="'.WWW.PUBDIR.'admin/images/dixie.ico" type="image/x-icon" /><meta content="'.WWW.PUBDIR.'admin/images/dixie.png" property="og:image" /><style type="text/css">body{color:#333;font-family:Tahoma,Segoe UI,Arial;}</style></head><body><div>Dear '.$select[0]['name'].' ('.$select[0]['username'].'),<br /><br /></div><div>A few minute ago, somebody has requested a new password by using your username: <strong>'.$select[0]['username'].'</strong>.</div><div>If this is the real of you, please click this link: <a href="'.$link.'">'.$link.'</a></div><div>But if it\'s not your request, please ignore this message.</div><div><br /><br />Admin - Dixie</div></body></html>';
         $subject = 'Request Password - Dixie';
         $mail = @mail($to,$subject,$message,$headers);
         if($mail){
@@ -206,13 +213,6 @@ function password_reset(){
   }
 }
 
-/* Create slug from string */
-function create_slug($str){
-  return preg_replace_callback('/[^a-z0-9-]+/i',function(){
-    return '';
-  },str_replace(array(' ','_'),'-',strtolower($str)));
-}
-
 /* Create slug filename from string */
 function create_filename($str){
   return preg_replace_callback('/[^A-Za-z0-9\.-]+/i',function(){
@@ -254,7 +254,7 @@ function master_privilege($username=null){
 
 /* Dixie check update */
 function dixie_check_update(){
-  $url = 'http://dixie.black-apple.biz/update.php';
+  $url = 'http://dixie.hol.es/update.php';
   $data = array(
     'dixie_client'=>'free_3c45d9df52f76f69d1130e12db10fe59',
     'dixie_version'=>DIXIE_VERSION,
@@ -279,21 +279,6 @@ function sdp(){
   );
   if(isset($_SESSION['dixie_privilege'])){
     return $sdp[$_SESSION['dixie_privilege']];
-  }else{
-    return false;
-  }
-}
-
-/* Re-arrage uploaded files */
-function rearrange_files($files=null){
-  if(isset($files)&&is_array($files)){
-    $hasil = array();
-    foreach($files as $key=>$value){
-      foreach($value as $val=>$yu){
-        $hasil[$val][$key] = $yu;
-      }
-    }
-    return $hasil;
   }else{
     return false;
   }
@@ -326,68 +311,16 @@ function remove_dir($dirname=null,$depth=true){
   }
 }
 
-/* Function file write */
-function file_write($filename,$content='',$type='w+'){
-  $fp = fopen($filename,$type);
-  $write = fwrite($fp,strip_magic($content));
-  fclose($fp);
-  if($write){
-    return true;
-  }
-  else{
-    return false;
-  }
-}
-/* Function strip quotes */
-function strip_magic($str){
-  if(is_array($str)){
-    $hasil = array();
-    foreach($str as $k=>$v){
-      $hasil[$k] = (get_magic_quotes_gpc())?stripslashes($v):$v;
+/* Function retags for mobile only */
+function dixie_mobile_content_retags($str){
+  $new_str = explode(PHP_EOL.PHP_EOL,strip_tags($str));
+  $result = array();
+  if(is_array($new_str)){
+    foreach($new_str as $new){
+      $result[] = '<p>'.nl2br($new).'</p>';
     }
-    return $hasil;
   }
-  else{
-    $hasil = (get_magic_quotes_gpc())?stripslashes($str):$str;
-    return $hasil;
-  }
-}
-
-/* Detect mobile browser */
-function is_mobile_browser(){
-  $useragent=(isset($_SERVER['HTTP_USER_AGENT']))?$_SERVER['HTTP_USER_AGENT']:'';
-  if(preg_match('/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|iris|kindle|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i',$useragent)||preg_match('/1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s\-)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|\-m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw\-(n|u)|c55\/|capi|ccwa|cdm\-|cell|chtm|cldc|cmd\-|co(mp|nd)|craw|da(it|ll|ng)|dbte|dc\-s|devi|dica|dmob|do(c|p)o|ds(12|\-d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(\-|_)|g1 u|g560|gene|gf\-5|g\-mo|go(\.w|od)|gr(ad|un)|haie|hcit|hd\-(m|p|t)|hei\-|hi(pt|ta)|hp( i|ip)|hs\-c|ht(c(\-| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i\-(20|go|ma)|i230|iac( |\-|\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc\-|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|\-[a-w])|libw|lynx|m1\-w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|m\-cr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(\-| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)\-|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|\-([1-8]|c))|phil|pire|pl(ay|uc)|pn\-2|po(ck|rt|se)|prox|psio|pt\-g|qa\-a|qc(07|12|21|32|60|\-[2-7]|i\-)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h\-|oo|p\-)|sdk\/|se(c(\-|0|1)|47|mc|nd|ri)|sgh\-|shar|sie(\-|m)|sk\-0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h\-|v\-|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl\-|tdg\-|tel(i|m)|tim\-|t\-mo|to(pl|sh)|ts(70|m\-|m3|m5)|tx\-9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|\-v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(\-| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas\-|your|zeto|zte\-/i',substr($useragent,0,4))){return true;}else{return false;}
-}
-
-/* Detect MSIE browser */
-function is_msie(){
-  if(isset($_SERVER['HTTP_USER_AGENT'])&&preg_match('/MSIE/i',$_SERVER['HTTP_USER_AGENT'])){return true;}else{return false;}
-}
-
-/* Find MSIE version */
-function msie_version(){
-  if(isset($_SERVER['HTTP_USER_AGENT'])&&preg_match('/MSIE\s\d\.\d/i',$_SERVER['HTTP_USER_AGENT'],$akur)){
-    $version = str_replace('MSIE ','',$akur[0]);
-    return $version;
-  }else{
-    return false;
-  }
-}
-
-/* Function ba_byte from Black Apple */
-function ba_byte($angka=false,$fixed=false,$b=null){
-  $angka = (file_exists($angka))?filesize($angka):$angka;
-  $angka = (is_numeric($angka))?$angka:false;
-  $b = (isset($b))?$b:'KB';
-  $hasil = $angka/1024;
-  $mb = ($b=='KB')?'MB':'GB';
-  if($angka<1024&&!isset($b)){
-    return number_format($angka,$fixed,'.',',')." B";
-  }elseif($hasil>1024){
-    return ba_byte($hasil,2,$mb);
-  }else{
-    return number_format($hasil,$fixed,'.',',')." ".$b;
-  }
+  return implode(PHP_EOL.PHP_EOL,$result);
 }
 
 /* Get http response status*/
@@ -428,7 +361,7 @@ function dixie_session_check_htaccess(){
 
 /* Dixie Explorer */
 function dixie_explore($type='all',$dir=null){
-  $dir = (isset($dir)&&is_dir($dir))?$dir:substr(ROOT,0,-1);
+  $dir = (isset($dir)&&is_dir($dir))?$dir:substr(DROOT,0,-1);
   $dir = (substr($dir,-1,strlen($dir))=='/')?substr($dir,0,-1):$dir;
   $types = array('file','dir','all');
   $scan = scandir($dir);
@@ -481,6 +414,27 @@ function wrap_array($array=array()){
     return false;
   }
 }
+
+/* create backup engine [--Developer Only--] */
+function dixie_create_backup_engine(){
+  $files = dixie_explore('file','engine');
+  $files = array_merge($files,dixie_explore('file','public_html'));
+  $files = array_merge($files,array('.htaccess','index.php','change_log.txt','readme.md','license.txt','dixie-manual-en.txt','dixie-manual-id.txt'));
+  $zip = new ZipArchive;
+  $zipfile = 'dixie_'.DIXIE_VERSION.'_'.DIXIE_REVISION.'.zip';
+  //header('content-type: text/plain;'); print_r($files); exit;
+  file_write($zipfile,'');
+  if($zip->open($zipfile)===true){
+    foreach($files as $file){
+      $zip->addFile($file);
+    }
+    $zip->close();
+    return true;
+  }else{
+    return false;
+  }
+}
+
 
 // *** Form post *** //
 function form_post($url,$data=array(),$cookie=''){

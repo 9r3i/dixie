@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /plugins/
+Disallow: /themes/
+Disallow: /upload/

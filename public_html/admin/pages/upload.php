@@ -15,19 +15,19 @@ $dirs = dixie_explore('dir','upload');
 <div class="content-form">
   <form action="<?php printf(WWW.'admin/a?data=upload-file'); ?>" method="post" class="form-content" enctype="multipart/form-data">
     <div class="input-parent">
-      Directory
+      <?php __locale('Directory',true); ?>
       <select class="form-select" name="directory" style="margin-left:10px;width:auto;" onchange="if(this.value=='new') document.getElementById('new_dir').style.display='block'; else document.getElementById('new_dir').style.display='none';">
-        <option value="">--Directory--</option>
+        <option value="">--<?php __locale('Directory',true); ?>--</option>
         <?php foreach($dirs as $dir) echo '<option value="'.$dir.'">'.$dir.'</option>'; ?>
-        <option value="new">--Create New--</option>
+        <option value="new">--<?php __locale('Create New',true); ?>--</option>
       </select>
-      <input type="text" name="new-directory" class="form-input" placeholder="Directory" style="display:none;" id="new_dir" />
+      <input type="text" name="new-directory" class="form-input" placeholder="<?php __locale('Directory',true); ?>" style="display:none;" id="new_dir" />
     </div>
-    <div class="input-parent">Upload<input type="file" name="file[]" class="form-input" title="click to choose the file" /></div>
+    <div class="input-parent"><?php __locale('Upload',true); ?><input type="file" name="file[]" class="form-input" title="<?php __locale('click to choose the file',true); ?>" /></div>
     <div id="new_file"></div>
     <div>
-      <div href="#" id="add_file" onclick="add_file('new_file')">Add File</div>
-      <input type="submit" value="Upload" class="form-submit" />
+      <div href="#" id="add_file" onclick="add_file('new_file')"><?php __locale('Add File',true); ?></div>
+      <input type="submit" value="<?php __locale('Upload',true); ?>" class="form-submit" />
     </div>
   </form>
   <input type="hidden" id="file_count" value="1" />
@@ -42,7 +42,7 @@ function add_file(id){
   pc.style.height=pcp+"px";
   var newdiv = document.createElement('div');
   newdiv.setAttribute('class','input-parent');
-  newdiv.innerHTML = '<input type="file" name="file[]" class="form-input" title="click to choose the file" />';
+  newdiv.innerHTML = '<input type="file" name="file[]" class="form-input" title="<?php __locale('click to choose the file',true); ?>" />';
   if(count<20){
     count++;
     nf.appendChild(newdiv);

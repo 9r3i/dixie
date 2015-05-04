@@ -1,0 +1,90 @@
+* {
+display: block;
+}
+
+:root {
+margin: 50px;
+}
+
+channel > title {
+font-size: x-large;
+text-align: center;
+}
+
+channel > title:after {
+display: block;
+padding: 50px;
+content: "This is an RSS feed, designed to be read in an RSS application.";
+background-color: grey;
+color: white;
+}
+
+item {
+margin: 25px 0 20px 0;
+}
+
+item > title {
+font-size: medium;
+margin-bottom: 20px;
+}
+
+item > link {
+font-size: small;
+margin-top: 6px;
+margin-bottom: 6px;
+}
+
+item > description {
+font-size: small;
+}
+
+item > pubDate {
+font-size: small;
+}
+
+channel > link,
+channel > copyright, 
+channel > lastBuildDate, 
+channel > generator, 
+channel > docs,
+language,
+lastBuildDate,
+ttl,
+guid,
+category {
+display: none;
+}
+
+
+/* rss {
+display: block;
+font-family: verdana, arial;
+}
+title {
+display: block;
+margin: 5px;
+padding: 2px;
+color: gray;
+border-bottom: 1px solid silver;
+}
+link {
+display: block;
+font-size: small;
+padding-left: 10px;
+}
+item {
+display: block;
+padding: 2px 30px 2px 30px;
+}
+docs {
+display: block;
+background-color: #ffffe6;
+margin: 20px;
+text-align: center;
+padding: 5px;
+color: #7f7f7f;
+border: 1px solid silver;
+}
+language, lastBuildDate, ttl, guid, category, description, pubDate {
+display: none;
+} */

@@ -24,8 +24,8 @@ echo '<div><h4 style="margin:0px;padding:0px;">'.$pn.'</h4></div>';
 </div>
 <?php
   }else{
-    echo 'the plugin doesn\'t have optional file';
+    echo __locale('the plugin doesn\'t have optional file');
   }
 }else{
-  echo 'plugin doesn\'t exist';
+  echo __locale('plugin doesn\'t exist');
 }

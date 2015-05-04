@@ -1,11 +1,11 @@
 <?php
-/*  Ldb Class for Katya CMS (Version < 4.0) and Dixie CMS
- *  Ldb stands for Luthfie database :D
- *  Created by Luthfie
- *  luthfie@y7mail.com
- *  May 6th 2014
- *  Version 2.4.0
- *  Last update to 2.4 October 2nd 2014
+/* Ldb Class for Katya CMS (Version < 4.0) and Dixie CMS
+ * Ldb stands for Luthfie database :D
+ * Created by Luthfie a.k.a. 9r3i
+ * luthfie@y7mail.com
+ * May 6th 2014
+ * Version 2.4.0
+ * Last update to 2.4 October 2nd 2014
  */
 
 class Ldb{

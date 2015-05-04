@@ -1,25 +1,18 @@
 <?php
-/* Black Apple Inc.
- * http://black-apple.biz/
- * Dixie CMS
- * Created by Luthfie
+/* Dixie - Free and Simple CMS
+ * Created by Luthfie a.k.a. 9r3i
  * luthfie@y7mail.com
  */
 
-/* Define the root of site */
-define('ROOT',strtr(dirname(__FILE__),array('\\'=>'/','engine'=>'')));
-
-/* Define important directory of site */
-define('DIR',str_replace($_SERVER['DOCUMENT_ROOT'],'',ROOT));
-
-/* Define address of site */
-define('WWW','http://'.$_SERVER["SERVER_NAME"].DIR);
-
-// *** Define _get p and q *** //
-if(isset($_GET['p'])){
+/* Define _get p and q */
+if(defined('R1')&&R1!==''){
+  define('P',R1);
+}elseif(isset($_GET['p'])){
   define('P',$_GET['p']);
 }
-if(isset($_GET['q'])){
+if(defined('R2')&&R2!==''){
+  define('Q',R2);
+}elseif(isset($_GET['q'])){
   define('Q',$_GET['q']);
 }
 
@@ -30,8 +23,8 @@ define('PUBDIR','public_html/');
 define('THIRD_PARTY','third_party/');
 
 /* Define Dixie Version */
-define('DIXIE_VERSION','2.1.0');
-define('DIXIE_REVISION','ea0b');
+define('DIXIE_VERSION','3.0.3');
+define('DIXIE_REVISION','f504');
 
 /* Privileges global */
 global $privileges;
@@ -43,5 +36,8 @@ $privileges = array(
   'member',
 );
 
-// *** Plugins $variable for plugins registry *** //
+/* Plugins $variable for plugins registry */
 global $plugReg;
+
+/* Globalize variable admin registry */
+global $adminReg;

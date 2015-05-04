@@ -1,8 +1,6 @@
 <?php
-/* Black Apple Inc.
- * http://black-apple.biz/
- * Dixie CMS
- * Created by Luthfie
+/* Dixie - Free and Simple CMS
+ * Created by Luthfie a.k.a. 9r3i
  * luthfie@y7mail.com
  */
 
@@ -19,17 +17,26 @@ class Themes{
 		$theme[$sd]['name'] = $sd;
 		$theme[$sd]['about'] = $this->theme_about($sd);
 	    $smdr = @scandir($themes_directory.'/'.$sd.'/');
+        $template = array();
 	    foreach($smdr as $sm){
-		  if($sm!=='.'&&$sm!=='..'&&!is_dir($themes_directory.'/'.$sd.'/'.$sm)){
-		    $theme[$sd][str_replace('.php','',$sm)] = $sm;
+		  if(is_file($themes_directory.'/'.$sd.'/'.$sm)){
+            if(preg_match('/^[a-z]+_template\.php$/i',$sm)){
+              $template[str_replace('_template.php','',$sm)] = $sm;
+            }else{
+		      $theme[$sd][str_replace('.php','',$sm)] = $sm;
+            }
 		  }
 		}
+        $theme[$sd]['template'] = $template;
 	  }
 	}
 	$this->themes = $theme;
   }
   public function load($theme_name,$file){
-    if(isset($this->themes[$theme_name][$file])){
+    global $post;
+    if(isset($post,$post['template'],$this->themes[$theme_name]['template'][$post['template']])){
+	  include_once($this->themes_dir.'/'.$theme_name.'/'.$this->themes[$theme_name]['template'][$post['template']]);
+    }elseif(isset($this->themes[$theme_name][$file])){
 	  include_once($this->themes_dir.'/'.$theme_name.'/'.$this->themes[$theme_name][$file]);
 	}
   }
@@ -51,7 +58,7 @@ class Themes{
       return false;
     }
   }
-};
+}
 
 /* Plugins class */
 class Plugins{
@@ -89,7 +96,7 @@ class Plugins{
   }
   function plugin_about($name=null){
     if(isset($name)&&file_exists($this->dir.'/'.$name.'/about.txt')){
-      $keys = array('Plugin Name','Plugin URI','Author','Author URI','Version','Description');
+      $keys = array('Plugin Name','Plugin URI','Author','Author URI','Version','Description','Dixie Compare Version');
       $file = @file($this->dir.'/'.$name.'/about.txt');
       $content = array();
       foreach($file as $fi){

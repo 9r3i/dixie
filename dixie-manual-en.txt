@@ -1,0 +1,538 @@
+
+                    Dixie - Free and Simple CMS
+                   Created by Luthfie a.k.a. 9r3i
+                        http://n8ro.hol.es/
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+               -----[ THE MANUAL OF DIXIE CMS ]-----
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+0. INDEX OF CONTENT
+
+ 1. Introduction
+ 2. Download
+ 3. Installation
+ 4. Login
+ 5. Forget Password
+ 6. Back-End (Admin Page)
+ 7. Change Locale (Language)
+ 8. Update Dixie
+ 9. Settings
+10. New Post
+11. All Posts
+12. Files
+13. Menu
+14. Sidebar
+15. Themes
+16. Plugins
+17. Users
+18. Account
+19. Logout
+20. Privileges
+21. Activation Code
+22. Front-End (The Site)
+23. FAQs (Frequently Asked Questions and Answers)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+1. INTRODUCTION
+
+   Dixie is the open source, free and simple CMS. This is created by 
+Luthfie a.k.a. 9r3i [http://n8ro.hol.es/?id=profile] (my profile)
+
+   Dixie is PHP scripting language, exactly native PHP and Javascript 
+using jQuery Framework. Also compare PHP version to 5.3.28 and tested 
+on version 5.5.2 but it's really work on version 5.4.7 as Luthfie 
+created it on it.
+
+   Dixie is using custom portable database class, it's called Ldb2, or 
+second generation of Ldb, stand for Luthfie database, :D
+As the version of Ldb is upgraded, now Dixie using Ldb v2.5 which is 
+safer and faster.
+For your information, Ldb is not PHP-SQL framework, this is an 
+independent class and write the data in the specific directory.
+
+   Dixie is now more compatible with low-tech browser such as mobile 
+browser or IE9 or lower.
+
+   Dixie is using the third-party application for post content editor, 
+CK-Editor.
+
+   Dixie is created for blogging but also it's compatible for website, 
+there are so many sample website by using this CMS.
+
+   I hope you enjoy this CMS. :)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+2. DOWNLOAD
+
+   Download Dixie in the website, http://dixie.hol.es/ for 
+the last version. Download it as zip file.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+3. INSTALLATION
+
+   Using localhost
++ If you use xampp or lamp or else for localhost or 127.0.0.1, copy the
+  file you have downloaded into directory you want to install, then 
+  unzip the zip file.
++ Run the location file, such as: 
+  http://localhost/[directory_you_put_the_file]/
++ Then you will see the Dixie Installation page
+
+   Using web-server
++ Upload the zip file to the server and put the file to directory you 
+  want to install, then unzip the zip file.
++ Run the location file, such as:
+  http://www.yourdomain.com/
+  or
+  http://www.yourdomain.com/[directory_you_put_the_file]/
++ Then you will see the Dixie Installation page
+
+   Installation Code: LAY-ON-DIXIE
+
+   The next step is input your information data, such as:
++ Site Name
++ Username (for login)
++ Password (for login)
++ Confirm Password
++ Email (for recover password)
++ Full name (as the author)
+
+   Then submit and done! You will be redirected to the index page of 
+front-end. Enjoy!
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+4. LOGIN
+
+   To get log into back-end or admin page, you simply type location 
+address browser by adding "admin/" after your website domain, for 
+example: http://www.yourdomain.com/admin/
+
+   Or you can use meta sidebar, by clicking "Login" on it, then you 
+will be redirecting to Login page, as require username and password.
+
+   Input your username and password, then click Login button. If error 
+Dixie will notice you what the wrong is. And if your username and 
+password is correct, you will be redirected to Admin page or we call 
+it back-end.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+5. FORGET PASSWORD
+
+   Sometime we forget something important, like password that it must 
+be reminded very carfully. But don't worry, there's always a solution, 
+here are the steps:
+
++ In Login Page, there is the anchor to another page. It's written 
+  "Forget your password?" click it!
++ After clicking, you should be redirected to Request Password page.
+  There will be asked for your username, and notice message will be 
+  appeared if there's some error
++ Input your username, then chick "Send Request" button
++ Dixie will sent you an email to reset your password
++ Check your email inbox or spam folder too
++ Click the link that Dixie gave to you, and you will be redirected to 
+  Reset Password page
++ Reset Password page, all you have to do is input your new password 
+  twice, then click "Proceed" button
++ If the second input doesn't match, error will be noticed
++ And if success, you will be redirected to Login page, then now you 
+  can use your new password.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+6. BACK-END (Admin Page)
+
+   In Admin page, you will see Admin Home page, Dixie will tell you 
+how many page or post or article that you have, how many files that 
+you have uploaded, your current theme, and how many plugins are 
+installed to it.
+
+   And she also will tell you like: "Don't forget to check your 
+Settings."
+
+   And the bottom of the line, are change log and notification of 
+Dixie version. And tell you if Dixie is up to date.
+
+   In the right-upper corner, you will notice your site name, and you 
+will be redirected to front-end by clicking that link.
+
+   And in left sidebar, you will notice menu bar, the default menus are 
+Home, New Post, All Posts, Files, Menu, Sidebar, Themes, Plugins, 
+Users, Account, Settings and Logout.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+7. CHANGE LOCALE (Language)
+
+   As Dixie version 2.3.0, locale package has been added to make you 
+easy yo use.
+
+   There is the blue button right-upper the page since you were in 
+Login page, click it, then choose your locale.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+8. UPDATE DIXIE
+
+   Dixie is always checking the newest version to Dixie server, and 
+she will tell you if there's an update version, then the update button 
+will be appeared in the bottom of the Admin Home page.
+
+   Click it, then Dixie will be automatically upgraded, to the latest 
+version.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+9. SETTINGS
+
+   You'd rather to go to Settings page first, because you should update 
+your site information, such as:
+a. Site Name
+   Is the site name what to show on the website.
+b. Site Description
+   This is important to input, it will write into web information if 
+   the post you publish is have an empty descripition.
+c. Site Keywords
+   The function is same as description.
+d. Robots
+   Is the meta tag to tell bot crawler to follow or index the site.
+e. Timezone
+   Is the time zone where you are. Choose wisely.
+f. Theme
+   This is parted by three sessions, main theme, mobile theme and 
+   MSIE theme (MicroSoft Internet Explorer), to show the different 
+   appearance in the other website, but if the theme is responsive, 
+   you just put the three of theme as the same theme.
+g. Main Page
+   Is the page which is show at the index.php request or so.
+   For example, it will be appeared in: http://www.domain.com/
+h. Post Editor
+   There are two options, Text or HTML.
+   Text for text writing and simply plain text.
+   HTML for using CK-Editor as third-party application, that support
+   writing as HTML tag on it.
+
+   Then click "Save Settings" button to save the change.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+10. NEW POST
+
+   To create new post, simply click the menu in the left side, click 
+New Post.
+
+   In this part, you will notice the content form, title input and 
+the other option tags. First of all, you must input title, Dixie will 
+generate the title you input to the slug as html request in the 
+front-end, for example, the title you input is "Testing Title", this 
+title will be generated to "testing-title" as lower case and no space.
+
+   Next, the content input area with content editor, you can turn it 
+off by clicking "Change to Text" button as advance mode, and turn it 
+back to HTML editor by clicking "Change to HTML".
+Next to this button, there is "View" button for previewing the post 
+content you input.
+
+   If you turn on the HTML content editor, you can make this configure 
+as you want, beside this application is located at third-party public 
+directory.
+
+   Actions, there are 2 default actions, Update (if edit mode) or 
+Publish (if new post mode) and Delete.
+
+   Configurations
+   These options are important, because they will control the post as 
+publish or draft, private or public access, spacification of category 
+and also you can choose type of post.
+   By changing the type of post, there will be additional options in 
+the below the content editor. Try to change this to Training type, 
+then the additional options will be appeared, as Trainer input, 
+Training Date input, Price input and Place input.
+
+   Next is Picture section, there is the "Change Picture" button which 
+is next to big question mark if you don't fill it with the picture. To 
+change the picture you simply click the button, then you will 
+redirected to Change Picture page, if you have uploaded some picture 
+they will be appeared as select tag options, but if you haven't yet, 
+just try to upload one. Choose the directory as well, to upload to 
+specific directory. If you done, then click Save button.
+
+   Back to post editor, if the post is all ready to publish, just 
+click "Publish" or "Update" button, then the post will be published to 
+your website.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+11. ALL POSTS
+
+   All Posts page is the page that compiles the posts you've created.
+In this section, you can filter the post by publish post, draft post 
+and trash post, and also filtered by type. By changing the filter 
+options you will be redirected and refresh the page as its request.
+
+   Next to filter select option tags, there is bulk action tag, this 
+will do an action to more than one post. Try to click "Check All" 
+button, then every line of post will be checked. Then choose the 
+action, such as draft, then click "Do Action" button. The posts you 
+selected will be moved to draft status, and the post only can be 
+seen in draft filter.
+
+   Each post is contained detail information of the post, such as 
+status and type information, last updated and created time.
+And of course each of them has the links to edit, preview/view and 
+trash/delete premanently. 
+
+   This page only review 10 posts per page, so if you have more than 
+10 posts, there must be the Next button below the each post.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+12. FILES
+
+   This is the content of uploaded directory, for exactly "upload/" by 
+default. The first bar, is the "Upload" button, click it if you want 
+to upload a file or more.
+
+   Upload
+   In Upload page, you will notice directory selection or you can 
+create new one. Input a file you want to upload, if there is more, just 
+click "Add File" button, then Dixie will create a new input tag. As 
+the maximum input files is 20, it is set by 20 input tags, or you only 
+can input 20 files per upload.
+If all is set, then click "Upload" button.
+
+   Back to the first bar, next to Upload button there is directory 
+selection, if you created directory while uploading, the directory will 
+be in one of the options. Choose one of them then you will be 
+redirected automatically to the value directory.
+
+   Next is Bulk Action, the selections are Delete and Delete All, and 
+the Do Action button and Check All button. How it works is the same as 
+All Posts bulk action.
+
+   Below upper bar is each file inside the directory loaded, and each 
+of these contained information of the file, such as size and time of 
+uploaded. Then each of these has each action too, like view, rename and 
+delete.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+13. MENU
+
+   This is the section to maintain all of the menu. There are only 3 
+type of menu, top, sidebar and bottom. But if you want some extra 
+menu, there is a plugin that support this thing. The selection is to 
+filter the menu you created by clicking the Filter button.
+
+   New Menu button is to create new menu, you will be redirected by 
+clicking this button. In New Menu page, you must choose the type of 
+menu, input menu name, slug and order, then click Add Menu button.
+
+   In the list of menu, each of menu has the information detail of it, 
+such as type and order. then each action such as view, edit and 
+delete.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+14. SIDEBAR
+
+   Sidebar is the default plugin to maintain the sidebar content. There 
+are six type of sidebar, text, search, recent post, menu, meta and 
+category. And the list of this show detail information such as type, 
+order and option, then each action such as edit and delete.
+
++ Text type is the default type, the content is only text, html or 
+  even script.
++ Recent post type is contained the recent post, there is the option 
+  to show this type, such as maximum post per show and type of post 
+  to show.
++ Search type is the form of search content post, there is no option 
+  in this case.
++ Menu type is to create menu tag that has the same type to sidebar.
++ Meta type is the default tag by Dixie herself. Contained Login link, 
+  RSS Feed link and Dixie link.
++ Category type is to create category tag and show in sidebar.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+15. THEMES
+
+   Here it is, Themes section is to maintain themes that have been 
+installed to Dixie. And they can be activated if they are installed 
+correctly.
+
+   To install a theme, just click "Add Theme" button, then you will be 
+redirected to Add New Theme page. Dixie will be loading the themes 
+from her server, and show you what themes are 
+available to be installed. If the theme is installed, Dixie will tell 
+you then.
+Or you also can install dixie theme manually by inputing zip file to 
+file input tag, then click Upload button.
+
+   You have an Activation Code?
+   See section #21
+
+   Back to Themes list page, there are some infomations for each theme, 
+such as: version of theme, author name, link to visit theme site, 
+screenshot of theme and description.
+And each list has action to each option theme, edit the theme, 
+activate the theme and uninstall the theme.
+
+   The option of a theme is different one another, because the content 
+is compile from option file of the theme, and if the theme has no 
+option file, then Dixie won't show the page or she will tell you that 
+the theme has no option file.
+
+   The edit theme page is to edit the theme, it is showing the file 
+inside the directory of the theme. File type is restricted, only php, 
+css, js and html only. So this couldn't be more further than that.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+16. PLUGINS
+
+   Plugins section is to maintain all installed plugins. The first you 
+must be notice Add Plugin button. You will be redirected by clicking 
+this button.
+
+   Similiar as Add New Theme page, Add New Plugin page is to install 
+a new plugins. Dixie will be loading the available plugins from her 
+server then print them to the screen. If you want to install a plugin 
+manually there is also the input tag, upload the zip file, then Dixie 
+will automatically generate the file into plugin.
+
+   When plugin installation is done, you will be redirected back to 
+Plugins page, and get the new plugin on the list.
+
+   The list of plugins has each infomation such as status 
+(active/incative), version of plugin, DCV (Dixie compare version), 
+author name, link to visit plugin site and plugin description.
+
+   And of course, the each action is available too, such as activate 
+or deactivate, uninstall and option of each plugin.
+
+   The same as theme option, the plugin option won't available if the 
+option file doesn't exist, because the content of the option is 
+required option file of each plugin.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+17. USERS
+
+   This section is to maintain the users who were registered to the 
+site. The content of this page is an "Add User" button, and you will 
+be redirected by clicking this button.
+
+   To create a new user, Add New User page form has to fill correctly.
+Such as privileges, username, email, name and password. Privilages is 
+the restriction to some feature of Dixie. See more at #20.
+
+   Then username is the permanent string because it used to login and 
+password recovery. Next is email, it also used to recover the password. 
+Then name input, to show the author of the post and password input that 
+used to login.
+
+   If the creating user is success, Dixie will redirect back to Users 
+page, and you will notice a new user that just created. In each list, 
+there is some information, username, email and joined time, and the 
+optional action for each list, edit and delete.
+
+   This section is only can be accessed by user who has admin 
+privilege. So nobody can bother this stuff but admin only.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+18. ACCOUNT
+
+   Account section is to show or edit the active user information, and 
+to change the password too. There are two form, to edit and change 
+password, and each form has security confirmation using the password.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+19. LOGOUT
+
+   To log out the Admin page, simply click the Logout button in the 
+menu left side, then you will be logged out and redirected to Login 
+page.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+20. PRIVILEGES
+
+   This is the plus of this CMS. Each user has his own privilege to the 
+site, and has restricted for some feature. There are four of kind of 
+privileges, and they are:
+
+1. Admin
+   Total controlling, full access to the other user post property and 
+   has authority to add and remove the other users. 
+   This is the specific privilege, this user has access to:
+   + New Post
+   + All Posts (including the other user post)
+   + Files
+   + Menu
+   + Sidebar
+   + Themes
+   + Plugins
+   + Users
+   + Account
+   + Settings
+   + Additional Add-On
+2. Editor
+   This is the specific privilege, this user has access to:
+   + New Post
+   + All Posts (including the other user post)
+   + Files
+   + Menu
+   + Sidebar
+   + Account
+   + Additional Add-On (with the specific privilege to editor)
+3. Author
+   This is the specific privilege, this user has access to:
+   + New Post
+   + All Posts (his own posts only)
+   + Account
+   + Additional Add-On (with the specific privilege to author)
+4. Member
+   This is the specific privilege, this user has access to:
+   + Account
+   + Additional Add-On (with the specific privilege to member)
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+21. ACTIVATION CODE
+
+   You should ever notice this message, "You have an Activation Code?". 
+So what is Activation Code?
+Activation Code is the code to activate the premium theme or 
+premium plugin.
+
+   Few plugins or themes are not free, they have some pro-license to 
+reclaim the plugins or themes.
+
+   This Activation Code has expired time due to the legal license 
+commitment, such as payment or policy.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+22. FRONT-END
+
+   This is how the front-end of the site is. After you set in the 
+back-end, all the stuff you publish show here.
+
+   From the back-end, you will notice the site name in the right-upper 
+corner, click it, you will redirected to front-end. Or if you 
+installed Dixie in no-directory site, simply click the address 
+location as it is, http://www.domain.com/
+
+   In the front-end, you can preview your private post as long as you 
+are logging in. Including the other user who has privilege to it. But 
+however, the user with member privilege can see your post as well if 
+the user is logging in.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+23. FAQs (Frequently Asked Questions and Answers)
+
+   This section is to you for asking any question about Dixie. Me as 
+the developer will help you to find the way out.
+
++ The menu is disappeared when I resize the browser. How can I find 
+  the menu?
+- The menu is hidden as the window is not wide-enough to show the 
+  content menu. If you resize the window browser, there must be the 
+  three white strip right next to "Dixie" header title, click it, 
+  then the menu will be shown.
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+ Manual of Dixie CMS version 3.0.0
+ Copyright 2014-2015, Dixie
+
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+

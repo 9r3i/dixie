@@ -22,8 +22,8 @@ if(isset($themes[$name])){
 </div>
 <?php
   }else{
-    echo 'the theme doesn\'t have optional file';
+    echo __locale('the theme doesn\'t have optional file');
   }
 }else{
-  echo 'theme doesn\'t exist';
+  echo __locale('theme doesn\'t exist');
 }

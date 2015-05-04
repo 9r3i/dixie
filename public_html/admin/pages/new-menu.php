@@ -16,17 +16,16 @@ global $posts;
 ?>
 <div class="content-form">
   <form action="<?php printf(WWW.'admin/a?data=new-menu'); ?>" method="post" class="form-content">
-    <div class="config-body">
-      <div class="config-form" style="width:100%;padding:0px;margin:0px 5px;">
+  <table style="width:100%" width="100%" border="0" class="table-settings"><tbody>
+    <tr><td style="width:100px"><?php __locale('Menu Type',true); ?></td><td>
         <select class="form-select" name="type">
-          <?php foreach($menu_types as $type){echo '<option value="'.$type.'">'.ucwords($type).'</option>';} ?>
-        </select>
-      </div>
-    </div>
-    <div class="input-parent">Menu Name<input type="text" name="name" class="form-input" placeholder="Menu Name" list="list_title" /></div>
-    <div class="input-parent">Menu Slug<input type="text" name="slug" class="form-input" placeholder="Menu Slug" list="list_slug" /></div>
-    <div class="input-parent">Menu Order<input type="text" name="order" class="form-input" placeholder="Menu Order" /></div>
-    <div><input type="submit" value="Add Menu" class="form-submit" /></div>
+          <?php foreach($menu_types as $type){echo '<option value="'.$type.'">'.__locale(ucwords($type)).'</option>';} ?>
+        </select></td></tr>
+    <tr><td><?php __locale('Menu Name',true); ?></td><td><div class="input-parent"><input type="text" name="name" class="form-input" placeholder="<?php __locale('Menu Name',true); ?>" list="list_title" /></div></td></tr>
+    <tr><td><?php __locale('Menu Slug',true); ?></td><td><div class="input-parent"><input type="text" name="slug" class="form-input" placeholder="<?php __locale('Menu Slug',true); ?>" list="list_slug" /></div></td></tr>
+    <input type="hidden" name="order" class="form-input" placeholder="<?php __locale('Menu Order',true); ?>" value="9" />
+    <tr><td></td><td><div><input type="submit" value="<?php __locale('Add Menu',true); ?>" class="form-submit" /></div></td></tr>
+  </tbody></table>
     <datalist id="list_slug">
       <?php foreach($posts as $url=>$post){echo '<option value="'.$url.'.html"></option>';} ?>
     </datalist>

@@ -13,17 +13,19 @@ global $privileges;
 ?>
 <div class="content-form">
   <form action="<?php printf(WWW.'admin/a?data=new-user'); ?>" method="post" class="form-content">
-    <div class="config-body">
-      <div class="config-form">Privilege<select class="form-select" name="privilege">
+  <table style="width:100%" width="100%" border="0" class="table-settings"><tbody>
+    <tr><td style="width:135px"><?php __locale('Privilege',true); ?></td><td>
+      <select class="form-select" name="privilege">
       <?php
-        foreach($privileges as $privilege){if($privilege!=='master'){echo '<option value="'.$privilege.'">'.ucwords($privilege).'</option>';}}
+        foreach($privileges as $privilege){if($privilege!=='master'){echo '<option value="'.$privilege.'" '.($privilege=='member'?'selected="selected"':'').'>'.ucwords($privilege).'</option>';}}
       ?>
-      </select></div>
-    </div>
-    <div class="input-parent">Username <span style="font-size:12px;color:#955;">(permanent)</span><input type="text" name="username" class="form-input" placeholder="Username" /></div>
-    <div class="input-parent">Email<input type="text" name="email" class="form-input" placeholder="Email" /></div>
-    <div class="input-parent">Name<input type="text" name="name" class="form-input" placeholder="Full Name" /></div>
-    <div class="input-parent">Password<input type="password" name="password" class="form-input" placeholder="Password" /></div>
-    <div><input type="submit" value="Add User" class="form-submit" /></div>
+      </select>
+    </td></tr>
+    <tr><td><?php __locale('Username',true); ?> <span style="font-size:12px;color:#955;">(permanent)</span></td><td><div class="input-parent"><input type="text" name="username" class="form-input" placeholder="<?php __locale('Username',true); ?>" /></div></td></tr>
+    <tr><td><?php __locale('Email',true); ?></td><td><div class="input-parent"><input type="text" name="email" class="form-input" placeholder="<?php __locale('Email',true); ?>" /></div></td></tr>
+    <tr><td><?php __locale('Name',true); ?></td><td><div class="input-parent"><input type="text" name="name" class="form-input" placeholder="<?php __locale('Full Name',true); ?>" /></div></td></tr>
+    <tr><td><?php __locale('Password',true); ?></td><td><div class="input-parent"><input type="password" name="password" class="form-input" placeholder="<?php __locale('Password',true); ?>" /></div></td></tr>
+    <tr><td></td><td><div><input type="submit" value="<?php __locale('Add User',true); ?>" class="form-submit" /></div></td></tr>
+  </tbody></table>
   </form>
 </div>

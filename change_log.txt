@@ -1,8 +1,97 @@
-Black Apple Inc.
-http://black-apple.biz/
-Dixie CMS
-Created by Luthfie
+Dixie - Free and Simple CMS
+Created by Luthfie a.k.a. 9r3i
 luthfie@y7mail.com
+
+--------------------------------
+Version 3.0.0 - April 21st 2015
+- Remove ROOT replaced by DROOT
+- Upgrade content editor - CKeditor v4.4.7
+- Add jQuery UI 1.11.4
+- Change jQuery version to 2.1.3
+- Add icon by font awesome
+- Add registry icon
+- Add date picker
+- Add UI menu re-order + action
+- Add UI sidebar re-order + action
+- Use checkbox bootstrap
+- Add filter limit posts 10 to 1000
+- Add UI for upload files
+- Create english manual v2.4
+- Create indonesia manual v2.4
+- Rearrange form with table
+- Change admin theme to Black
+- Optimizing css and html tags
+- Add mobile content editor nicEdit
+- Extend locale database
+- Implement template feature as Mueeza
+- Auto load theme edit page
+- Add plugin edit page and the action data
+- 
+- 
+- New Theme added as default (Dixie 3)
+  + DCV >= 3.0
+  + Has more optional template file
+
+--------------------------------
+Version 2.4.1 - March 18th 2015
+- Fix few error and miss-spelling
+
+--------------------------------
+Version 2.4.0 - March 17th 2015
+- Upgrade Ldb class to version 2.5.0
+- More save by adding few functions in Ldb
+- Ldb-manual file in: engine/Ldb2-readme.txt
+
+--------------------------------
+Version 2.3.2 - December 25th 2014
+- Add locale Sunda
+
+--------------------------------
+Version 2.3.1 - December 18th 2014
+- Fix a few errors
+
+--------------------------------
+Version 2.3.0 - December 17th 2014
+- Add locale package
+- Add locale script in several admin files
+
+--------------------------------
+Version 2.2.3 - December 8th 2014
+- Add function to generate training date
+- Fixed function url redirect
+- Fixed default theme DixieX.zip
+- Directly 3 section theme when activated
+
+--------------------------------
+Version 2.2.2 - November 22nd 2014
+- Add price and place into training type post
+- Add retags (p & br) content edit action for mobile only
+- Strip tags content for mobile only
+- Include robots.txt
+- Include sitemap.txt
+
+--------------------------------
+Version 2.2.1 - November 12th 2014
+- Improve feed.xml request for published public posts only
+- Improve change picture request action
+- Improve view button request action
+- Improve change to html/text button request action
+- Improve rename file dirname parameter
+- Fix few errors
+
+--------------------------------
+Version 2.2.0 - October 20th 2014
+- Create a global adminReg
+- Add function admin registry for plugin
+- Plugins can create their own page inside admin page
+- Set default variable set in admin side
+- Fix an atom link in rss feed
+- Fix few errors
+
+--------------------------------
+Version 2.1.1 - October 14th 2014
+- Fix an engine part
+- Fix a few errors
 
 --------------------------------
 Version 2.1.0 - October 11th 2014
@@ -21,7 +110,7 @@ Version 2.0.0 - October 1st 2014
 - Access BA-Dixie's database themes and plugins
 - Activation purchased product then install automatically
 - Add bulk action in posts and files
-- Add function ba_byte from Black Apple
+- Add function ba_byte for calculating file size to byte
 - Add upload into specific directory or create one
 - Add page to change post picture and preview
 - Pre-post or create temporary post while create new post

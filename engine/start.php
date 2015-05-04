@@ -1,17 +1,21 @@
 <?php
-/* Black Apple Inc.
- * http://black-apple.biz/
- * Dixie CMS
- * Created by Luthfie
+/* Dixie - Free and Simple CMS
+ * Created by Luthfie a.k.a. 9r3i
  * luthfie@y7mail.com
  */
+
+if(!defined('DROOT')){
+  require_once('Ldb.2.5.php');
+  require_once('nob.php');
+}
 
 /* Load required files */
 require_once('define.php');
 require_once('functions.php');
 require_once('class.php');
-require_once('Ldb.2.4.php');
+require_once('language.php');
 require_once('gets.php');
+
 
 /* Error display */
 ini_set('display_errors',true);

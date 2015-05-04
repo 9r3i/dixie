@@ -1,8 +1,6 @@
 <?php
-/* Black Apple Inc.
- * http://black-apple.biz/
- * Dixie CMS
- * Created by Luthfie
+/* Dixie - Free and Simple CMS
+ * Created by Luthfie a.k.a. 9r3i
  * luthfie@y7mail.com
  */
 
@@ -10,6 +8,9 @@ if(get_active_user()=='demo'){
   header('content-type: text/plain;');
   exit('demo version cannot do this action');
 }
+
+/* Developer tester scripts by Luthfie */
+//header('content-type: text/plain;'); print_r($_POST); exit;
 
 /* Configuration global and Ldb */
 global $ldb,$posts,$options;
@@ -32,6 +33,9 @@ if($data=='settings'){
         exit('cannot update database');
       }
     }
+  }
+  if(isset($_POST['post_editor'])){
+    setcookie('dixie_post_editor',$_POST['post_editor'],time()+(24*3600*30));
   }
   header('location: '.WWW.'admin/settings?status=update-settings');
   exit;
@@ -105,10 +109,16 @@ elseif($data=='edit-post'){
   if(isset($select[0])){
     $data = $_POST;
     $data['datetime'] = $datetime;
-    $slug = create_slug($_POST['title']);
-    if(preg_match('/(temp\-[\d]{10,14})/i',$select[0]['url'])&&!empty($slug)){
-      $data['url'] = $slug;
+    $slug = ($_POST['title']!=='')?create_slug($_POST['title']):create_slug('temp-'.microtime(true));
+    if(preg_match('/(temp\-[\d]{10,14})/i',$select[0]['url'])&&$slug!==''){
     }
+    $check = $ldb->select('posts','url='.$slug);
+    if(isset($check[0])&&$check[0]['aid']!==$_POST['post_id']){
+      $slug .= '-'.$_POST['post_id'];
+    }
+    $data['url'] = $slug;
+    $data['training_date'] = $data['training_date'].'-'.$data['training_date_end'];
+    unset($data['training_date_end']);
     if(isset($_POST['category'])){
       if(isset($_POST['new-category'])){
         $cat_slug = create_slug($_POST['new-category']);
@@ -122,9 +132,19 @@ elseif($data=='edit-post'){
       }
       $cat = set_category($_POST['post_id'],$category);
     }
+    $data['content'] = is_mobile_browser()&&$options['post_editor']=='text'?dixie_mobile_content_retags($data['content']):$data['content'];
     $update = $ldb->update('posts','aid='.$_POST['post_id'],$data);
     if($update){
-      header('location: '.WWW.'admin/edit-post?post_id='.$_POST['post_id'].'&status=success-update');
+      if(isset($_POST['submit'])&&$_POST['submit']==__locale('View')){
+        header('location: '.WWW.$slug.'.html?_preview');
+      }elseif(isset($_POST['submit'])&&preg_match('/'.__locale('change to').'/i',strtolower($_POST['submit']))){
+        $redir = WWW.'admin/edit-post?post_id='.$_POST['post_id'];
+        header('location: '.WWW.'admin/a?data=change-editor&to='.substr(strtolower($_POST['submit']),-4).'&re='.$redir);
+      }elseif(isset($_POST['submit'])&&preg_match('/^'.__locale('change picture').'$/i',strtolower(trim($_POST['submit'])))){
+        header('location: '.WWW.'admin/change-picture/?post_id='.$_POST['post_id']);
+      }else{
+        header('location: '.WWW.'admin/edit-post?post_id='.$_POST['post_id'].'&status=success-update');
+      }
       exit;
     }else{
       header('content-type: text/plain;');
@@ -193,15 +213,14 @@ elseif($data=='rename-file'){
 elseif($data=='upload-file'){
   if(isset($_FILES['file'])){
     if(isset($_POST['directory'],$_POST['new-directory'])){
-      if($_POST['directory']=='new'&&!empty($_POST['new-directory'])){
-        @mkdir('upload/'.$_POST['new-directory']);
-        $dir = 'upload/'.$_POST['new-directory'].'/';
-      }elseif(!empty($_POST['directory'])&&is_dir($_POST['directory'])){
-        $dir = $_POST['directory'];
+      if($_POST['directory']=='new'&&$_POST['new-directory']!==''){
+        $dir = 'upload/'.create_slug($_POST['new-directory']).'/';
+        @mkdir($dir);
       }else{
-        $dir = 'upload/';
+        $dir = $_POST['directory'];
       }
     }
+    $dir = isset($dir)&&is_dir($dir)?$dir:'upload/';
     $files = rearrange_files($_FILES['file']);
     $r=0;
     if(isset($dir)&&is_dir($dir)){
@@ -214,15 +233,28 @@ elseif($data=='upload-file'){
       }
     }
     if($r==count($files)){
-      header('location: '.WWW.'admin/files?status=success-upload');
+      if(isset($_POST['type'])&&$_POST['type']=='ajax'){
+        header('content-type: text/plain;');
+        print($dir);
+      }else{
+        header('location: '.WWW.'admin/files?dir='.$dir.'&status=success-upload');
+      }
       exit;
     }else{
       header('content-type: text/plain;');
-      exit('cannot upload the file');
+      if(isset($_POST['type'])&&$_POST['type']=='ajax'){
+        print($dir);
+      }else{
+        exit('cannot upload the file');
+      }
     }
   }else{
     header('content-type: text/plain;');
-    exit('cannot upload the file');
+    if(isset($_POST['type'])&&$_POST['type']=='ajax'){
+      print($dir);
+    }else{
+      exit('cannot upload the file');
+    }
   }
 }
 /* Edit theme */
@@ -231,7 +263,7 @@ elseif($data=='edit-theme'){
     $location = 'themes/'.$_POST['theme-name'].'/'.$_POST['file-name'];
     $write = file_write($location,$_POST['content']);
     if($write){
-      header('location: '.WWW.'admin/edit-theme?name='.$_POST['theme-name'].'&file='.$_POST['file-name'].'&status=success-upload');
+      header('location: '.WWW.'admin/edit-theme?name='.$_POST['theme-name'].'&file='.$_POST['file-name'].'&status=success-update');
       exit;
     }else{
       header('content-type: text/plain;');
@@ -240,6 +272,23 @@ elseif($data=='edit-theme'){
   }else{
     header('content-type: text/plain;');
     exit('theme doesn\'t exist');
+  }
+}
+/* Edit plugin */
+elseif($data=='edit-plugin'){
+  if(isset($_POST['file'],$_POST['slug'],$_POST['content'])&&is_file('plugins/'.$_POST['slug'].'/'.$_POST['file'])){
+    $location = 'plugins/'.$_POST['slug'].'/'.$_POST['file'];
+    $write = file_write($location,$_POST['content']);
+    if($write){
+      header('location: '.WWW.'admin/edit-plugin?name='.$_POST['slug'].'&file='.$_POST['file'].'&status=success-update');
+      exit;
+    }else{
+      header('content-type: text/plain;');
+      exit('cannot write on the file');
+    }
+  }else{
+    header('content-type: text/plain;');
+    exit('plugin or file doesn\'t exist');
   }
 }
 /* New user */
@@ -297,7 +346,7 @@ elseif($data=='edit-user'){
             unset($data['id']);
             $update = $ldb->update('users','aid='.$_POST['id'],$data);
             if($update){
-              header('location: '.WWW.'admin/edit-user?id='.$_POST['id'].'&status=success-edit-user');
+              header('location: '.WWW.'admin/users?id='.$_POST['id'].'&status=success-edit-user');
               exit;
             }else{
               header('content-type: text/plain;');
@@ -357,7 +406,7 @@ elseif($data=='new-menu'){
     if(isset($_POST['name'])&&isset($_POST['slug'])&&isset($_POST['type'])&&isset($_POST['order'])){
       $insert = $ldb->insert('menu',$_POST);
       if($insert){
-        header('location: '.WWW.'admin/menu?status=success-add-menu');
+        header('location: '.WWW.'admin/menu?type='.$_POST['type'].'&status=success-add-menu');
         exit;
       }else{
         header('content-type: text/plain;');
@@ -382,7 +431,7 @@ elseif($data=='edit-menu'){
         unset($data['id']);
         $update = $ldb->update('menu','aid='.$_POST['id'],$data);
         if($update){
-          header('location: '.WWW.'admin/edit-menu?id='.$_POST['id'].'&status=success-edit-menu');
+          header('location: '.WWW.'admin/menu?type='.$_POST['type'].'&status=success-edit-menu');
           exit;
         }else{
           header('content-type: text/plain;');
@@ -408,7 +457,7 @@ elseif($data=='delete-menu'){
       $select = $ldb->select('menu','aid='.$_POST['id']);
       if(isset($select[0])){
         $delete = $ldb->delete('menu','aid='.$_POST['id']);
-        header('location: '.WWW.'admin/menu?status=success-delete-menu');
+        header('location: '.WWW.'admin/menu?type='.$select[0]['type'].'&status=success-delete-menu');
         exit;
       }else{
         header('content-type: text/plain;');
@@ -467,7 +516,7 @@ elseif($data=='edit-sidebar'){
         );
         $update = $ldb->update('sidebar','aid='.$_POST['id'],$data);
         if($update){
-          header('location: '.WWW.'admin/edit-sidebar?id='.$_POST['id'].'&status=success-edit-sidebar');
+          header('location: '.WWW.'admin/sidebar?id='.$_POST['id'].'&status=success-edit-sidebar');
           exit;
         }else{
           header('content-type: text/plain;');
@@ -577,7 +626,7 @@ elseif($data=='update-dixie'){
       if($copy){
         $zip = new ZipArchive;
         if($zip->open($target)===true){
-          if($zip->extractTo(ROOT)){
+          if($zip->extractTo(DROOT)){
             $zip->close();
             @unlink($target);
             header('location: '.WWW.'admin/update?status=success-update-dixie');
@@ -607,7 +656,7 @@ elseif($data=='update-dixie-upload'){
       if($move&&file_exists($target)){
         $zip = new ZipArchive;
         if($zip->open($target)===true){
-          if($zip->extractTo(ROOT)){
+          if($zip->extractTo(DROOT)){
             $zip->close();
             @unlink($target);
             header('location: '.WWW.'admin/update?status=success-update-dixie');
@@ -644,7 +693,7 @@ elseif($data=='upload-plugin'){
       if($move&&file_exists($target)){
         $zip = new ZipArchive;
         if($zip->open($target)===true){
-          if($zip->extractTo(ROOT.'plugins/'.$name)){
+          if($zip->extractTo(DROOT.'plugins/'.$name)){
             $zip->close();
             @unlink($target);
             header('location: '.WWW.'admin/plugins/?status=success-upload-plugin');
@@ -681,7 +730,7 @@ elseif($data=='upload-theme'){
       if($move&&file_exists($target)){
         $zip = new ZipArchive;
         if($zip->open($target)===true){
-          if($zip->extractTo(ROOT.'themes/'.$name)){
+          if($zip->extractTo(DROOT.'themes/'.$name)){
             $zip->close();
             @unlink($target);
             header('location: '.WWW.'admin/themes/?status=success-upload-theme');
@@ -731,7 +780,7 @@ elseif($data=='add-external-theme'){
       if(file_exists($target)){
         $zip = new ZipArchive;
         if($zip->open($target)===true){
-          if($zip->extractTo(ROOT.'themes/'.$name)){
+          if($zip->extractTo(DROOT.'themes/'.$name)){
             $zip->close();
             @unlink($target);
             header('location: '.WWW.'admin/themes/?status=success-add-external-theme');
@@ -781,7 +830,7 @@ elseif($data=='add-external-plugin'){
       if(file_exists($target)){
         $zip = new ZipArchive;
         if($zip->open($target)===true){
-          if($zip->extractTo(ROOT.'plugins/'.$name)){
+          if($zip->extractTo(DROOT.'plugins/'.$name)){
             $zip->close();
             @unlink($target);
             header('location: '.WWW.'admin/plugins/?status=success-add-external-plugin');
@@ -810,7 +859,7 @@ elseif($data=='add-external-plugin'){
 /* Purchase external plugin */
 elseif($data=='purchase-external-plugin'){
   if(isset($_GET['plugin_code'])){
-    $url = 'http://dixie.black-apple.biz/external_purchase.php?product_code='.$_GET['plugin_code'];
+    $url = 'http://dixie.hol.es/external_purchase.php?product_code='.$_GET['plugin_code'];
     $file = @file_get_contents($url);
     $data = @json_decode($file,true);
     if(isset($data['validation'],$data['data_information'])){
@@ -834,7 +883,7 @@ elseif($data=='purchase-external-plugin'){
 /* Activation external plugin */
 elseif($data=='activation-external-plugin'){
   if(isset($_POST['activation_code'])){
-    $url = 'http://dixie.black-apple.biz/external_activation.php?activation_code='.$_POST['activation_code'];
+    $url = 'http://dixie.hol.es/external_activation.php?activation_code='.$_POST['activation_code'];
     $file = @file_get_contents($url);
     $data = @json_decode($file,true);
     if(isset($data['status'],$data['message'],$data['type'])&&$data['type']=='plugin'){
@@ -842,13 +891,13 @@ elseif($data=='activation-external-plugin'){
         $name = str_replace('.zip','',$data['filename']);
         $target = PUBDIR.'temp/'.$data['filename'];
         @copy($data['file_url'],$target);
-        if(is_dir(ROOT.'plugins/'.$name)){
+        if(is_dir(DROOT.'plugins/'.$name)){
           header('content-type: text/plain;');
           exit('the plugin has been installed');
         }elseif(file_exists($target)){
           $zip = new ZipArchive;
           if($zip->open($target)===true){
-            if($zip->extractTo(ROOT.'plugins/'.$name)){
+            if($zip->extractTo(DROOT.'plugins/'.$name)){
               $zip->close();
               @unlink($target);
               header('location: '.WWW.'admin/plugins/?status=success-activation-external-plugin');
@@ -885,7 +934,7 @@ elseif($data=='activation-external-plugin'){
 /* Purchase external theme */
 elseif($data=='purchase-external-theme'){
   if(isset($_GET['theme_code'])){
-    $url = 'http://dixie.black-apple.biz/external_purchase.php?product_code='.$_GET['theme_code'];
+    $url = 'http://dixie.hol.es/external_purchase.php?product_code='.$_GET['theme_code'];
     $file = @file_get_contents($url);
     $data = @json_decode($file,true);
     if(isset($data['validation'],$data['data_information'])){
@@ -909,7 +958,7 @@ elseif($data=='purchase-external-theme'){
 /* Activation external theme */
 elseif($data=='activation-external-theme'){
   if(isset($_POST['activation_code'])){
-    $url = 'http://dixie.black-apple.biz/external_activation.php?activation_code='.$_POST['activation_code'];
+    $url = 'http://dixie.hol.es/external_activation.php?activation_code='.$_POST['activation_code'];
     $file = @file_get_contents($url);
     $data = @json_decode($file,true);
     if(isset($data['status'],$data['message'],$data['type'])&&$data['type']=='theme'){
@@ -917,13 +966,13 @@ elseif($data=='activation-external-theme'){
         $name = str_replace('.zip','',$data['filename']);
         $target = PUBDIR.'temp/'.$data['filename'];
         @copy($data['file_url'],$target);
-        if(is_dir(ROOT.'themes/'.$name)){
+        if(is_dir(DROOT.'themes/'.$name)){
           header('content-type: text/plain;');
           exit('the theme has been installed');
         }elseif(file_exists($target)){
           $zip = new ZipArchive;
           if($zip->open($target)===true){
-            if($zip->extractTo(ROOT.'themes/'.$name)){
+            if($zip->extractTo(DROOT.'themes/'.$name)){
               $zip->close();
               @unlink($target);
               header('location: '.WWW.'admin/themes/?status=success-activation-external-theme');
@@ -964,10 +1013,10 @@ elseif($data=='check-dixie-update'){
   $data = array();
   if($update){
     $data['status'] = 'OK';
-    $data['html'] = '<div class="update-info">Update version '.$update['update_version'].' is available. <a href="'.WWW.'admin/a?data=update-dixie&update-uri='.urlencode($update['update_uri']).'" title="Update to version '.$update['update_version'].'"><button class="update-button">Update Now</button></a></div>';
+    $data['html'] = '<div class="update-info">'.__locale('Update version').' '.$update['update_version'].' '.__locale('is available').'. <a href="'.WWW.'admin/a?data=update-dixie&update-uri='.urlencode($update['update_uri']).'" title="Update to version '.$update['update_version'].'"><button class="update-button">Update Now</button></a></div>';
   }else{
     $data['status'] = 'up-to-date';
-    $data['html'] = '<div class="update-info">Dixie is up to date.</div>';
+    $data['html'] = '<div class="update-info">'.__locale('Dixie is up to date').'</div>';
   }
   print(json_encode($data));
   exit;
@@ -979,6 +1028,8 @@ elseif($data=='activate-theme'){
   $name = (isset($_POST['name']))?$_POST['name']:'';
   if(isset($themes[$name])){
     $update = $ldb->update('options','key=theme',array('value'=>$_POST['name']));
+    $update = $ldb->update('options','key=msie_theme',array('value'=>$_POST['name']));
+    $update = $ldb->update('options','key=mobile_theme',array('value'=>$_POST['name']));
     header('location: '.WWW.'admin/themes/?status=success-activate-theme');
     exit;
   }else{
@@ -990,6 +1041,7 @@ elseif($data=='activate-theme'){
 elseif($data=='change-editor'){
   if(isset($_GET['re'])&&isset($_GET['to'])){
     if($_GET['to']=='html'||$_GET['to']=='text'){
+      setcookie('dixie_post_editor',$_GET['to'],time()+(24*3600*30));
       $update = $ldb->update('options','key=post_editor',array('value'=>$_GET['to']));
       if($update){
         header('location: '.$_GET['re']);
@@ -1123,6 +1175,64 @@ elseif($data=='change-post-picture'){
   }else{
     header('content-type: text/plain;');
     exit('cannot save the picture');
+  }
+}
+/* Change locale */
+elseif($data=='change-locale'){
+  $data = language_data();
+  $exp = explode('_',base64_decode($_SESSION['dixie_login']));
+  if(isset($_GET['locale'],$exp[1])&&in_array($_GET['locale'],$data)){
+    $ldb->update('language_option','username='.$exp[1],array('lang'=>$_GET['locale']));
+    $_SESSION['dixie_locale'] = $_GET['locale'];
+  }else{
+    $_SESSION['dixie_locale'] = $_GET['locale'];
+  }
+  $ref = isset($_SERVER['HTTP_REFERER'])?$_SERVER['HTTP_REFERER']:WWW.'admin?status=locale-update';
+  header('location: '.$ref);
+  exit;
+}
+/* re-order menu */
+elseif($data=='reorder-menu'){
+  if(isset($_POST)){
+    foreach($_POST as $key=>$value){
+      $select = $ldb->select('menu','aid='.$key);
+      if(isset($select[0])){
+        $ldb->update('menu','aid='.$key,array('order'=>$value));
+      }
+    }
+    header('content-type: application/json');
+    print(json_encode(array(
+      'code'=>200,
+      'status'=>'OK',
+      'message'=>'success',
+      'type'=>'re-order menu',
+    )));
+    exit;
+  }else{
+    header('content-type: text/plain;');
+    exit('invalid request');
+  }
+}
+/* re-order sidebar */
+elseif($data=='reorder-sidebar'){
+  if(isset($_POST)){
+    foreach($_POST as $key=>$value){
+      $select = $ldb->select('sidebar','aid='.$key);
+      if(isset($select[0])){
+        $ldb->update('sidebar','aid='.$key,array('order'=>$value));
+      }
+    }
+    header('content-type: application/json');
+    print(json_encode(array(
+      'code'=>200,
+      'status'=>'OK',
+      'message'=>'success',
+      'type'=>'re-order sidebar',
+    )));
+    exit;
+  }else{
+    header('content-type: text/plain;');
+    exit('invalid request');
   }
 }
 /* Else action */

@@ -7,31 +7,30 @@ Free and Simple CMS;
 /* Dixie - Free and Simple CMS;
  *
  * Scripting Language    : PHP and Javascript;
- * PHP-Framework         : None;
- * Javascript-Framework  : jQuery v1.10.2;
- * Database              : Ldb Database v2.4 - Custom Portable Database;
- * Company               : Black Apple Inc.;
- * Company-URI           : http://black-apple.biz/;
- * Dixie-URI             : http://dixie.black-apple.biz/;
- * Dixie-Creator         : Luthfie a.k.a. 9r3i;
- * Creator-Email         : Luthfie@y7mail.com;
- * Creator-URI           : http://n8ro.hol.es/;
- * Third-party           : CKEditor as content-editor;
+ * PHP-Framework         : None or Bazzmu (optional);
+ * Javascript-Framework  : jQuery v2.1.3 and jQuery UI v1.11.4;
+ * Database              : Ldb Database v2.5 - Custom Portable Database;
+ * Dixie-URI             : http://dixie.hol.es/;
+ * Dixie-Author          : Luthfie a.k.a. 9r3i;
+ * Author-Email          : Luthfie@y7mail.com;
+ * Author-URI            : http://n8ro.hol.es/;
+ * Third-party           : + CKEditor as content-editor,
+ *                         + nicEdit as content-editor for mobile,
+ *                         + Locale package as custom-local-language;
  */
 
 ```
 
 
 The first time I did commit directly to version 1.3, please check the change log to see the update.
-Now update to version 2.1.0
 
-See [Dixie CMS](http://dixie.black-apple.biz/ "Dixie CMS") page,
-and try our [Demo](http://dixie.black-apple.biz/demo/ "Demo of Dixie CMS").
+See [Dixie CMS](http://dixie.hol.es/ "Dixie CMS") page,
+and try our [Demo](http://dixie.hol.es/demo/ "Demo of Dixie CMS").
 
 -----
 ## How to Install
 
-+ Simply download the newest version of Dixie as the ZIP file in [here](http://dixie.black-apple.biz/blog/dixie-version-210-is-released.html "Dixie CMS").
++ Simply download the newest version of Dixie as the ZIP file in [here](http://dixie.hol.es/blog/ "Dixie CMS").
 + Extract the file into directory you want to be intalled. Such as, /home/user4096/public_html/dixie/
 + Run Dixie. Such as, http://www.yourdomain.com/dixie/
 + You will see the installation page, and what you have to do is, fill the form correctly as it is.
@@ -40,4 +39,4 @@ and try our [Demo](http://dixie.black-apple.biz/demo/ "Demo of Dixie CMS").
 
 -----
 
-[![Black Apple Inc.](http://black-apple.biz/files/black-apple.png)](http://black-apple.biz/ "Black Apple Inc.")
+[![Dixie - Free and Simple CMS](http://dixie.hol.es/blog/public_html/images/dixie-black.png)](http://dixie.hol.es/ "Dixie CMS")

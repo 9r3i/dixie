@@ -1,12 +1,11 @@
 ========================================================================
 
-                          Black Apple Inc.
-                       http://black-apple.biz/
                              Dixie CMS
                         Free and simple CMS
 
-  Dixie is an open source CMS from Black Apple Inc.
-  Created by Luthfie a.k.a. 9r3i.
+  Dixie is an open source CMS, you can find her here: 
+  https://github.com/9r3i/dixie
+  Authored by Luthfie a.k.a. 9r3i.
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

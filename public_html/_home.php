@@ -1,8 +1,6 @@
 <?php
-/* Black Apple Inc.
- * http://black-apple.biz/
- * Dixie CMS
- * Created by Luthfie
+/* Dixie - Free and Simple CMS
+ * Created by Luthfie a.k.a. 9r3i
  * luthfie@y7mail.com
  */
 
@@ -14,6 +12,8 @@ if(!get_options()){
   header('location: '.WWW.'install/?ref=first');
   exit;
 }
+
+//header('content-type: text/plain'); print_r($GLOBALS); exit;
 
 /* Set default timezone */
 if(get_site_info('timezone',false)){
@@ -32,6 +32,19 @@ get_posts('url',$where);
 /* Call XML RSS Feed if requested */
 if(defined('P')&&P=='feed.xml'){
   @include_once('feed.php');
+  exit;
+}
+
+/* Call robots.txt if requested */
+if(defined('P')&&P=='robots.txt'){
+  header('content-type: text/plain');
+  @include_once('robots.txt');
+  exit;
+}
+
+/* Call robots.txt if requested */
+if(defined('P')&&P=='sitemap.txt'){
+  @include_once('sitemap.php');
   exit;
 }
 

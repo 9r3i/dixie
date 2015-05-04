@@ -1,0 +1,273 @@
+Login === Masuk
+User Login === Masuk Pengguna
+Forget your password === Lupa kata sandi anda
+Forget Password === Lupa Kata Sandi
+Request Password === Permintaan Sandi
+Send Request === Kirim Permintaan
+New password request has been sent to your email === Permintaan kata sandi baru telah terkirim ke alamat surel anda
+
+Your request can't be confirmed === Permintaan anda tidak dapat dikabulkan
+Your confirm password dosn't match === Kata sandi tidak sama
+Reset Password === Reset Sandi
+Proceed === Lanjutkan
+
+New Post === Entri Baru
+All Posts === Semua Entri
+Files === Berkas
+Menu === Menu
+Sidebar === Bar Samping
+Themes === Tema
+Plugins === Plugin
+Users === Pengguna
+Account === Akun
+Settings === Pengaturan
+Edit Post === Sunting Entri
+Edit Theme === Sunting Tema
+Edit Plugin === Sunting Plugin
+Add New User === Tambah Pengguna Baru
+Edit User === Sunting Pengguna
+New Menu === Menu Baru
+Edit Menu === Sunting Menu
+New Sidebar === Bar Baru
+Edit Sidebar === Sunting Bar
+Plugin Option === Opsi Plugin
+Theme Option === Opsi Tema
+Add New Plugin === Tambah Plugin Baru
+Add New Theme === Tambah Tema Baru
+Confirmation === Konfirmasi
+Upload New File === Unggah Berkas Baru
+Update === Perbaharui
+Change Picture === Ganti Gambar
+Add User === Tambah Pengguna
+Home === Beranda
+Logout === Keluar
+
+You have === Anda mempunyai
+You have no post yet === Anda belum mempunyai entri
+Create a new post now === Buat entri baru sekarang
+file === berkas
+uploaded === terunggah
+You have no file yet === Anda belum mempunyai berkas sama sekali
+Upload a file now === Unggah berkas sekarang
+Your current theme === Tema terpasang saat ini
+installed === terinstall
+You have no installed-plugin yet === Anda belum mempunyai plugin yang terinstall
+Install a plugin now === Install plugin sekarang
+Post Editor set to === Editor entri terpasang pada
+Change to === Rubah ke
+to use === untuk menggunakan
+Don't forget to check your === Jangan lupa untuk memeriksa
+Change Log === Log Perbaharuan
+Check Update Version === Periksa Versi Terbaru
+
+Title === Judul
+Insert a title here === Masukan judul disini
+Content === Isi Konten
+View === Lihat
+Edit === Sunting
+Delete === Hapus
+Description === Deskripsi
+Keywords === Kata Kunci
+Trainer === Pelatih
+Training Date === Tanggal Terselenggara
+Note === Nota
+Expires === Masa Berlaku
+Price === Harga
+Barcode === Barkode
+Stock === Stok
+Account === Akun
+Place === Tempat
+Host === Host
+Start === Mulai
+End === Berakhir
+Action === Tindakan
+Publish === Terbitkan
+Configurations === Konfigurasi
+Status === Status
+Type === Jenis
+Access === Akses
+Template === Templet
+Category === Kategori
+Create New === Buat Baru
+The post doesn't exist === Entri tidak ditemukan
+Private === Pribadi
+Public === Umum
+Post === Entri
+Page === Laman
+Article === Artikel
+Training === Pelatihan
+Schedule === Jadwal
+Event === Acara
+Product === Produk
+Publish === Terbitkan
+Draft === Draf
+Trash === Sampah
+publish === terbit
+draft === draf
+trash === sampah
+change picture === ganti gambar
+Directory === Direktori
+Empty === Kosong
+Upload === Unggah
+Save === Simpan
+change to === rubah ke
+Status Filter === Saring Status
+Type Filter === Saring Jenis
+Bulk Action === Tindakan Masal
+Check All === Pilih Semua
+Do Action === Tindakan
+Next === Selanjutnya
+Created Time === Waktu Pembuatan
+Last Updated === Terakhir Diperbaharui
+Move the post to trash === Pindahkan ke tempat sampah
+Delete Permanently === Hapus Permanen
+Delete the post === Hapus entri
+Preview === Tampilkan
+
+
+no action chosen === tak ada tindakan yang dipilih
+Are you sure want to move this post to Trash === Apakah anda yakin ingin memindahkan entri ini ke tempat sampah
+cannot find the post === entri tak dapat ditemukan
+Are you sure want to delete this post permanently === Apakah anda yakin ingin menghapus entri ini secara permanen
+cannot find the file === berkas tak dapat ditemukan
+Are you sure want to delete this file permanently === Apakah anda yakin ingin menghapus berkas ini secara permanen
+Filename === Nama berkas
+Rename file === Ubah nama berkas
+cannot find the user === pengguna tak dapat ditemukan
+Are you sure want to delete this user permanently === Apakah anda yakin ingin menghapus pengguna ini secara permanen
+cannot find content menu === menu tak dapat ditemukan
+Menu Name === Nama Menu
+Are you sure want to delete this menu permanently === Apakah anda yahin ingin menghapus menu ini secara permanen
+cannot find content sidebar === bar tak dapat ditemukan
+Sidebar Type === Jenis Bar
+Are you sure want to delete this sidebar permanently === Apakah anda yakin ingin menghapus bar ini secara permanen
+cannot be activated === tak dapat diaktifkan
+plugin has been activated === plugin telah diaktifkan
+plugin has been deactivated === plugin telah dinon-aktifkan
+cannot be deactivated === tak dapat dinon-aktifkan
+the plugin cannot be deleted while it's active === plugin tidak dapat dihapus saat sedang dalam keadaan aktif
+Plugin Name === Nama Plugin
+Are you sure want to delete this plugin permanently === Apakah anda yakin ingin menghapus plugin ini secara permanen
+cannot find content plugin === plugin tak dapat ditemukan
+the theme cannot be deleted while it's active === tema tidak dapat dihapus saat dalam keadaan aktif
+Theme Name === Nama Tema
+Are you sure want to delete this theme permanently === Apakah anda yakin ingin menghapus tema ini secara permanen
+cannot find content theme === tema tidak dapat ditemukan
+the theme has been actived === tema telah diaktifkan
+Are you sure want to change to this theme as your theme === Apakah anda yahin ingin mengubah tema dengan tema ini
+cannot find content theme === tema tak dapat ditemukan
+Unrecognized action === Tindakan tak dikenal
+
+Delete All === Hapus Semua
+click to choose the file === klik untuk memilih berkas
+Rename === Ubah Nama
+Size === Ukuran
+Uploaded Time === Terunggah
+Add File === Tambah Berkas
+
+Dixie is up to date === Anda sedang menggunakan Dixie versi terbaru
+Update manually === Perbaharui Dixie secara manual
+Requires ZIP file === Dibutuhkan berkas berbentuk ZIP
+
+Description === Deskripsi
+Open Theme Description === Buka Deskripsi Tema
+Visit Theme Site === Kunjungi Website Tema
+Author === Pengarang
+Version === Versi
+Uninstall === Uninstall
+Activate === Aktifkan
+Edit the theme === Sunting tema
+Edit the plugin === Sunting plugin
+Options === Opsi
+Add Theme === Tambah Tema
+You have an Activation Code === Anda mempunyai Kode Aktifasi
+Activation Code === Kode Aktifasi
+Free === Gratis
+Purchase === Beli
+Purchased === Terbeli
+Install === Pasang
+Installed === Terpasang
+Loading === Sedang Memuat
+theme doesn't exist === Tema tidak tersedia
+the theme doesn't have optional file === Tema ini tidak memiliki berkas opsi
+
+Order === Urutan
+Option === Opsi
+Insert sidebar content here === Masukan isi bar disini
+Add Sidebar === Tambah Bar
+Post Type === Jenis Entri
+Max. Post === Max. Entri
+Maximum Post === Maximal Entri
+
+Timezone === Zona Waktu
+Site Name === Nama Website
+Site Description === Deskripsi Website
+Site Keywords === Kata Kunci Website
+Main Page === Halaman Utama
+Post Editor === Editor Entri
+Robots === Robot Pencari
+Main Theme === Tema Utama
+Mobile Theme === Tema Hape
+MSIE Theme === Tema MSIE
+Recent Posts === Entri Terkini
+Save Settings === Simpan Pengaturan
+
+Add Plugin === Tambah Plugin
+Deactivate === Non-Aktifkan
+Active === Aktif
+Inactive === Tidak Aktif
+Visit Plugin Site === Kunjungi Website Plugin
+Open Plugin Description === Buka Plugin Deskripsi
+unknown error === kesalahan tidak diketahui
+Upload Plugin === Unggah Plugin
+the plugin doesn't have optional file === plugin ini tidak mempunyai berkas opsi
+plugin doesn't exist === plugin tidak tersedia
+
+Name === Nama
+Full Name === Nama Lengkap
+Privilege === Hak Pengguna
+Username === Nama Pengguna
+Password === Kata Sandi
+Email === Alamat Surel
+Joined Time === Tanggal Bergabung
+
+Filter === Saring
+Top === Atas
+Bottom === Bawah
+cannot get menu information === informasi menu tidak didapat
+Menu Type === Jenis Menu
+Menu Name === Nama Menu
+Menu Slug === Slag Menu
+Menu Order === Urutan Menu
+Add Menu === Tambah Menu
+
+File === Berkas
+Open File === Buka Berkas
+Content file === Isi berkas
+Update File === Perbaharui Berkas
+theme doesn't exist === tema tidak tersedia
+Change Password === Ganti Kata Sandi
+Old Password === Kata Sandi Lama
+New Password === Kata Sandi Baru
+Confirm Password === Kata Sandi Baru Lagi
+Joined === Bergabung
+
+Update version === Versi terbaru
+is available === sudah tersedia
+Edit User === Sunting Pengguna
+cannot find the user === pengguna tak dapat ditemukan
+Confirm === Konfirm
+Cancel === Batal
+Yes === Ya
+No === Tidak
+Powered by === Diberdayakan oleh
+Language === Bahasa
+
+Updated === Diperbaharui
+Created === Dibuat
+rows === baris
+Remember Me === Ingat Saya
+
+
+
+

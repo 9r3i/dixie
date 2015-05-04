@@ -5,9 +5,11 @@
  * luthfie@y7mail.com
  */
 
+var www,pubdir;
+
 $(document).ready(function(){
   $('.aside-each').hover(function(){
-      $(this).animate({"padding":"10px 5px 10px 40px"},100,function(){});
+      $(this).animate({"padding":"8px 5px 8px 15px"},100,function(){});
     },function(){
       $(this).animate({"padding":"7px 5px 7px 10px"},50,function(){});
   });
@@ -21,27 +23,84 @@ function check_all(cn){
   }
 }
 
-var aside_button = document.getElementById('aside_button');
+var aside_button = document.getElementById('new_aside_button');
 aside_button.onclick = aside_menu;
 
 function aside_menu(){
   var aside = document.getElementById('aside');
+  var tbside = document.getElementById('tbside');
   var display = aside.style.display;
   if(display==''||display=='none'){
     aside.style.display="block";
+    tbside.style.display="block";
   }else{
     aside.style.display="none";
+    tbside.style.display="none";
   }
 }
+
+function hide_aside(){
+  var pc = document.getElementById('page_content');
+  var ww = window.innerWidth;
+  var aside = document.getElementById('aside');
+  var tbside = document.getElementById('tbside');
+  var display = aside.style.display;
+  if(ww<=790){
+    aside.style.display="none";
+    tbside.style.display="none";
+  }
+};
+
 
 window.onresize = function(){
   var ww = window.innerWidth;
   var aside = document.getElementById('aside');
+  var tbside = document.getElementById('tbside');
   if(ww>790){
     aside.style.display="block";
+    tbside.style.display="block";
   }else{
     aside.style.display="none";
+    tbside.style.display="none";
   }
+}
+
+
+function open_theme_file(name,file){
+  window.location.assign(www+'admin/edit-theme?name='+name+'&file='+file);
+}
+
+function open_plugin_file(name,file){
+  window.location.assign(www+'admin/edit-plugin?name='+name+'&file='+file);
+}
+
+
+/* email validated */
+function is_valid_email(email){
+  var regExp = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  if(email.match(regExp)){
+    return true;
+  }else{
+    return false;
+  }
+}
+
+function setCookie(cname,cvalue,exdays){
+  var d = new Date();
+  d.setTime(d.getTime()+(exdays*24*60*60*1000));
+  var expires = "expires="+d.toGMTString();
+  /* BlackBerry browser cannot suport document.cookie */
+  document.cookie = cname+"="+cvalue+"; "+expires;
+}
+
+function getCookie(cname){
+  var name = cname+"=";
+  var ca = document.cookie.split(';');
+  for(var i=0; i<ca.length; i++)  {
+    var c = ca[i].trim();
+    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+  }
+  return "";
 }
 
 function number_format(number, decimals, dec_point, thousands_sep) {

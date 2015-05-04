@@ -1,8 +1,6 @@
 <?php
-/* Black Apple Inc.
- * http://black-apple.biz/
- * Dixie CMS
- * Created by Luthfie
+/* Dixie - Free and Simple CMS
+ * Created by Luthfie a.k.a. 9r3i
  * luthfie@y7mail.com
  */
 
@@ -19,6 +17,10 @@ function get_options(){
       foreach($set as $each){
         $options[$each['key']] = $each['value'];
       }
+    }
+    /* create new optional point */
+    if(isset($options['post_editor'])){
+      $options['post_editor'] = isset($_COOKIE['dixie_post_editor'])?$_COOKIE['dixie_post_editor']:$options['post_editor'];
     }
     return $options;
   }else{
@@ -210,7 +212,8 @@ function get_sidebar_print($print=true){
         $content .= '<div class="sidebar-meta-content">';
         $content .= '<a href="'.WWW.'admin/?ref=meta" title="'.((is_login())?'Admin Page':'Login to Admin').'"><div class="sidebar-meta-list">'.((is_login())?'Admin':'Login').'</div></a>';
         $content .= '<a href="'.WWW.'feed.xml" title="Really Simple Syndicate"><div class="sidebar-meta-list">RSS</div></a>';
-        $content .= '<a href="http://dixie.black-apple.biz/?ref='.urlencode(WWW).'" title="Black Apple &ndash; Dixie" target="_blank"><div class="sidebar-meta-list">Black Apple &ndash; Dixie</div></a>';
+        $content .= '<a href="http://dixie.hol.es/?ref='.urlencode(WWW).'" title="Dixie" target="_blank" rel="follow"><div class="sidebar-meta-list">Dixie</div></a>';
+        $content .= '<a href="http://n8ro.hol.es/?ref='.urlencode(WWW).'" title="Luthfie a.k.a. 9r3i" target="_blank" rel="follow"><div class="sidebar-meta-list">Luthfie</div></a>';
         $content .= '</div></div>';
       }elseif($bar['type']=='category'){
         $content .= '<div class="sidebar-category">';
@@ -275,7 +278,7 @@ function get_header($print=true){
   $content .= '<meta content="'.$options['robots'].'" name="robots" />';
   $content .= '<meta content="Luthfie" name="developer" /><meta content="luthfie@y7mail.com" name="developer-email" />';
   $content .= '<meta content="Dixie" name="generator" /><meta content="'.DIXIE_VERSION.'" name="version" />';
-  $content .= '<link href="'.WWW.((isset($post['url']))?$post['url'].'/':'').'" type="text/html" rel="canonical" />';
+  $content .= '<link href="'.WWW.((isset($post['url']))?$post['url'].'.html':'').'" type="text/html" rel="canonical" />';
   $content .= '<link href="'.WWW.((isset($post['url']))?$post['url'].'.html':'').'" type="text/html" rel="pingback" />';
   $content .= '<link href="'.WWW.'feed.xml" title="RSS Feed" type="application/rss+xml" rel="alternate" />';
   $content .= '';
@@ -398,6 +401,8 @@ function get_index(){
     $template = 'type';
   }elseif(defined('P')&&P=='search'){
     $template = 'search';
+  }elseif(defined('P')&&P=='admin'&&is_login()){
+    $template = 'admin';
   }else{
     $template = '404';
   }
@@ -532,7 +537,10 @@ function generate_training_post($data=array()){
     $times = array();
     $newd = array();
     foreach($data as $id=>$post){
-      $times[$id] = strtotime($post['training_date']);
+      $tdate = generate_training_date($post['training_date']);
+      if($tdate>time()){
+        $times[$id] = $tdate;
+      }
     }
     asort($times);
     foreach($times as $id=>$time){
@@ -553,7 +561,7 @@ function generate_index_single_post($post,$type='post',$word=39,$category){
   $dots = (count($rows)>=5)?'...':$dots;
   $recon = implode(PHP_EOL,$rows);
   $content = $recon.'<span></span>'.$dots;
-  $time = strtotime($post['training_date']);
+  $time = generate_training_date($post['training_date']);
   $hasil ='';
     $hasil .= '<div class="each-post data-'.$type.'" data-type="'.$type.'">';
     $hasil .= '<div class="each-post-title"><a href="'.WWW.$post['url'].'.html"><h3>'.$post['title'].'</h3></a></div>';
@@ -599,6 +607,413 @@ function generate_index_single_post($post,$type='post',$word=39,$category){
   return $hasil;
 }
 
+function generate_training_date($date,$until=false){
+  $split = explode('-',$date);
+  if(is_array($split)){
+    if($until&&isset($split[1])){
+      $result = @strtotime($split[1]);
+      return $result?$result:time();
+    }else{
+      $result = @strtotime($split[0]);
+      return $result?$result:time();
+    }
+  }else{
+    return time();
+  }
+}
+
+/* Admin get header */
+function admin_get_header($print=true){
+  $default = '<meta content="text/html; charset=utf-8" http-equiv="content-type" /><meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" /><meta content="width=device-width, initial-scale=1" name="viewport" /><meta content="Luthfie" name="developer" /><meta content="luthfie@y7mail.com" name="developer-email" /><meta content="Dixie" name="generator" /><meta content="'.DIXIE_VERSION.'" name="version" />';
+  $content = plugin_run('admin-header','');
+  $hasil = $default.$content;
+  if($print){
+    print($hasil);
+  }else{
+    return $hasil;
+  }
+}
+/* Admin get footer */
+function admin_get_footer($print=true){
+  $content = '';
+  $hasil = plugin_run('admin-footer',$content);
+  if($print){
+    print($hasil);
+  }else{
+    return $hasil;
+  }
+}
+
+/* Admin get registered data */
+function admin_get_data(){
+  global $adminReg,$pages,$no_pages,$editor_pages,$priv,$pluger,$icons;
+  admin_default_registry();
+  ksort($adminReg);
+  $sdp = array(32=>'master',16=>'admin',8=>'editor',4=>'author',2=>'member');
+  foreach($adminReg as $pre=>$reg){
+    $pages[$reg['slug']] = $reg['title'];
+    $icons[$reg['slug']] = $reg['icon'];
+    if($reg['regside']===false){
+      $no_pages[] = $reg['slug'];
+    }
+    if($reg['editor']===true){
+      $editor_pages[] = $reg['slug'];
+    }
+    if(isset($sdp[$reg['privilege']])){
+      foreach($sdp as $id=>$val){
+        if($reg['privilege']<=$id){
+          $priv[$val][] = $reg['slug'];
+        }
+      }
+    }
+    if($reg['type']=='plugin'){
+      $pluger[$reg['slug']] = $reg['name'];
+    }
+  }
+  return true;
+}
+
+
+
+/* Admin registry function
+ * To register a plugin menu and page into admin page (backend)
+ * @name: string -> Plugin name or actually the slug uri of the plugin directory
+ * @slug: string -> The file slug to the content file
+ * @title: string -> The title
+ * @priority: integer -> default 10
+ * @privilege: integer -> according to sdp -> default 16 as admin
+ * @regside: bool -> register to sidebar -> default true
+ * @editor: bool -> register to editor pages -> default false
+ * 
+ */
+function admin_registry($name,$slug,$title,$priority=10,$privilege=16,$regside=true,$editor=false,$icon=''){
+  global $adminReg;
+  $sdp = array(32=>'master',16=>'admin',8=>'editor',4=>'author',2=>'member');
+  if(isset($name,$slug,$title,$sdp[$privilege])){
+    $data = array();
+    $data['name'] = $name;
+    $data['slug'] = $slug;
+    $data['title'] = $title;
+    $data['priority'] = $priority;
+    $data['privilege'] = $privilege;
+    $data['regside'] = $regside;
+    $data['editor'] = $editor;
+    $data['type'] = 'plugin';
+    $data['icon'] = $icon;
+    $adminReg[$priority.'_'.$name] = $data;
+    return true;
+  }else{
+    return false;
+  }
+}
+
+/* Admin default registry */
+function admin_default_registry(){
+  global $adminReg;
+  $default = array(
+    '12_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'new-post',
+      'title'=>__locale('New Post'),
+      'priority'=>'12',
+      'privilege'=>'4',
+      'regside'=>true,
+      'editor'=>true,
+      'type'=>'default',
+      'icon'=>'fa-edit',
+    ),
+    '13_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'posts',
+      'title'=>__locale('All Posts'),
+      'priority'=>'13',
+      'privilege'=>'4',
+      'regside'=>true,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'fa-file-o',
+    ),
+    '16_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'files',
+      'title'=>__locale('Files'),
+      'priority'=>'16',
+      'privilege'=>'8',
+      'regside'=>true,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'fa-folder-o',
+    ),
+    '19_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'menu',
+      'title'=>__locale('Menu'),
+      'priority'=>'19',
+      'privilege'=>'8',
+      'regside'=>true,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'fa-list-alt',
+    ),
+    '22_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'sidebar',
+      'title'=>__locale('Sidebar'),
+      'priority'=>'22',
+      'privilege'=>'8',
+      'regside'=>true,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'fa-columns',
+    ),
+    '25_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'themes',
+      'title'=>__locale('Themes'),
+      'priority'=>'25',
+      'privilege'=>'16',
+      'regside'=>true,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'fa-shield',
+    ),
+    '28_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'plugins',
+      'title'=>__locale('Plugins'),
+      'priority'=>'28',
+      'privilege'=>'16',
+      'regside'=>true,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'fa-thumb-tack',
+    ),
+    '31_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'users',
+      'title'=>__locale('Users'),
+      'priority'=>'31',
+      'privilege'=>'16',
+      'regside'=>true,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'fa-user',
+    ),
+    '34_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'account',
+      'title'=>__locale('Account'),
+      'priority'=>'34',
+      'privilege'=>'2',
+      'regside'=>true,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'fa-lock',
+    ),
+    '37_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'settings',
+      'title'=>__locale('Settings'),
+      'priority'=>'37',
+      'privilege'=>'16',
+      'regside'=>true,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'fa-gear',
+    ),
+    '40_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'edit-post',
+      'title'=>__locale('Edit Post'),
+      'priority'=>'40',
+      'privilege'=>'4',
+      'regside'=>false,
+      'editor'=>true,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '43_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'edit-theme',
+      'title'=>__locale('Edit Theme'),
+      'priority'=>'43',
+      'privilege'=>'16',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '44_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'edit-plugin',
+      'title'=>__locale('Edit Plugin'),
+      'priority'=>'44',
+      'privilege'=>'16',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '46_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'new-user',
+      'title'=>__locale('Add New User'),
+      'priority'=>'46',
+      'privilege'=>'16',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '49_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'edit-user',
+      'title'=>__locale('Edit User'),
+      'priority'=>'49',
+      'privilege'=>'16',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '52_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'new-menu',
+      'title'=>__locale('New Menu'),
+      'priority'=>'52',
+      'privilege'=>'8',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '55_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'edit-menu',
+      'title'=>__locale('Edit Menu'),
+      'priority'=>'55',
+      'privilege'=>'8',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '58_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'new-sidebar',
+      'title'=>__locale('New Sidebar'),
+      'priority'=>'58',
+      'privilege'=>'8',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '61_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'edit-sidebar',
+      'title'=>__locale('Edit Sidebar'),
+      'priority'=>'61',
+      'privilege'=>'8',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '64_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'plugin-option',
+      'title'=>__locale('Plugin Option'),
+      'priority'=>'64',
+      'privilege'=>'16',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '67_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'theme-option',
+      'title'=>__locale('Theme Option'),
+      'priority'=>'67',
+      'privilege'=>'16',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '70_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'new-plugin',
+      'title'=>__locale('Add New Plugin'),
+      'priority'=>'70',
+      'privilege'=>'16',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '73_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'new-theme',
+      'title'=>__locale('Add New Theme'),
+      'priority'=>'73',
+      'privilege'=>'16',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '76_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'confirmation',
+      'title'=>__locale('Confirmation'),
+      'priority'=>'76',
+      'privilege'=>'4',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '79_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'upload',
+      'title'=>__locale('Upload New File'),
+      'priority'=>'79',
+      'privilege'=>'8',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '82_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'update',
+      'title'=>__locale('Update'),
+      'priority'=>'82',
+      'privilege'=>'16',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    ),
+    '85_admin'=>array(
+      'name'=>'admin',
+      'slug'=>'change-picture',
+      'title'=>__locale('Change Picture'),
+      'priority'=>'85',
+      'privilege'=>'4',
+      'regside'=>false,
+      'editor'=>false,
+      'type'=>'default',
+      'icon'=>'',
+    )
+  );
+  $adminReg = array_merge((array)$adminReg,(array)$default);
+  return true;
+}
+
+
 /* Plugins registry store at global $plugReg */
 function plugin_registry($p_name,$p_index=array(),$priority=10,$type='content',$arg=array()){
   global $plugReg;
@@ -620,11 +1035,14 @@ function plugin_run($type,$content=false){
   }
   $plugin->load($type);
   $hasil = $content;
+  /* few contents are dismissed, i'm afraid if this will be bad.
+   * but i still merge the additional argument below
+   */
   if(is_array($plugReg)){
     ksort($plugReg);
     foreach($plugReg as $func){
-      $arg = array();
-      $arg[]=$hasil;
+      $first_arg = array($hasil);
+      $arg = array_merge((array)$first_arg,(array)$func['arg']);
       if(in_array(get_index(),$func['index'])&&$type==$func['type']){
         $hasil = call_user_func_array($func['name'],$arg);
       }
@@ -824,28 +1242,30 @@ function get_installation_package(){
   global $ldb;
   if(isset($_POST['site_name'])&&isset($_POST['username'])&&isset($_POST['password'])&&isset($_POST['cpassword'])&&isset($_POST['email'])&&isset($_POST['name'])&&!empty($_POST['password'])&&!empty($_POST['cpassword'])&&!empty($_POST['site_name'])&&!empty($_POST['username'])&&!empty($_POST['email'])&&!empty($_POST['name'])){
     if($_POST['password']==$_POST['cpassword']){
+      $title = 'Welcome to Dixie CMS';
+      $slug = create_slug($title);
       $options = array(
         array('key'=>'site_name','value'=>$_POST['site_name']),
         array('key'=>'site_description','value'=>'Site is generated by Dixie CMS'),
         array('key'=>'site_keywords','value'=>'Free, Simple, CMS'),
-        array('key'=>'robots','value'=>'indexes, followes'),
+        array('key'=>'robots','value'=>'index, follow'),
         array('key'=>'timezone','value'=>'Asia/Jakarta'),
-        array('key'=>'theme','value'=>'Dixie2'),
-        array('key'=>'mobile_theme','value'=>'Dixie2'),
-        array('key'=>'msie_theme','value'=>'Dixie2'),
-        array('key'=>'main_page','value'=>'index'),
+        array('key'=>'theme','value'=>'Dixie3'),
+        array('key'=>'mobile_theme','value'=>'Dixie3'),
+        array('key'=>'msie_theme','value'=>'Dixie3'),
+        array('key'=>'main_page','value'=>$slug),
         array('key'=>'post_editor','value'=>'html'),
       );
       $post = array(
-        'url'=>'index',
-        'title'=>'Welcome to Dixie CMS',
-        'content'=>'<p>Hi '.$_POST['name'].', Dixie is finally installed.<br />Thank you for using Dixie as your CMS.</p>
-<p>This Content Management System (CMS) is the free one and powered by <a href="http://black-apple.biz/" target="_blank">Black Apple Inc.</a>. You can try Dixie by downloading and installing into your own blog or website. But typically Dixie is for website.</p>
+        'url'=>$slug,
+        'title'=>$title,
+        'content'=>'<p>Hi '.$_POST['name'].',</p>
+<p>Dixie v'.DIXIE_VERSION.' is finally installed.<br />Thank you for using Dixie as your CMS.</p>
+<p>This Content Management System (CMS) is the free one and created by <a href="http://n8ro.hol.es/?id=profile" title="Luthfie a.k.a. 9r3i" target="_blank">Luthfie</a>. You can try Dixie by downloading then install her into your own blog or website.</p>
 <p>Dixie is portable CMS, you can move these whole files inside the directory if Dixie to another directory or folder, without committing any setup.</p>
-<p>This version 2.x.x is more compatible to mobile browser, instead the admin page is more simple in mobile browser, so that you can update your website everytime you use your phone.</p>
 <p>For more info about what features are added to, please read the change log inside the backend (the admin page).</p>
 <p>Please <a href="'.WWW.'admin/login/">Login</a> once Dixie was installed.<br />I hope you enjoy this CMS. :)</p>
-<p><br />--<a href="http://n8ro.hol.es/">Luthfie</a> (Developer)</p>',
+<p><br />--<a href="http://n8ro.hol.es/?id=profile">Luthfie</a> (Developer)</p>',
         'datetime'=>date('y-m-d H:i:s'),
         'author'=>$_POST['username'], 
         'type'=>'page',
@@ -854,7 +1274,7 @@ function get_installation_package(){
         'template'=>'standard',
         'picture'=>'',
         /* article & page */
-        'description'=>'Free and Simple CMS',
+        'description'=>'Site is generated by Dixie - Free and Simple CMS',
         'keywords'=>'Free, Simple, CMS',
         /* training */
         'trainer'=>'',
@@ -862,13 +1282,15 @@ function get_installation_package(){
         /* schedule */
         'expires'=>'',
         'note'=>'',
-        /* product */
+        /* product + training + event */
         'price'=>'',
+        /* training + event */
+        'place'=>'',
+        /* product */
         'stock'=>'',
         'barcode'=>'',
         'account'=>'',
         /* event */
-        'place'=>'',
         'host'=>'',
         'start'=>'',
         'end'=>'',
@@ -890,7 +1312,7 @@ function get_installation_package(){
         'type'=>'text',
         'title'=>'Dixie',
         'order'=>'22',
-        'content'=>'<img src="'.PUBDIR.'images/dixie.png" width="100%" style="width:100%;border:none;" title="Dixie CMS for '.$_POST['site_name'].'"  />',
+        'content'=>'<img src="'.PUBDIR.'images/dixie-black.png" width="100%" style="width:100%;border:none;" title="Dixie CMS for '.$_POST['site_name'].'"  />',
         'option'=>'', // json
       );
       $sidebar2 = array(
@@ -917,14 +1339,14 @@ function get_installation_package(){
         $ldb->insert('sidebar',$sidebar);
         $ldb->insert('sidebar',$sidebar2);
         $ldb->insert('sidebar',$sidebar3);
-        header('location: '.WWW.'index.html?_success=installation');
+        header('location: '.WWW.$slug.'.html?_success=installation');
         exit;
       }else{
         $error = 'Error: Cannot connect into database';
         return $error;
       }
     }else{
-      $error = 'Confirm password is not match';
+      $error = 'Confirm password doesn\'t match';
       return $error;
     }
   }

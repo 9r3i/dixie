@@ -1,0 +1,272 @@
+Login === Lebet
+User Login === Lebet Panganggo
+Forget your password === Hilap kecap sandi anjeun
+Forget Password === Hilap Kecap Sandi
+Request Password === Pamenta Sandi
+Send Request === Kintun Pamenta
+New password request has been sent to your email === Pementa kecap sandi nu enggal parantos dikintun ka alamat surel anjeun
+
+Your request can't be confirmed === Pamenta anjeun teu tiasa didugikeun
+Your confirm password dosn't match === Kecap pamenta teu sami
+Reset Password === Atur Deui Sandi
+Proceed === Lajengkeun
+
+New Post === Entri Enggal
+All Posts === Sadaya Entri
+Files === Berkas
+Menu === Menu
+Sidebar === Bar Gigir
+Themes === Tema
+Plugins === Plugin
+Users === Panganggo
+Account === Akun
+Settings === Pangaturan
+Edit Post === Ropea Entri
+Edit Theme === Ropea Tema
+Edit Plugin === Ropea Plugin
+Add New User === Tambih Panganggo Enggal
+Edit User === Ropea Panganggo
+New Menu === Menu Enggal
+Edit Menu === Ropea Menu
+New Sidebar === Bar Enggal
+Edit Sidebar === Ropea Bar
+Plugin Option === Opsi Plugin
+Theme Option === Opsi Tema
+Add New Plugin === Tambih Plugin Enggal
+Add New Theme === Tambih Tema Enggal
+Confirmation === Dugikeun
+Upload New File === Unggah Berkas Enggal
+Update === Lereskeun
+Change Picture === Gentos Gambar
+Add User === Tambih Panganggo
+Home === Tepas
+Logout === Kaluar
+
+You have === Anjeun ngagaduhan
+You have no post yet === Anjeun teu acan ngagaduhan entri
+Create a new post now === Ngadamel entri enggal ayeuna
+file === berkas
+uploaded === kaunggah
+You have no file yet === Anjeun teu acan ngagaduhan berkas hiji-hiji acan
+Upload a file now === Unggah berkas berkas
+Your current theme === Tema nu dipasang ayeuna
+installed === kainstall
+You have no installed-plugin yet === Anjeun teu acan ngagaduhan plugin nu kainstall
+Install a plugin now === Install plugin ayeuna keneh
+Post Editor set to === Editor entri kapasang ku
+Change to === Robih ku
+to use === kanggo ngagunakeun
+Don't forget to check your === Tong hilap kanggo marios
+Change Log === Log Parubahan
+Check Update Version === Parios Versi Pang Enggalna
+
+Title === Judul
+Insert a title here === Lebetkeun judul didieu
+Content === Eusi Konten
+View === Tingali
+Edit === Ropea
+Delete === Pupus
+Description === Deskripsi
+Keywords === Kecap Konci
+Trainer === Pelatih
+Training Date === Tanggal Diayakeun
+Note === Nota
+Expires === Kadaluarsa
+Price === Pangaos
+Barcode === Barkot
+Stock === Stok
+Account === Akun
+Place === Tempat
+Host === Pembawa Acara
+Start === Mimitian
+End === Panutupan
+Action === Tindakan
+Publish === Terbitkeun
+Configurations === Konfigurasi
+Status === Status
+Type === Jinis
+Access === Akses
+Template === Templet
+Category === Kategori
+Create New === Ngadamel Nu Enggal
+The post doesn't exist === Entri Teu kapendak
+Private === Pribadi
+Public === Umum
+Post === Entri
+Page === Laman
+Article === Artikel
+Training === Pelatihan
+Schedule === Jadwal
+Event === Acara
+Product === Produk
+Publish === Terbitkeun
+Draft === Draf
+Trash === Runtah
+publish === terbit
+draft === draf
+trash === runtah
+change picture === gentos gambar
+Directory === Direktori
+Empty === Kosong
+Upload === Unggah
+Save === Simpen
+change to === rubah ka
+Status Filter === Saring Status
+Type Filter === Saring Jinis
+Bulk Action === Tindakan Masal
+Check All === Pilih Sadayana
+Do Action === Tindakan
+Next === Salajengna
+Created Time === Waktos Jieunan
+Last Updated === Parobihan Patungtung
+Move the post to trash === Pindahkeun ka tempat runtah
+Delete Permanently === Pupus Permanen
+Delete the post === Pupus entri
+Preview === Tampilkeun
+
+
+no action chosen === teu aya tindakan nu dipilih
+Are you sure want to move this post to Trash === Naha anjeun yakin palay ngalihkeun entri ieu ka tempat runtah
+cannot find the post === entri teu tiasa kapendak
+Are you sure want to delete this post permanently === Naha anjeun yakin palay ngahapus permanen entri ieu
+cannot find the file === berkas teu tiasa kapendak
+Are you sure want to delete this file permanently === Naha anjeun yakin palay ngahapus permanen berkas ieu
+Filename === Nami berkas
+Rename file === Gentos nami berkas
+cannot find the user === panganggo teu tiasa kapendak
+Are you sure want to delete this user permanently === Naha anjeun yakin palay ngahapus permanen panganggo ieu
+cannot find content menu === menu teu tiasa kapendak
+Menu Name === Nami Menu
+Are you sure want to delete this menu permanently === Naha anjeun yakin palay ngahapus permanen menu ieu
+cannot find content sidebar === bar teu tiasa kapendak
+Sidebar Type === Jinis Bar
+Are you sure want to delete this sidebar permanently === Naha anjeun yakin palay ngahapus permanen bar ieu
+cannot be activated === teu tiasa diaktipkeun
+plugin has been activated === plugin parantos diaktifkeun
+plugin has been deactivated === plugin parantos dipareuman
+cannot be deactivated === teu tiasa tipareuman
+the plugin cannot be deleted while it's active === plugin teu tiasa dihapus upami nuju dina kaayaan aktip
+Plugin Name === Nami Plugin
+Are you sure want to delete this plugin permanently === Naha anjeun yakin palau ngahapus permanen plugin ieu
+cannot find content plugin === plugin teu tiasa kapendak
+the theme cannot be deleted while it's active === tema teu tiasa dihapus upami nuju dina kaayaan aktip
+Theme Name === Nami Tema
+Are you sure want to delete this theme permanently === Naha anjeun yakin palay ngahapus pemanen tema ieu
+cannot find content theme === tema teu tiasa kapendak
+the theme has been actived === tema parantos diaktipkeun
+Are you sure want to change to this theme as your theme === Naha anjeun yakin palay ngarobih tema ku tema ieu
+cannot find content theme === tema teu tiasa kapendak
+Unrecognized action === Tindakan teu wawuh
+
+Delete All === Hapus Sadayana
+click to choose the file === klik kanggo milih berkas
+Rename === Robih Nami
+Size === Ukuran
+Uploaded Time === Kaunggah
+Add File === Tambih Berkas
+
+Dixie is up to date === Anjeun nuju nganggo Dixie persi nu pang enggal na
+Update manually === Ropea Dixie manual
+Requires ZIP file === Diperyogikeun berkas nu bentuk na ZIP
+
+Description === Deskripsi
+Open Theme Description === Buka Deskripsi Tema
+Visit Theme Site === Anjangan Website Tema
+Author === Pangarang
+Version === Persi
+Uninstall === Kakat
+Activate === Aktipkeun
+Edit the theme === Ropea tema
+Edit the plugin === Ropea plugin
+Options === Opsi
+Add Theme === Tambih Tema
+You have an Activation Code === Anjeun ngagaduhan Kode Aktipasi
+Activation Code === Kode Aktipasi
+Free === Haratis
+Purchase === Galeuh
+Purchased === Tos Digaleuh
+Install === Pasang
+Installed === Tos Kapasang
+Loading === Nuju Loding
+theme doesn't exist === Tema teu sayogi
+the theme doesn't have optional file === Tema ieu ngagaduhan berkas opsi
+
+Order === Urutan
+Option === Opsi
+Insert sidebar content here === Lebetkeun eusi bar didieu
+Add Sidebar === Tambih Bar
+Post Type === Jinis Entri
+Max. Post === Max. Entri
+Maximum Post === Maximal Entri
+
+Timezone === Zona Waktu
+Site Name === Nami Website
+Site Description === Deskripsi Website
+Site Keywords === Kecap Konci Website
+Main Page === Halaman Payun
+Post Editor === Editor Entri
+Robots === Robot Pilari
+Main Theme === Tema Utama
+Mobile Theme === Tema Hape
+MSIE Theme === Tema MSIE
+Recent Posts === Entri Pang Enggalna
+Save Settings === Simpen Pangaturan
+
+Add Plugin === Tambih Plugin
+Deactivate === Pareuman
+Active === Aktip
+Inactive === Teu Aktip
+Visit Plugin Site === Anjangan Website Plugin
+Open Plugin Description === Buka Plugin Deskripsi
+unknown error === kalepatan teu kanyahoan
+Upload Plugin === Unggah Plugin
+the plugin doesn't have optional file === plugin ieu teu ngagaduhan opsi
+plugin doesn't exist === plugin teu kapendak
+
+Name === Nami
+Full Name === Nami Lengkep
+Privilege === Hak Panganggo
+Username === Nami Panganggo
+Password === Kecap Sandi
+Email === Alamat Surel
+Joined Time === Tanggal Gabung
+
+Filter === Saring
+Top === Atas
+Bottom === Bawah
+cannot get menu information === informasi menu teu kageroh
+Menu Type === Jinis Menu
+Menu Name === Nami Menu
+Menu Slug === Slag Menu
+Menu Order === Urutan Menu
+Add Menu === Tambih Menu
+
+File === Berkas
+Open File === Buka Berkas
+Content file === Eusi berkas
+Update File === Lereskeun Berkas
+theme doesn't exist === tema teu kapendak
+Change Password === Gentos Kecap Sandi
+Old Password === Kecap Sandi Heubeul
+New Password === Kecap Sandi Enggal
+Confirm Password === Kecap Sandi Enggal Deui
+Joined === Ngagabung
+
+Update version === Persi nu pang enggal na
+is available === parantos sayogi
+Edit User === Ropea Panganggo
+cannot find the user === panganggo teu tiasa kapendak
+Confirm === Konprim
+Cancel === Teu Janten
+Yes === Nuhun
+No === Heunteu
+Powered by === Diraragan ku
+Language === Basa
+
+Updated === Dilereskeun
+Created === Didamel
+rows === jajar
+Remember Me === Emut Abdi
+
+
+
