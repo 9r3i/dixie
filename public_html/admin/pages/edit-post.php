@@ -34,7 +34,7 @@ $category = get_category();
 /* if data post exist */
 if(isset($select[0])){
   $post = $select[0];
-  //$post_content = is_mobile_browser()?strip_tags($post['content']):$post['content'];
+  $post_content = is_mobile_browser()&&$options['post_editor']=='text'?strip_tags($post['content']):$post['content'];
   $post_content = $post['content'];
 /* HTML View */
 ?>
