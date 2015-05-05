@@ -623,28 +623,12 @@ elseif($data=='update-dixie'){
     if(isset($file['filename'])&&isset($file['uri'])){
       $target = PUBDIR.'/temp/'.$file['filename'];
       $copy = @copy($file['uri'],$target);
-      /* $ref_uri = 'https://github.com/9r3i/dixie/archive/master.zip'; */
-      $new_uri = 'https://codeload.github.com/9r3i/dixie/zip/master';
-      $new_dir = 'dixie-master/';
       if($copy){
         $zip = new ZipArchive;
         if($zip->open($target)===true){
           if($zip->extractTo(DROOT)){
             $zip->close();
             @unlink($target);
-            if($file['uri']==$new_uri&&is_dir($new_dir)){
-              $new_scan = dixie_explore('dir',$new_dir);
-              $new_files = dixie_explore('dir',$new_dir);
-              foreach($new_scan as $ndir){
-                $fdir = str_replace($new_dir,'',$ndir);
-                if(!is_dir($fdir)){@mkdir($fdir);}
-              }
-              foreach($new_files as $nfile){
-                $ffile = str_replace($new_dir,'',$nfile);
-                @rename($nfile,$ffile);
-              }
-              remove_dir($new_dir);
-            }
             header('location: '.WWW.'admin/update?status=success-update-dixie');
             exit;
           }
@@ -669,26 +653,12 @@ elseif($data=='update-dixie-upload'){
     if(substr($file['name'],-4,strlen($file['name']))=='.zip'){
       $target = PUBDIR.'/temp/'.$file['name'];
       $move = @move_uploaded_file($file['tmp_name'],$target);
-      $new_dir = 'dixie-master/';
       if($move&&file_exists($target)){
         $zip = new ZipArchive;
         if($zip->open($target)===true){
           if($zip->extractTo(DROOT)){
             $zip->close();
             @unlink($target);
-            if(is_dir($new_dir)){
-              $new_scan = dixie_explore('dir',$new_dir);
-              $new_files = dixie_explore('dir',$new_dir);
-              foreach($new_scan as $ndir){
-                $fdir = str_replace($new_dir,'',$ndir);
-                if(!is_dir($fdir)){@mkdir($fdir);}
-              }
-              foreach($new_files as $nfile){
-                $ffile = str_replace($new_dir,'',$nfile);
-                @rename($nfile,$ffile);
-              }
-              remove_dir($new_dir);
-            }
             header('location: '.WWW.'admin/update?status=success-update-dixie');
             exit;
           }else{
