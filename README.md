@@ -24,8 +24,7 @@ Free and Simple CMS;
 
 The first time I did commit directly to version 1.3, please check the change log to see the update.
 
-See [Dixie CMS](http://dixie.hol.es/ "Dixie CMS") page,
-and try our [Demo](http://dixie.hol.es/demo/ "Demo of Dixie CMS").
+See [Dixie CMS](http://dixie.hol.es/ "Dixie CMS") page.
 
 -----
 ## How to Install
