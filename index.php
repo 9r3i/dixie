@@ -1,7 +1,17 @@
 <?php
-/* Dixie - Free and Simple CMS
- * Created by Luthfie a.k.a. 9r3i
- * luthfie@y7mail.com
+/* Dixie - Free and Simple CMS;
+ *
+ * Scripting Language    : PHP and Javascript;
+ * PHP-Framework         : None or Bazzmu (optional);
+ * Javascript-Framework  : jQuery v2.1.3 and jQuery UI v1.11.4;
+ * Database              : Ldb Database v2.5 - Custom Portable Database;
+ * Dixie-URI             : http://dixie.hol.es/;
+ * Dixie-Author          : Luthfie a.k.a. 9r3i;
+ * Author-Email          : Luthfie@y7mail.com;
+ * Author-URI            : http://n8ro.hol.es/;
+ * Third-party           : + CKEditor as content-editor,
+ *                         + nicEdit as content-editor for mobile,
+ *                         + Locale package as custom-local-language;
  */
 
 /* Define Dixie to be true */
