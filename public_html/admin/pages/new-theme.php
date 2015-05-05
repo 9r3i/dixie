@@ -1,13 +1,11 @@
 <?php
-/* Black Apple Inc.
- * http://black-apple.biz/
- * Dixie CMS
- * Created by Luthfie
+/* Dixie - Free and Simple CMS
+ * Created by Luthfie a.k.a. 9r3i
  * luthfie@y7mail.com
  */
 
 /* External data themes */
-$data_url = 'http://dixie.black-apple.biz/external_themes.php';
+$data_url = 'http://dixie.hol.es/external_themes.php';
 
 /* Get themes class */
 $ct = new Themes();

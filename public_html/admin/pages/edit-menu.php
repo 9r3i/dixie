@@ -1,8 +1,6 @@
 <?php
-/* Black Apple Inc.
- * http://black-apple.biz/
- * Dixie CMS
- * Created by Luthfie
+/* Dixie - Free and Simple CMS
+ * Created by Luthfie a.k.a. 9r3i
  * luthfie@y7mail.com
  */
 

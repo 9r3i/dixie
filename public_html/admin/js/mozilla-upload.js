@@ -1,3 +1,8 @@
+/* Dixie - Free and Simple CMS
+ * Created by Luthfie a.k.a. 9r3i
+ * luthfie@y7mail.com
+ */
+
 "use strict";
 
 /*\

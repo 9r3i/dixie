@@ -47,6 +47,26 @@ if(isset($_GET['dixie/backup'])){
     exit('error');
   }
 }
+/* personal function to create plugin about */
+if(isset($_GET['dixie/plugins/about'])){
+  header('content-type: text/plain');
+  $prow = '---------------';
+  $plug = new Plugins();
+  $result = array();
+  foreach($plug->plugins as $key=>$value){
+    $sub = array();
+    $sub[] = 'plugin_name==='.$value['about']['Plugin Name'];
+    $sub[] = 'plugin_uri==='.$value['about']['Plugin URI'];
+    $sub[] = 'author==='.$value['about']['Author'];
+    $sub[] = 'author_uri==='.$value['about']['Author URI'];
+    $sub[] = 'version==='.$value['about']['Version'];
+    $sub[] = 'description==='.$value['about']['Description'];
+    $sub[] = 'file_url===http://dixie.hol.es/download.php?file=plugins/'.$key.'.zip;';
+    $result[] = implode(';'.PHP_EOL,$sub);
+  }
+  print(implode(PHP_EOL.$prow.PHP_EOL,$result));
+  exit;
+}
 
 
 /* Get all posts */

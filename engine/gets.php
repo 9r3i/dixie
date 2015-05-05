@@ -423,7 +423,7 @@ function get_category($post_id=null,$safer=false){
         $hasil['slug'] = $cat['slug'];
       }elseif($safer){
         $hasil[$cat['post_id']] = $cat;
-      }else{
+      }elseif($cat['slug']!=='uncategorized'){
         $hasil[$cat['slug']]['name'] = $cat['name'];
         $hasil[$cat['slug']]['slug'] = $cat['slug'];
         $hasil[$cat['slug']]['post_id'][] = $cat['post_id'];

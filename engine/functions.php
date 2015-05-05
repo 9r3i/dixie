@@ -435,7 +435,6 @@ function dixie_create_backup_engine(){
   }
 }
 
-
 // *** Form post *** //
 function form_post($url,$data=array(),$cookie=''){
   $content = @http_build_query($data,'','&'); // ,PHP_QUERY_RFC1738
