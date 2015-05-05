@@ -47,7 +47,7 @@ if(isset($_GET['dixie/backup'])){
     exit('error');
   }
 }
-/* personal function to create plugin about */
+/* personal function to create plugin about [--Developer Only--] */
 if(isset($_GET['dixie/plugins/about'])){
   header('content-type: text/plain');
   $prow = '---------------';
@@ -62,6 +62,27 @@ if(isset($_GET['dixie/plugins/about'])){
     $sub[] = 'version==='.$value['about']['Version'];
     $sub[] = 'description==='.$value['about']['Description'];
     $sub[] = 'file_url===http://dixie.hol.es/download.php?file=plugins/'.$key.'.zip;';
+    $result[] = implode(';'.PHP_EOL,$sub);
+  }
+  print(implode(PHP_EOL.$prow.PHP_EOL,$result));
+  exit;
+}
+/* personal function to create theme about [--Developer Only--] */
+if(isset($_GET['dixie/themes/about'])){
+  header('content-type: text/plain');
+  $prow = '---------------';
+  $the = new Themes();
+  $result = array();
+  foreach($the->themes as $key=>$value){
+    $sub = array();
+    $sub[] = 'theme_name==='.$value['about']['Theme Name'];
+    $sub[] = 'theme_uri==='.$value['about']['Theme URI'];
+    $sub[] = 'author==='.$value['about']['Author'];
+    $sub[] = 'author_uri==='.$value['about']['Author URI'];
+    $sub[] = 'version==='.$value['about']['Version'];
+    $sub[] = 'description==='.$value['about']['Description'];
+    $sub[] = 'screenshot===http://dixie.hol.es/download.php?file=images/'.$key.'-screenshot.jpg';
+    $sub[] = 'file_url===http://dixie.hol.es/download.php?file=themes/'.$key.'.zip;';
     $result[] = implode(';'.PHP_EOL,$sub);
   }
   print(implode(PHP_EOL.$prow.PHP_EOL,$result));

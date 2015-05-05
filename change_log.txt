@@ -6,6 +6,7 @@ luthfie@y7mail.com
 Version 3.0.4 - May 5th 2015
 - Fix get category function
 - Remove old official comment of files
+- Add developer action
 
 --------------------------------
 Version 3.0.3 - May 4th 2015
