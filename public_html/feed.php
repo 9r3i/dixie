@@ -4,6 +4,9 @@
  * luthfie@y7mail.com
  */
 
+/* starter time */
+$time_start = microtime(true);
+
 /* Global options and posts */
 global $options,$posts;
 
@@ -20,16 +23,24 @@ if(!get_posts('url','status=publish&access=public')){
 }
 
 /* Get contents */
-$content = '<?xml version="1.0" encoding="ISO-8859-1"?>
+$content = '<?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet type="text/css" href="'.WWW.PUBDIR.'admin/css/rss.css" media="print, screen" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0"
+  	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+  >
   <channel>
-    <title><![CDATA['.$options['site_name'].' RSS]]></title>
+    <title><![CDATA['.$options['site_name'].']]></title>
     <link>'.WWW.'feed.xml</link>
     <description><![CDATA['.$options['site_description'].']]></description>
     <language>ID-id</language>
     <pubDate>'.date("r").'</pubDate>
     <atom:link href="'.WWW.'feed.xml" rel="self" type="application/rss+xml" />
+	<generator>http://dixie.hol.es/?v='.VERSION.'</generator>
     ';
 $next = (isset($_GET['next']))?$_GET['next']:0;
 $counter=0; $stop=$next+10;
@@ -56,6 +67,10 @@ foreach(array_reverse($posts) as $id=>$post){if(!in_array($post['type'],$types))
 $content .= '
   </channel>
 </rss>';
+$time_end = microtime(true);
+$content .= '
+
+<!-- Generated in '.number_format($time_end-$time_start,3).' seconds, by Dixie on '.date('Y-m-d H:i:s').' -->';
 
 /* Set header content */
 header('content-type: application/rss+xml;');

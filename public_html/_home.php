@@ -13,8 +13,6 @@ if(!get_options()){
   exit;
 }
 
-//header('content-type: text/plain'); print_r($GLOBALS); exit;
-
 /* Set default timezone */
 if(get_site_info('timezone',false)){
   date_default_timezone_set(get_site_info('timezone',false));
