@@ -42,7 +42,7 @@ if(defined('P')&&P=='robots.txt'){
   exit;
 }
 
-/* Call robots.txt if requested */
+/* Call sitemap.txt if requested */
 if(defined('P')&&P=='sitemap.txt'){
   @include_once('sitemap.php');
   exit;
