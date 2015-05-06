@@ -561,6 +561,7 @@ function generate_index_single_post($post,$type='post',$word=39,$category){
   $dots = (count($rows)>=5)?'...':$dots;
   $recon = implode(PHP_EOL,$rows);
   $content = $recon.'<span></span>'.$dots;
+  $content = plugin_run('content',$content);
   $time = generate_training_date($post['training_date']);
   $hasil ='';
     $hasil .= '<div class="each-post data-'.$type.'" data-type="'.$type.'">';
