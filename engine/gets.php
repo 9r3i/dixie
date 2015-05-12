@@ -1176,7 +1176,7 @@ function get_theme_about($name=null){
   }
 }
 
-/* Get installation package */
+/* Get temporary post */
 function get_temporary_post(){
   global $ldb;
   ldb();
@@ -1225,7 +1225,7 @@ function get_temporary_post(){
 }
 
 
-/* Get installation package */
+/* Get installation code */
 function get_installation_code(){
   $code = 'LAY-ON-DIXIE';
   if(isset($_SESSION['dixie_installation'])&&$_SESSION['dixie_installation']==$code){
