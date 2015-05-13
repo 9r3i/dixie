@@ -1262,8 +1262,8 @@ function get_installation_package(){
         'title'=>$title,
         'content'=>'<p>Hi '.$_POST['name'].',</p>
 <p>Dixie v'.DIXIE_VERSION.' is finally installed.<br />Thank you for using Dixie as your CMS.</p>
-<p>This Content Management System (CMS) is the free one and created by <a href="http://n8ro.hol.es/?id=profile" title="Luthfie a.k.a. 9r3i" target="_blank">Luthfie</a>. You can try Dixie by downloading then install her into your own blog or website.</p>
-<p>Dixie is portable CMS, you can move these whole files inside the directory if Dixie to another directory or folder, without committing any setup.</p>
+<p>This CMS (Content Management System) is free and created by <a href="http://n8ro.hol.es/?id=profile" title="Luthfie a.k.a. 9r3i" target="_blank">Luthfie</a>. You can try Dixie by downloading then install her into your own blog or website.</p>
+<p>Dixie is portable CMS, you can move these whole files inside the directory of Dixie to another directory or folder, without committing any setup.</p>
 <p>For more info about what features are added to, please read the change log inside the backend (the admin page).</p>
 <p>Please <a href="'.WWW.'admin/login/">Login</a> once Dixie was installed.<br />I hope you enjoy this CMS. :)</p>
 <p><br />--<a href="http://n8ro.hol.es/?id=profile">Luthfie</a> (Developer)</p>',
