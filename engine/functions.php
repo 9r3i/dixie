@@ -39,6 +39,10 @@ function dixie_start(){
     check_data_files();
 	refix_uri();
     @set_time_limit(0);
+    /* add connection cross domain */
+    if(defined('P')&&P=='Ldb2.connect'){
+      @require_once('Ldb2.connect.php');
+    }
     /* Load public_html */
     load_public_html();
   }else{
@@ -92,7 +96,7 @@ function check_data_files(){
   $tables = array('menu','sidebar','options','posts','users','request','category');
   $current_tables = $ldb->show_tables();
   foreach($tables as $table){
-    if(!in_array($table,$current_tables)){
+    if(is_array($current_tables)&&!in_array($table,$current_tables)){
       $ldb->create_table($table);
     }
   }
@@ -105,7 +109,11 @@ function ldb(){
   if(is_object($ldb)){
     return true;
   }else{
-    $ldb = new Ldb('dixie');
+    if(defined('LCD')&&LCD!==false&&defined('LCD_TOKEN')&&LCD_TOKEN!==false){
+      $ldb = new Ldb('dixie',LCD,LCD_TOKEN);
+    }else{
+      $ldb = new Ldb('dixie');
+    }
     if(is_object($ldb)){
       return true;
     }else{
@@ -419,10 +427,9 @@ function wrap_array($array=array()){
 function dixie_create_backup_engine(){
   $files = dixie_explore('file','engine');
   $files = array_merge($files,dixie_explore('file','public_html'));
-  $files = array_merge($files,array('.htaccess','index.php','change_log.txt','readme.md','license.txt','dixie-manual-en.txt','dixie-manual-id.txt'));
+  $files = array_merge($files,array('.htaccess','index.php','change_log.txt','readme.md','license.txt'));
   $zip = new ZipArchive;
   $zipfile = 'dixie_'.DIXIE_VERSION.'_'.DIXIE_REVISION.'.zip';
-  //header('content-type: text/plain;'); print_r($files); exit;
   file_write($zipfile,'');
   if($zip->open($zipfile)===true){
     foreach($files as $file){

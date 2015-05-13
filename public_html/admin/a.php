@@ -10,7 +10,7 @@ if(get_active_user()=='demo'){
 }
 
 /* Developer tester scripts by Luthfie */
-//header('content-type: text/plain;'); print_r($_POST); exit;
+//header('content-type: text/plain;'); print_r($_FILES); exit;
 
 /* Configuration global and Ldb */
 global $ldb,$posts,$options;

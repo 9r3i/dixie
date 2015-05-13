@@ -6,7 +6,7 @@
 
 /* load ldb and nob file */
 if(!defined('DROOT')){
-  require_once('Ldb.2.5.php');
+  require_once('Ldb.2.6.php');
   require_once('nob.php');
 }
 
@@ -16,7 +16,6 @@ require_once('functions.php');
 require_once('class.php');
 require_once('language.php');
 require_once('gets.php');
-
 
 /* Error display */
 ini_set('display_errors',true);

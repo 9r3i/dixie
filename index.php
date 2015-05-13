@@ -25,5 +25,9 @@ if(defined('BAZZMU')&&BAZZMU===true){
   define('DROOT',ROOT.$droot.'/');
 }
 
+/* setup for Ldb2 cross domain */
+define('LCD',false);
+define('LCD_TOKEN',false);
+
 /* Start the engine files */
 require_once('engine/start.php');

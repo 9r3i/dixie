@@ -3,14 +3,6 @@
  * luthfie@y7mail.com
  */
 
-/* format font */
-@font-face{
-  font-family:'Tahoma-R';
-  src:url('../fonts/tahoma.ttf') format('truetype');
-  font-weight:normal;
-  font-style:normal
-}
-
 /* selection */
 ::-moz-selection{
   background:#555;
@@ -23,7 +15,7 @@
 
 /* Admin CSS */
 body{
-  font-family:Tahoma,'Tahoma-R',Segoe UI,Arial;
+  font-family:Tahoma,Segoe UI,Arial;
   font-size:15px;
   margin:0px;
   padding:0px;

@@ -5,13 +5,14 @@
  * luthfie@y7mail.com
  * http://n8ro.hol.es/
  * Started on May 6th 2014 version 2.0
- * Version 2.5.0
  * Updated to 2.4 at October 2nd 2014
- * Last updated to 2.5 at March 16th 2015
+ * Updated to 2.5 at March 16th 2015
+ * Last updated to 2.6 at May 13th 2015
+ * Current Version 2.6.0
  */
 
 class Ldb{
-  public $version = '2.5.0';
+  public $version = '2.6.0';
   public $time;
   public $microtime;
   public $aid = 0;
@@ -23,8 +24,12 @@ class Ldb{
   private $db_dir;
   private $dump_dir;
   private $temp_dir;
+  private $crossDomain = false;
+  private $host = false;
+  private $www = false;
+  private $access_token = false;
   public $error = false;
-  function __construct($database=null){
+  function __construct($database=null,$host=null,$access_token=''){
     if(isset($database)){
       $this->database = $database; // Set database name
 	  $this->time = time();
@@ -33,13 +38,39 @@ class Ldb{
 	  $this->cid = dechex($this->time-$this->bid);
 	  $this->setting('_database'); // Set database main directory
 	  $this->show_tables();
+      $pattern = '/^http:\/\/[a-z0-9]{1}[a-z0-9\.-]+[a-z0-9]{2,4}\/([\w-]+\/)?$/';
+      if(isset($host)&&preg_match($pattern,$host)&&defined('WWW')&&$host!==WWW){
+        $this->crossDomain = true;
+        $this->host = $host.'Ldb2.connect';
+        $this->www = WWW;
+        $this->access_token = $access_token;
+      }
     }else{
       return false;
     }
   }
   public function insert($table,$data=array()){
 	$filename = $this->db_dir.$table.'.ldb';
-	if(is_file($filename)){
+    if($this->crossDomain){
+      $cross = $this->cross($this->host,array(
+        'domain'=>$this->www,
+        'database'=>$this->database,
+        'action'=>'insert',
+        'table'=>$table,
+        'data'=>$data,
+      ));
+      if($cross){
+        if(isset($cross['status'])&&$cross['status']=='OK'){
+          return $cross['data'];
+        }else{
+          $this->error = $cross['code'].ucfirst($cross['message']);
+          return false;
+        }
+      }else{
+        $this->error = 'Cannot connect to database';
+        return false;
+      }
+    }elseif(is_file($filename)){
 	  $batas_row = $this->batas('row');
 	  $batas_column = $this->batas('column');
 	  $batas_equal = $this->batas('equal');
@@ -80,7 +111,27 @@ class Ldb{
     @parse_str($where,$keys);
 	$hasil = array();
 	$filename = $this->db_dir.$table.'.ldb';
-	if(!is_file($filename)){
+	if($this->crossDomain){
+      $where = $where?$where:'';
+      $cross = $this->cross($this->host,array(
+        'domain'=>$this->www,
+        'database'=>$this->database,
+        'action'=>'select',
+        'table'=>$table,
+        'location'=>$where,
+      ));
+      if($cross){
+        if(isset($cross['status'])&&$cross['status']=='OK'){
+          return $cross['data'];
+        }else{
+          $this->error = $cross['code'].ucfirst($cross['message']);
+          return false;
+        }
+      }else{
+        $this->error = 'Cannot connect to database';
+        return false;
+      }
+    }elseif(!is_file($filename)){
       $this->error = 'Table named '.$table.' does not exist';
       return false;
     }elseif(count($keys)>0&&$this->connect(FULL_ACCESS)){
@@ -116,7 +167,28 @@ class Ldb{
   }
   public function update($table,$where=false,$data=array()){
 	$filename = $this->db_dir.$table.'.ldb';
-	if(!is_file($filename)){
+	if($this->crossDomain){
+      $where = $where?$where:'';
+      $cross = $this->cross($this->host,array(
+        'domain'=>$this->www,
+        'database'=>$this->database,
+        'action'=>'update',
+        'table'=>$table,
+        'location'=>$where,
+        'data'=>$data,
+      ));
+      if($cross){
+        if(isset($cross['status'])&&$cross['status']=='OK'){
+          return $cross['data'];
+        }else{
+          $this->error = $cross['code'].ucfirst($cross['message']);
+          return false;
+        }
+      }else{
+        $this->error = 'Cannot connect to database';
+        return false;
+      }
+    }elseif(!is_file($filename)){
 	  $this->error = 'Table named '.$table.' does not exist';
 	  return false;
 	}elseif($this->connect()&&isset($where)){
@@ -156,7 +228,27 @@ class Ldb{
   }
   public function delete($table,$where=false){
 	$filename = $this->db_dir.$table.'.ldb';
-	if(!is_file($filename)){
+	if($this->crossDomain){
+      $where = $where?$where:'';
+      $cross = $this->cross($this->host,array(
+        'domain'=>$this->www,
+        'database'=>$this->database,
+        'action'=>'delete',
+        'table'=>$table,
+        'location'=>$where,
+      ));
+      if($cross){
+        if(isset($cross['status'])&&$cross['status']=='OK'){
+          return $cross['data'];
+        }else{
+          $this->error = $cross['code'].ucfirst($cross['message']);
+          return false;
+        }
+      }else{
+        $this->error = 'Cannot connect to database';
+        return false;
+      }
+    }elseif(!is_file($filename)){
 	  $this->error = 'Table named '.$table.' does not exist';
 	  return false;
 	}elseif($this->connect()&&isset($where)){
@@ -189,7 +281,29 @@ class Ldb{
   public function search($table,$key=false,$set=false){
 	$filename = $this->db_dir.$table.'.ldb';
     $index = @explode('=',$key);
-	if(!is_file($filename)){
+	if($this->crossDomain){
+      $key = $key?$key:'';
+      $set = $set?$set:'';
+      $cross = $this->cross($this->host,array(
+        'domain'=>$this->www,
+        'database'=>$this->database,
+        'action'=>'search',
+        'table'=>$table,
+        'key'=>$key,
+        'set'=>$set,
+      ));
+      if($cross){
+        if(isset($cross['status'])&&$cross['status']=='OK'){
+          return $cross['data'];
+        }else{
+          $this->error = $cross['code'].ucfirst($cross['message']);
+          return false;
+        }
+      }else{
+        $this->error = 'Cannot connect to database';
+        return false;
+      }
+    }elseif(!is_file($filename)){
 	  $this->error = 'Table named '.$table.' does not exist';
 	  return false;
 	}elseif(!isset($index[0])||!isset($index[1])){
@@ -221,7 +335,25 @@ class Ldb{
   }
   public function create_table($name=null){
     $name = isset($name)?$name:'+';
-    if(preg_match('/^[a-zA-Z0-9_]+$/i',$name,$akur)){
+    if($this->crossDomain){
+      $cross = $this->cross($this->host,array(
+        'domain'=>$this->www,
+        'database'=>$this->database,
+        'action'=>'create_table',
+        'table'=>$name,
+      ));
+      if($cross){
+        if(isset($cross['status'])&&$cross['status']=='OK'){
+          return $cross['data'];
+        }else{
+          $this->error = $cross['code'].ucfirst($cross['message']);
+          return false;
+        }
+      }else{
+        $this->error = 'Cannot connect to database';
+        return false;
+      }
+    }elseif(preg_match('/^[a-zA-Z0-9_]+$/i',$name,$akur)){
       $filename = $this->db_dir.$akur[0].'.ldb';
       if(!is_file($filename)){
         if($this->write($filename)){
@@ -244,7 +376,25 @@ class Ldb{
   public function delete_table($name=null){
     $name = isset($name)?$name:'+';
     $filename = $this->db_dir.$name.'.ldb';
-    if(is_file($filename)){
+    if($this->crossDomain){
+      $cross = $this->cross($this->host,array(
+        'domain'=>$this->www,
+        'database'=>$this->database,
+        'action'=>'delete_table',
+        'table'=>$name,
+      ));
+      if($cross){
+        if(isset($cross['status'])&&$cross['status']=='OK'){
+          return $cross['data'];
+        }else{
+          $this->error = $cross['code'].ucfirst($cross['message']);
+          return false;
+        }
+      }else{
+        $this->error = 'Cannot connect to database';
+        return false;
+      }
+    }elseif(is_file($filename)){
       $content = @file_get_contents($filename);
       $dump = $this->write($this->dump_dir.$name.'_'.$this->cid.'.ldb',$content);
       $this->tdb($name,'0');
@@ -257,31 +407,91 @@ class Ldb{
     }
   }
   public function show_tables(){
-    $sdir = @scandir($this->db_dir);
-	$hasil = array();
-	foreach($sdir as $sd){
-	  if(preg_match('/[a-zA-Z0-9_]+\.ldb/i',$sd)){
-	    $hasil[] = str_replace('.ldb','',$sd);
+    if($this->crossDomain){
+      $cross = $this->cross($this->host,array(
+        'domain'=>$this->www,
+        'database'=>$this->database,
+        'action'=>'show_tables',
+      ));
+      if($cross){
+        if(isset($cross['status'])&&$cross['status']=='OK'){
+          return $cross['data'];
+        }else{
+          $this->error = $cross['code'].ucfirst($cross['message']);
+          return false;
+        }
+      }else{
+        $this->error = 'Cannot connect to database';
+        return false;
+      }
+    }else{
+      $sdir = @scandir($this->db_dir);
+	  $hasil = array();
+	  foreach($sdir as $sd){
+	    if(preg_match('/[a-zA-Z0-9_]+\.ldb/i',$sd)){
+	      $hasil[] = str_replace('.ldb','',$sd);
+	    }
 	  }
-	}
-	return $this->tables = $hasil;
+	  return $this->tables = $hasil;
+    }
   }
   public function show_database(){
-    $sdir = scandir($this->dir);
-	$hasil = array();
-	foreach($sdir as $sd){
-	  if(preg_match('/[a-zA-Z0-9_]+/i',$sd)&&$sd!=='.htaccess'&&is_dir($this->dir.$sd)){
-	    $hasil[] = $sd;
+    if($this->crossDomain){
+      $cross = $this->cross($this->host,array(
+        'domain'=>$this->www,
+        'database'=>$this->database,
+        'action'=>'show_database',
+      ));
+      if($cross){
+        if(isset($cross['status'])&&$cross['status']=='OK'){
+          return $cross['data'];
+        }else{
+          $this->error = $cross['code'].ucfirst($cross['message']);
+          return false;
+        }
+      }else{
+        $this->error = 'Cannot connect to database';
+        return false;
+      }
+    }else{
+      $sdir = scandir($this->dir);
+	  $hasil = array();
+	  foreach($sdir as $sd){
+	    if(preg_match('/[a-zA-Z0-9_]+/i',$sd)&&$sd!=='.htaccess'&&is_dir($this->dir.$sd)){
+	      $hasil[] = $sd;
+	    }
 	  }
-	}
-	return $hasil;
+	  return $hasil;
+    }
   }
   public function valid_password($table,$where,$password){
-    $select = $this->select($table,$where);
-    if(isset($select[0]['password'])&&$select[0]['password']==$this->hash($password)){
-      return true;
+    if($this->crossDomain){
+      $cross = $this->cross($this->host,array(
+        'domain'=>$this->www,
+        'database'=>$this->database,
+        'action'=>'valid_password',
+        'table'=>$table,
+        'location'=>$where,
+        'password'=>$password,
+      ));
+      if($cross){
+        if(isset($cross['status'])&&$cross['status']=='OK'){
+          return $cross['data'];
+        }else{
+          $this->error = $cross['code'].ucfirst($cross['message']);
+          return false;
+        }
+      }else{
+        $this->error = 'Cannot connect to database';
+        return false;
+      }
     }else{
-      return false;
+      $select = $this->select($table,$where);
+      if(isset($select[0]['password'])&&$select[0]['password']==$this->hash($password)){
+        return true;
+      }else{
+        return false;
+      }
     }
   }
   public function hash($password,$algo=5){
@@ -317,6 +527,12 @@ class Ldb{
 	}else{
 	  return false;
 	}
+  }
+  private function cross($url,$data=array(),$cookie=''){
+    $data['access_token'] = $this->access_token;
+    $content = @http_build_query($data,'','&'); // ,PHP_QUERY_RFC1738
+    $file = @file_get_contents($url.'?'.$content);
+    return json_decode($file,true);
   }
   private function write($filename=null,$content='',$type='wb'){
     $filename = isset($filename)?$filename:'error-'.time().'.txt';
@@ -494,3 +710,4 @@ class Ldb{
 	if(!defined('FULL_ACCESS')){define('FULL_ACCESS',16);}
   }
 }
+
