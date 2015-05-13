@@ -4,6 +4,7 @@
  * luthfie@y7mail.com
  */
 
+/* load ldb and nob file */
 if(!defined('DROOT')){
   require_once('Ldb.2.5.php');
   require_once('nob.php');
