@@ -40,7 +40,7 @@ $content = '<?xml version="1.0" encoding="UTF-8"?>
     <language>ID-id</language>
     <pubDate>'.date("r").'</pubDate>
     <atom:link href="'.WWW.'feed.xml" rel="self" type="application/rss+xml" />
-	<generator>http://dixie.hol.es/?v='.VERSION.'</generator>
+	<generator>http://dixie-cms.herokuapp.com/?v='.VERSION.'</generator>
     ';
 $next = (isset($_GET['next']))?$_GET['next']:0;
 $counter=0; $stop=$next+10;

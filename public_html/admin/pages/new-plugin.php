@@ -5,7 +5,7 @@
  */
 
 /* External data plugins */
-$data_url = 'http://dixie.hol.es/external_plugins.php';
+$data_url = 'http://dixie-cms.herokuapp.com/external_plugins.php';
 
 /* Get plugins class */
 $plug = new Plugins();

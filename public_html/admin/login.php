@@ -90,7 +90,7 @@ if(isset($_GET['data'],$_GET['locale'])&&$_GET['data']=='change-locale'&&in_arra
     </div>
   </div>
   <div class="footer">
-    <div class="copyright"><a class="bai" href="http://dixie.hol.es/" target="_blank" title="Dixie - Free and Simple CMS">Dixie</a> <?php echo DIXIE_VERSION; ?> &middot; <?php __locale('Powered by',true); ?> <a class="bai" href="http://n8ro.hol.es/?id=profile" target="_blank" title="Luthfie a.k.a. 9r3i">Luthfie</a> 2014-<?php print(date('Y')); ?></div>
+    <div class="copyright"><a class="bai" href="http://dixie-cms.herokuapp.com/" target="_blank" title="Dixie - Free and Simple CMS">Dixie</a> <?php echo DIXIE_VERSION; ?> &middot; <?php __locale('Powered by',true); ?> <a class="bai" href="http://luthfie.hol.es/?id=profile" target="_blank" title="Luthfie a.k.a. 9r3i">Luthfie</a> 2014-<?php print(date('Y')); ?></div>
     <script type="text/javascript" src="<?php printf(WWW.PUBDIR); ?>admin/js/locale.js?v=1.1"></script>
   </div>
 </body></html>

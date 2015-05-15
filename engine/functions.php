@@ -262,7 +262,7 @@ function master_privilege($username=null){
 
 /* Dixie check update */
 function dixie_check_update(){
-  $url = 'http://dixie.hol.es/update.php';
+  $url = 'http://dixie-cms.herokuapp.com/update.php';
   $data = array(
     'dixie_client'=>'free_3c45d9df52f76f69d1130e12db10fe59',
     'dixie_version'=>DIXIE_VERSION,

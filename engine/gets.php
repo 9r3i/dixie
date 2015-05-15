@@ -212,8 +212,8 @@ function get_sidebar_print($print=true){
         $content .= '<div class="sidebar-meta-content">';
         $content .= '<a href="'.WWW.'admin/?ref=meta" title="'.((is_login())?'Admin Page':'Login to Admin').'"><div class="sidebar-meta-list">'.((is_login())?'Admin':'Login').'</div></a>';
         $content .= '<a href="'.WWW.'feed.xml" title="Really Simple Syndicate"><div class="sidebar-meta-list">RSS</div></a>';
-        $content .= '<a href="http://dixie.hol.es/?ref='.urlencode(WWW).'" title="Dixie" target="_blank" rel="follow"><div class="sidebar-meta-list">Dixie</div></a>';
-        $content .= '<a href="http://n8ro.hol.es/?ref='.urlencode(WWW).'" title="Luthfie a.k.a. 9r3i" target="_blank" rel="follow"><div class="sidebar-meta-list">Luthfie</div></a>';
+        $content .= '<a href="http://dixie-cms.herokuapp.com/?ref='.urlencode(WWW).'" title="Dixie" target="_blank" rel="follow"><div class="sidebar-meta-list">Dixie</div></a>';
+        $content .= '<a href="http://luthfie.hol.es/?ref='.urlencode(WWW).'" title="Luthfie a.k.a. 9r3i" target="_blank" rel="follow"><div class="sidebar-meta-list">Luthfie</div></a>';
         $content .= '</div></div>';
       }elseif($bar['type']=='category'){
         $content .= '<div class="sidebar-category">';
@@ -1262,11 +1262,11 @@ function get_installation_package(){
         'title'=>$title,
         'content'=>'<p>Hi '.$_POST['name'].',</p>
 <p>Dixie v'.DIXIE_VERSION.' is finally installed.<br />Thank you for using Dixie as your CMS.</p>
-<p>This CMS (Content Management System) is free and created by <a href="http://n8ro.hol.es/?id=profile" title="Luthfie a.k.a. 9r3i" target="_blank">Luthfie</a>. You can try Dixie by downloading then install her into your own blog or website.</p>
+<p>This CMS (Content Management System) is free and created by <a href="http://luthfie.hol.es/?id=profile" title="Luthfie a.k.a. 9r3i" target="_blank">Luthfie</a>. You can try Dixie by downloading then install her into your own blog or website.</p>
 <p>Dixie is portable CMS, you can move these whole files inside the directory of Dixie to another directory or folder, without committing any setup.</p>
 <p>For more info about what features are added to, please read the change log inside the backend (the admin page).</p>
 <p>Please <a href="'.WWW.'admin/login/">Login</a> once Dixie was installed.<br />I hope you enjoy this CMS. :)</p>
-<p><br />--<a href="http://n8ro.hol.es/?id=profile">Luthfie</a> (Developer)</p>',
+<p><br />--<a href="http://luthfie.hol.es/?id=profile">Luthfie</a> (Developer)</p>',
         'datetime'=>date('y-m-d H:i:s'),
         'author'=>$_POST['username'], 
         'type'=>'page',

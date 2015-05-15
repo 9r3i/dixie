@@ -61,7 +61,7 @@ if(isset($_GET['dixie/plugins/about'])){
     $sub[] = 'author_uri==='.$value['about']['Author URI'];
     $sub[] = 'version==='.$value['about']['Version'];
     $sub[] = 'description==='.$value['about']['Description'];
-    $sub[] = 'file_url===http://dixie.hol.es/download.php?file=plugins/'.$key.'.zip;';
+    $sub[] = 'file_url===http://dixie-cms.herokuapp.com/download.php?file=plugins/'.$key.'.zip;';
     $result[] = implode(';'.PHP_EOL,$sub);
   }
   print(implode(PHP_EOL.$prow.PHP_EOL,$result));
@@ -81,8 +81,8 @@ if(isset($_GET['dixie/themes/about'])){
     $sub[] = 'author_uri==='.$value['about']['Author URI'];
     $sub[] = 'version==='.$value['about']['Version'];
     $sub[] = 'description==='.$value['about']['Description'];
-    $sub[] = 'screenshot===http://dixie.hol.es/download.php?file=images/'.$key.'-screenshot.jpg';
-    $sub[] = 'file_url===http://dixie.hol.es/download.php?file=themes/'.$key.'.zip;';
+    $sub[] = 'screenshot===http://dixie-cms.herokuapp.com/download.php?file=images/'.$key.'-screenshot.jpg';
+    $sub[] = 'file_url===http://dixie-cms.herokuapp.com/download.php?file=themes/'.$key.'.zip;';
     $result[] = implode(';'.PHP_EOL,$sub);
   }
   print(implode(PHP_EOL.$prow.PHP_EOL,$result));

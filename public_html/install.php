@@ -93,7 +93,7 @@ if(get_installation_code()){
 }
 ?>
   </form></div>
-  <div class="footer"><a href="http://dixie.hol.es/" title="Dixie" target="_blank">Dixie</a> v<?php print(DIXIE_VERSION); ?> &middot; Powered by <a href="http://n8ro.hol.es/?id=profile" target="_blank" title="Luthfie a.k.a. 9r3i">Luthfie</a> 2014-<?php print(date('Y')); ?></div>
+  <div class="footer"><a href="http://dixie-cms.herokuapp.com/" title="Dixie" target="_blank">Dixie</a> v<?php print(DIXIE_VERSION); ?> &middot; Powered by <a href="http://luthfie.hol.es/?id=profile" target="_blank" title="Luthfie a.k.a. 9r3i">Luthfie</a> 2014-<?php print(date('Y')); ?></div>
 </div></body></html>
 
 

@@ -1,7 +1,7 @@
 
                     Dixie - Free and Simple CMS
-                   Created by Luthfie a.k.a. 9r3i
-                        http://n8ro.hol.es/
+                  Authored by Luthfie a.k.a. 9r3i
+                      http://luthfie.hol.es/
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
@@ -66,7 +66,7 @@ there are so many sample website by using this CMS.
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 2. DOWNLOAD
 
-   Download Dixie in the website, http://dixie.hol.es/ for 
+   Download Dixie in the website, http://dixie-cms.herokuapp.com/ for 
 the last version. Download it as zip file.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

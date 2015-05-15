@@ -1,7 +1,7 @@
 
                      Dixie - CMS Gratis dan Mudah
                    Ditulis oleh Luthfie a.k.a. 9r3i
-                        http://n8ro.hol.es/
+                       http://luthfie.hol.es/
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
@@ -69,7 +69,7 @@ karena ada banyak contoh webiste yang menggunakan CMS ini.
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 2. UNDUH
 
-   Unduh Dixie di website-nya, http://dixie.hol.es/ untuk 
+   Unduh Dixie di website-nya, http://dixie-cms.herokuapp.com/ untuk 
 versi terakhir. Unduh berkas dalam bentuk zip.
 
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=

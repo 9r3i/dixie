@@ -126,7 +126,7 @@ if(defined('Q')&&Q=='new-post'){
   <div class="clear-both"></div>
   <div class="footer">
     <?php admin_get_footer(); ?>
-    <div class="copyright"><a class="bai" href="http://dixie.hol.es/" target="_blank" title="Dixie - Free and Simple CMS">Dixie</a> <?php echo DIXIE_VERSION; ?> &middot; <?php __locale('Powered by',true); ?> <a class="bai" href="http://n8ro.hol.es/?id=profile" target="_blank" title="Luthfie a.k.a. 9r3i">Luthfie</a> 2014-<?php print(date('Y')); ?></div>
+    <div class="copyright"><a class="bai" href="http://dixie-cms.herokuapp.com/" target="_blank" title="Dixie - Free and Simple CMS">Dixie</a> <?php echo DIXIE_VERSION; ?> &middot; <?php __locale('Powered by',true); ?> <a class="bai" href="http://luthfie.hol.es/?id=profile" target="_blank" title="Luthfie a.k.a. 9r3i">Luthfie</a> 2014-<?php print(date('Y')); ?></div>
     <style type="text/css">.cke_button__about,#cke_86{display:none;}.fas{margin:0px 5px -3px 0px;padding:0px;width:16px;height:16px;display:inline-block;position:relative;}</style>
     <script type="text/javascript" src="<?php printf(WWW.PUBDIR); ?>admin/js/admin.js?v=2.1"></script>
     <script type="text/javascript" src="<?php printf(WWW.PUBDIR); ?>admin/js/locale.js?v=1.1"></script>

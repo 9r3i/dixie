@@ -859,7 +859,7 @@ elseif($data=='add-external-plugin'){
 /* Purchase external plugin */
 elseif($data=='purchase-external-plugin'){
   if(isset($_GET['plugin_code'])){
-    $url = 'http://dixie.hol.es/external_purchase.php?product_code='.$_GET['plugin_code'];
+    $url = 'http://dixie-cms.herokuapp.com/external_purchase.php?product_code='.$_GET['plugin_code'];
     $file = @file_get_contents($url);
     $data = @json_decode($file,true);
     if(isset($data['validation'],$data['data_information'])){
@@ -883,7 +883,7 @@ elseif($data=='purchase-external-plugin'){
 /* Activation external plugin */
 elseif($data=='activation-external-plugin'){
   if(isset($_POST['activation_code'])){
-    $url = 'http://dixie.hol.es/external_activation.php?activation_code='.$_POST['activation_code'];
+    $url = 'http://dixie-cms.herokuapp.com/external_activation.php?activation_code='.$_POST['activation_code'];
     $file = @file_get_contents($url);
     $data = @json_decode($file,true);
     if(isset($data['status'],$data['message'],$data['type'])&&$data['type']=='plugin'){
@@ -934,7 +934,7 @@ elseif($data=='activation-external-plugin'){
 /* Purchase external theme */
 elseif($data=='purchase-external-theme'){
   if(isset($_GET['theme_code'])){
-    $url = 'http://dixie.hol.es/external_purchase.php?product_code='.$_GET['theme_code'];
+    $url = 'http://dixie-cms.herokuapp.com/external_purchase.php?product_code='.$_GET['theme_code'];
     $file = @file_get_contents($url);
     $data = @json_decode($file,true);
     if(isset($data['validation'],$data['data_information'])){
@@ -958,7 +958,7 @@ elseif($data=='purchase-external-theme'){
 /* Activation external theme */
 elseif($data=='activation-external-theme'){
   if(isset($_POST['activation_code'])){
-    $url = 'http://dixie.hol.es/external_activation.php?activation_code='.$_POST['activation_code'];
+    $url = 'http://dixie-cms.herokuapp.com/external_activation.php?activation_code='.$_POST['activation_code'];
     $file = @file_get_contents($url);
     $data = @json_decode($file,true);
     if(isset($data['status'],$data['message'],$data['type'])&&$data['type']=='theme'){

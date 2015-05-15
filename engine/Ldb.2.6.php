@@ -3,7 +3,7 @@
  * Ldb stands for Luthfie database :D
  * Created by Luthfie a.k.a. 9r3i
  * luthfie@y7mail.com
- * http://n8ro.hol.es/
+ * http://luthfie.hol.es/
  * Started on May 6th 2014 version 2.0
  * Updated to 2.4 at October 2nd 2014
  * Updated to 2.5 at March 16th 2015

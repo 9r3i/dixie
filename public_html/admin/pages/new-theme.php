@@ -5,7 +5,7 @@
  */
 
 /* External data themes */
-$data_url = 'http://dixie.hol.es/external_themes.php';
+$data_url = 'http://dixie-cms.herokuapp.com/external_themes.php';
 
 /* Get themes class */
 $ct = new Themes();

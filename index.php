@@ -5,10 +5,10 @@
  * PHP-Framework         : None or Bazzmu (optional);
  * Javascript-Framework  : jQuery v2.1.3 and jQuery UI v1.11.4;
  * Database              : Ldb Database v2.5 - Custom Portable Database;
- * Dixie-URI             : http://dixie.hol.es/;
+ * Dixie-URI             : http://dixie-cms.herokuapp.com/;
  * Dixie-Author          : Luthfie a.k.a. 9r3i;
  * Author-Email          : Luthfie@y7mail.com;
- * Author-URI            : http://n8ro.hol.es/;
+ * Author-URI            : http://luthfie.hol.es/;
  * Third-party           : + CKEditor as content-editor,
  *                         + nicEdit as content-editor for mobile,
  *                         + Locale package as custom-local-language;
