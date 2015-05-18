@@ -4,6 +4,11 @@
  * luthfie@y7mail.com
  */
 
+/* requires Ldb version 2.6.x to be accessed by crossing domain
+ * validate the access by access token
+ * allowed access by domain allowed system
+ */
+
 /* --------- CONFIG ACCESS --------- */
 
 /* set access_token */

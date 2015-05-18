@@ -9,6 +9,13 @@
  * Updated to 2.5 at March 16th 2015
  * Last updated to 2.6 at May 13th 2015
  * Current Version 2.6.0
+ * 
+ * As version 2.6.x requires Ldb2.connect.php to connect cross domain
+ * New configuration to cross domain access:
+ * + require a database host and request uri as "Ldb2.connect"
+ * + require defined string -> WWW as the client host
+ * + match the pattern of hosting land
+ * + require access token to access
  */
 
 class Ldb{
