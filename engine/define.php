@@ -23,8 +23,8 @@ define('PUBDIR','public_html/');
 define('THIRD_PARTY','third_party/');
 
 /* Define Dixie Version */
-define('DIXIE_VERSION','3.1.1');
-define('DIXIE_REVISION','f50f');
+define('DIXIE_VERSION','3.1.2');
+define('DIXIE_REVISION','10511');
 
 /* Privileges global */
 global $privileges;
