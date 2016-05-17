@@ -27,7 +27,7 @@ function load_locale_package(){
   $__locale = array();
   if(is_array($names)&&in_array($name,$names)){
     $filename = PUBDIR.THIRD_PARTY.'/'.$dirname.'/'.$name.'.txt';
-    $data = @explode(PHP_EOL,@file_get_contents($filename));
+    $data = @explode("\n",@file_get_contents($filename));
     if(is_array($data)){foreach($data as $dat){
       if(preg_match('/===/i',$dat)){
         $exp = explode('===',$dat);
