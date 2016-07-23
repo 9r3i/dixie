@@ -2,13 +2,13 @@ Dixie
 =====
 Free and Simple CMS;
 
-[![Author](https://img.shields.io/badge/author-9r3i-lightgrey.svg)](https://github.com/9r3i)
-[![License](https://img.shields.io/github/license/9r3i/dixie.svg)](https://github.com/9r3i/dixie/blob/master/license.txt)
-[![Forks](https://img.shields.io/github/forks/9r3i/dixie.svg)](https://github.com/9r3i/dixie/network)
-[![Stars](https://img.shields.io/github/stars/9r3i/dixie.svg)](https://github.com/9r3i/dixie/stargazers)
-[![Issues](https://img.shields.io/github/issues/9r3i/dixie.svg)](https://github.com/9r3i/dixie/issues)
-[![Release](https://img.shields.io/github/release/9r3i/dixie.svg)](https://github.com/9r3i/dixie/releases)
-[![Donate](https://img.shields.io/badge/paypal-donate-yellowgreen.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QZKZVZPBAC538)
+[![Author](https://img.shields.io/badge/author-9r3i-lightgrey.svg)](https://github.com/9r3i "9r3i")
+[![License](https://img.shields.io/github/license/9r3i/dixie.svg)](https://github.com/9r3i/dixie/blob/master/license.txt "License")
+[![Forks](https://img.shields.io/github/forks/9r3i/dixie.svg)](https://github.com/9r3i/dixie/network "Forks")
+[![Stars](https://img.shields.io/github/stars/9r3i/dixie.svg)](https://github.com/9r3i/dixie/stargazers "Stars")
+[![Issues](https://img.shields.io/github/issues/9r3i/dixie.svg)](https://github.com/9r3i/dixie/issues "Issues")
+[![Releases](https://img.shields.io/github/release/9r3i/dixie.svg)](https://github.com/9r3i/dixie/releases "Releases")
+[![Donate](https://img.shields.io/badge/paypal-donate-yellowgreen.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QZKZVZPBAC538 "Donate")
 
 
 ```php
@@ -22,7 +22,7 @@ Free and Simple CMS;
  * Dixie-URI             : http://dixie-cms.herokuapp.com/;
  * Dixie-Author          : Luthfie a.k.a. 9r3i;
  * Author-Email          : Luthfie@y7mail.com;
- * Author-URI            : http://luthfie.hol.es/;
+ * Author-URI            : https://github.com/9r3i;
  * Third-party           : + CKEditor as content-editor,
  *                         + nicEdit as content-editor for mobile,
  *                         + Locale package as custom-local-language;
@@ -47,7 +47,11 @@ require_once('engine/start.php');
 
 The first time I did commit directly to version 1.3, please check the change log to see the update.
 
-See [Dixie CMS](http://dixie-cms.herokuapp.com/ "Dixie CMS") page.
+See [Dixie CMS Demo](http://dixie-demo.herokuapp.com/admin/ "Dixie CMS Demo") page.
+
+Username: admin
+
+Password: demo
 
 -----
 ## How to Install
