@@ -8,7 +8,7 @@ Free and Simple CMS;
 [![Stars](https://img.shields.io/github/stars/9r3i/dixie.svg)](https://github.com/9r3i/dixie/stargazers)
 [![Issues](https://img.shields.io/github/issues/9r3i/dixie.svg)](https://github.com/9r3i/dixie/issues)
 [![Release](https://img.shields.io/github/release/9r3i/dixie.svg)](https://github.com/9r3i/dixie/releases)
-[![Donate](https://img.shields.io/badge/paypal-donate-yellowgreen.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=5VLYA8SDV3CTG&lc=ID&item_name=Software%20Developer&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted "Donate")
+[![Donate](https://img.shields.io/badge/paypal-donate-yellowgreen.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QZKZVZPBAC538)
 
 
 ```php
