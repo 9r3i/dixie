@@ -297,12 +297,14 @@ class Ldb{
   }
   public function valid_password($table,$where,$password){
     $select=$this->select($table,$where);
-    if(isset($select[0],$select[0]['password'])&&password_verify($password,$select[0]['password'])){
+    if(isset($select[0],$select[0]['password'])&&$select[0]['password']==$this->hash($password)){
       return true;
     }return false;
   }
-  public function hash($password=null){
-    return password_hash($password,PASSWORD_BCRYPT);
+  public function hash($password=null,$algo='sha256'){
+    $algo=in_array($algo,hash_algos())?$algo:'sha256';
+    $hash=hash($algo,$password,false);
+    return $hash;
   }
   public function strip_magic($str){
     if(is_array($str)){
