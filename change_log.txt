@@ -2,6 +2,28 @@ Dixie - Free and Simple CMS
 Created by Luthfie a.k.a. 9r3i
 luthfie@y7mail.com
 
+
+--------------------------------
+
+Version 3.2.0 - February 12th 2018
+
+- Upgrade Ldb to version 2x.1.0
+
+  - new version of LDB
+
+  - more powerful and save memory
+
+- files update:
+
+  - add Ldb2x.php
+
+  - remove Ldb.2.6.php
+
+  - update define.php
+
+  - update start.php
+
+
 --------------------------------
 Version 3.1.2 - May 17th 2016
 - Fix PHP_EOL to "\n" $__locale
