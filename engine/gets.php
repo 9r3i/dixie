@@ -213,7 +213,7 @@ function get_sidebar_print($print=true){
         $content .= '<a href="'.WWW.'admin/?ref=meta" title="'.((is_login())?'Admin Page':'Login to Admin').'"><div class="sidebar-meta-list">'.((is_login())?'Admin':'Login').'</div></a>';
         $content .= '<a href="'.WWW.'feed.xml" title="Really Simple Syndicate"><div class="sidebar-meta-list">RSS</div></a>';
         $content .= '<a href="http://dixie-cms.herokuapp.com/?ref='.urlencode(WWW).'" title="Dixie" target="_blank" rel="follow"><div class="sidebar-meta-list">Dixie</div></a>';
-        $content .= '<a href="http://luthfie.hol.es/?ref='.urlencode(WWW).'" title="Luthfie a.k.a. 9r3i" target="_blank" rel="follow"><div class="sidebar-meta-list">Luthfie</div></a>';
+        $content .= '<a href="https://github.com/9r3i" title="9r3i" target="_blank" rel="follow"><div class="sidebar-meta-list">9r3i</div></a>';
         $content .= '</div></div>';
       }elseif($bar['type']=='category'){
         $content .= '<div class="sidebar-category">';
