@@ -328,6 +328,7 @@ class Ldb{
     }
     $o=fopen($filename,'rb');
     $g=fgets($o);
+    if($g==''){return true;}
     $d=@unserialize(base64_decode(trim($g)));
     return is_array($d)?true:false;
   }
