@@ -11,7 +11,9 @@ define('DROOT',strtr(dirname(__FILE__),array('\\'=>'/','engine'=>'')));
 define('DIR',str_replace($_SERVER['DOCUMENT_ROOT'],'',DROOT));
 
 /* Define address of site */
-define('WWW','http://'.$_SERVER["SERVER_NAME"].DIR);
+$scheme=isset($_SERVER['HTTPS'])?'https'
+  :(isset($_SERVER['REQUEST_SCHEME'])?$_SERVER['REQUEST_SCHEME']:'http');
+define('WWW',$scheme.'://'.$_SERVER["SERVER_NAME"].DIR);
 
 /* Create slug from string */
 function create_slug($str){
