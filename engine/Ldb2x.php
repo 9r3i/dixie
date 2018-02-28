@@ -5,11 +5,12 @@
  * ~ version 2x - fixed version
  * authored by 9r3i
  * https://github.com/9r3i
- * started at february 12th 2018 - version 2x.1
- * 
+ * started at february 12th 2018 - version 2x.1.0
+ * continued at february 28th 2018 - version 2x.2.0
+ * - using file lock to prevent from another access
  */
 class Ldb{
-  const version='2x.1.0';
+  const version='2x.2.0';
   protected $database=null;
   protected $tables=null;
   private $dir=null;
@@ -66,9 +67,13 @@ class Ldb{
     $this->cid=dechex(time());
     $column['cid']=$this->cid;
     $o=fopen($filename,'rb+');
+    if(!$o||!flock($o,LOCK_EX)){
+      $this->error='Failed to insert';
+      return false;
+    }
     if(fseek($o,0,SEEK_END)===0){
       $w=fwrite($o,base64_encode(serialize($column))."\n");
-    }fclose($o);
+    }flock($o,LOCK_UN);fclose($o);
     return isset($w)&&$w?true:false;
   }
   public function select($table,$where=false){
@@ -136,7 +141,10 @@ class Ldb{
     $temp=$this->temp_dir.$table.'-'.$this->cid.'.tmp';
     $o=fopen($filename,'rb');
     $t=fopen($temp,'wb');
-    $res=0;
+    if(!$o||!flock($o,LOCK_EX)){
+      $this->error='Failed to update';
+      return false;
+    }$res=0;
     while(!feof($o)){
       $g=fgets($o);
       $d=unserialize(base64_decode(trim($g)));
@@ -149,7 +157,7 @@ class Ldb{
       }
       fwrite($t,$g);
       $res+=1;
-    }
+    }flock($o,LOCK_UN);
     fclose($o);
     fclose($t);
     $copy=@copy($temp,$filename);
@@ -180,14 +188,17 @@ class Ldb{
     $temp=$this->temp_dir.$table.'-'.$this->cid.'.tmp';
     $o=fopen($filename,'rb');
     $t=fopen($temp,'wb');
-    $res=0;
+    if(!$o||!flock($o,LOCK_EX)){
+      $this->error='Failed to delete';
+      return false;
+    }$res=0;
     while(!feof($o)){
       $g=fgets($o);
       $d=unserialize(base64_decode(trim($g)));
       if(isset($d[$index[0]])&&$d[$index[0]]==$index[1]){continue;}
       fwrite($t,$g);
       $res+=1;
-    }
+    }flock($o,LOCK_UN);
     fclose($o);
     fclose($t);
     $copy=@copy($temp,$filename);
