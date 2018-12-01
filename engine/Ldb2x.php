@@ -8,9 +8,11 @@
  * started at february 12th 2018 - version 2x.1.0
  * continued at february 28th 2018 - version 2x.2.0
  * - using file lock to prevent from another access
+ * continued at december 1st 2018 - version 2x.3.0
+ * - delete temporary files in method update, delete and convertToLdbX
  */
 class Ldb{
-  const version='2x.2.0';
+  const version='2x.3.0';
   protected $database=null;
   protected $tables=null;
   private $dir=null;
@@ -161,6 +163,7 @@ class Ldb{
     fclose($o);
     fclose($t);
     $copy=@copy($temp,$filename);
+    @unlink($temp);
     return $copy?$res:false;
   }
   public function delete($table,$where=false){
@@ -202,6 +205,7 @@ class Ldb{
     fclose($o);
     fclose($t);
     $copy=@copy($temp,$filename);
+    @unlink($temp);
     return $copy?$res:false;
   }
   public function search($table,$key=false){
@@ -358,6 +362,7 @@ class Ldb{
     }fclose($t);
     @copy($filename,$this->dump_dir.$table.'.old');
     @copy($temp,$filename);
+    @unlink($temp);
     return $w;
   }
   /* old private functions */
