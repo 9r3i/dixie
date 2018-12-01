@@ -4,6 +4,10 @@ luthfie@y7mail.com
 
 
 --------------------------------
+Version 3.2.3 - December 1st 2018
+- update Ldb to version 2x.3.0
+
+--------------------------------
 Version 3.2.1 - February 14th 2018
 - fix protocol issue
 
