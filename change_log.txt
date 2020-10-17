@@ -4,6 +4,11 @@ luthfie@y7mail.com
 
 
 --------------------------------
+Version 3.3.0 - October 17th 2020
+- Update NOB engine
+- Fixed port issue
+
+--------------------------------
 Version 3.2.3 - December 1st 2018
 - update Ldb to version 2x.3.0
 

@@ -5,15 +5,26 @@
  */
 
 /* Define the dixie root of site */
-define('DROOT',strtr(dirname(__FILE__),array('\\'=>'/','engine'=>'')));
+define('DROOT',str_replace('\\','/',dirname(__DIR__)));
+
+/* Define document directory of site */
+define('DOCUMENT_ROOT',str_replace('\\','/',$_SERVER['DOCUMENT_ROOT']));
 
 /* Define important directory of site */
-define('DIR',str_replace($_SERVER['DOCUMENT_ROOT'],'',DROOT));
+$dir=str_replace(DOCUMENT_ROOT,'',DROOT);
+$dir=substr($dir,0,1)!='/'?'/'.$dir:$dir;
+$dir.=substr($dir,-1)!='/'?'/':'';
+define('DIR',$dir);
 
-/* Define address of site */
+/* prepare scheme and port */
 $scheme=isset($_SERVER['HTTPS'])?'https'
   :(isset($_SERVER['REQUEST_SCHEME'])?$_SERVER['REQUEST_SCHEME']:'http');
-define('WWW',$scheme.'://'.$_SERVER["SERVER_NAME"].DIR);
+$port=isset($_SERVER['SERVER_PORT'])?$_SERVER['SERVER_PORT']:80;
+$dport=$port==80?($scheme=='http'?'':":$port")
+  :($port==443&&$scheme=='https'?'':":$port");
+
+/* Define address of site */
+define('WWW',$scheme.'://'.$_SERVER["SERVER_NAME"].$dport.DIR);
 
 /* Create slug from string */
 function create_slug($str){
