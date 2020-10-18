@@ -2,6 +2,9 @@ Dixie - Free and Simple CMS
 Created by Luthfie a.k.a. 9r3i
 luthfie@y7mail.com
 
+--------------------------------
+Version 3.3.1 - October 18th 2020
+- add mserver ini config file
 
 --------------------------------
 Version 3.3.0 - October 17th 2020
